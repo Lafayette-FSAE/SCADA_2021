@@ -1,4 +1,5 @@
-# DO WE NEED SHEEBANG?
+#!/usr/bin/python3
+import sys, os
 import tkinter as tk 
 from tkinter import *
 from tkinter import ttk 
@@ -9,11 +10,11 @@ sys.path.append(config_path)
 database_path = '/usr/etc/scada/utils'
 sys.path.append(database_path)
 #import config
-import yaml
+# import yaml
 import collections
-import redis
+# import redis
 import time
-import sys, os
+
 import datetime
 import Extract_Data
 # import database
@@ -29,10 +30,6 @@ class CheapGUI(tk.Frame):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         self.parent = parent
-        
-        
-        self.dropDownMenu()
-        self.listBox()
 
         ## get cheap summary data 
         Extract_Data.initialize_database('139.147.91.186')
@@ -40,6 +37,9 @@ class CheapGUI(tk.Frame):
         timeData = Extract_Data.getTimeStamps()
         self.timeStampList = timeData[0]
         self.durationList = timeData[1]
+
+        self.dropDownMenu()
+        self.listBox()
 
 
         
@@ -71,7 +71,7 @@ class CheapGUI(tk.Frame):
        
         # create list box for session entries
         #my_listbox = tk.Listbox(self, exportselection=False)
-        my_listbox = Listbox(self, yscrollcommand = my_scrollbar.set )
+        my_listbox = Listbox(self, yscrollcommand = my_scrollbar.set, width=55)
         
         # configure scroll bar to list box
         my_scrollbar.config(command= my_listbox.yview)
@@ -84,7 +84,7 @@ class CheapGUI(tk.Frame):
         my_list = ["--"]
 
         for i in range(len(self.timeStampList)):
-            my_list.append( str(self.timeStampList[i][0]) +  ' until ' + str(self.timeStampList[i][1]) + ' duration: ' + str(self.durationList[i]))
+            my_list.append( str(self.timeStampList[i][0]) + '           '+'Duration: ' + str(self.durationList[i]))
 
         # while i < 20:
         #     my_list.append("newSesh")

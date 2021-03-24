@@ -1,4 +1,5 @@
-# DO WE NEED SHEEBANG?
+#!/usr/bin/python3
+import sys, os
 import tkinter as tk 
 from tkinter import *
 from tkinter import ttk 
@@ -9,11 +10,10 @@ sys.path.append(config_path)
 database_path = '/usr/etc/scada/utils'
 sys.path.append(database_path)
 #import config
-import yaml
+# import yaml
 import collections
-import redis
+# import redis
 import time
-import sys, os
 import datetime
 # import database
 
