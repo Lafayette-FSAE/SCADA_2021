@@ -10,9 +10,11 @@ lib_path = os.getcwd()
 sys.path.append(config_path)
 
 
+from utils import database
 import psycopg2
 import openpyxl
 import config
+import pandas as pd
 
 
 def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes, filePath='./defaultFileName'):
@@ -129,7 +131,7 @@ def interpolateData(data, samplePeriodDes, currSamplePeriod):
     '''
 
     '''
-    outputData = []
+    outputData = pd.Series(database.getData(data)).resample('%dS' % samplePeriodDes).interpolate()
     return outputData
 
 
