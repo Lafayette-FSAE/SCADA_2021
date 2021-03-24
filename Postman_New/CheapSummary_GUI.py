@@ -15,6 +15,7 @@ import redis
 import time
 import sys, os
 import datetime
+import Extract_Data
 # import database
 
 # data = redis.Redis(host='localhost', port=6379, db=0)
@@ -32,6 +33,14 @@ class CheapGUI(tk.Frame):
         
         self.dropDownMenu()
         self.listBox()
+
+        ## get cheap summary data 
+        Extract_Data.initialize_database('139.147.91.186')
+        Extract_Data.getDelimiter()
+        timeData = Extract_Data.getTimeStamps()
+        self.timeStampList = timeData[0]
+        self.durationList = timeData[1]
+
 
         
 
@@ -72,11 +81,14 @@ class CheapGUI(tk.Frame):
         
 
         # added sessions to list for TESTING PURPOSES
-        my_list = ["session1", "session2", "session3"]
-        i = 0
-        while i < 20:
-            my_list.append("newSesh")
-            i= i+ 1
+        my_list = ["--"]
+
+        for i in range(len(self.timeStampList)):
+            my_list.append( str(self.timeStampList[i][0]) +  ' until ' + str(self.timeStampList[i][1]) + ' duration: ' + str(self.durationList[i]))
+
+        # while i < 20:
+        #     my_list.append("newSesh")
+        #     i= i+ 1
         
         for item in my_list: 
             my_listbox.insert(END, item)
