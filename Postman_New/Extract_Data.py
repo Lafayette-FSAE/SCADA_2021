@@ -33,6 +33,7 @@ def getTimeStamps():
     """
         Return the timestamps
     """
+
     global delimitSensor
 
     cursor.execute("""
@@ -69,12 +70,14 @@ def getTimeStamps():
             #print("Begin ")
 
         # Car just ended session
-        elif(evaluate_in_session(row[0]) and status == True):
+        elif(not evaluate_in_session(row[0]) and status == True):
             status = False
             end_time = row[1]
             time = end_time - begin_time
             timeStampList.append([begin_time, end_time])
             durationList.append(time)
+
+        print('status is' + str(status))
 
     # Catches the end of the last session if system breaks during session
     if status == True:
@@ -86,8 +89,8 @@ def getTimeStamps():
     #NOTE: WE ARE NOT ACCOUNTING FOR SESSIONS BEING "TRUE" WHEN SYSTEM TURNS OF AND "TRUE" WHEN TURNED BACK ON
 
 
-    
-    print(timeStampList)
+    for i in range(len(timeStampList)):
+        print (str(timeStampList[i][0]) +  ' until ' + str(timeStampList[i][1]) + ' duration: ' + str(durationList[i]))
 
     return [timeStampList, durationList]
 
@@ -100,7 +103,7 @@ def getDelimiter():
     delimitInfo = config.get('Post_Processing').get('session_delimiting')
     in_session_condition = delimitInfo.get('in_session_condition')
     delimitSensor = delimitInfo.get('input')
-    in_session_condition.replace('input', delimitSensor.replace('\n',''))
+    in_session_condition = in_session_condition.replace('input', delimitSensor.replace('\n',''))
     
 
 def evaluate_in_session(data):
@@ -113,6 +116,7 @@ def evaluate_in_session(data):
             data = '"' + data + '"' 
         condition = in_session_condition.replace(delimitSensor, data.replace('\n',''))
         print( 'about to evaluate ' + condition)
+        print('evaluated: ' + str(eval(condition)))
         return eval(condition)
     except KeyError:
         return False

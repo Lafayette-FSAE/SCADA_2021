@@ -1,8 +1,14 @@
 #!/usr/bin/python3
 import sys, os
 
+# config_path = os.path.join(__file__, '..')
+
 config_path = os.getcwd() + '/config'
 sys.path.append(config_path)
+
+lib_path = os.getcwd()
+sys.path.append(config_path)
+
 
 import psycopg2
 import openpyxl

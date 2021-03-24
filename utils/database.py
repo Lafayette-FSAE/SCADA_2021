@@ -17,7 +17,7 @@ cursor = database.cursor()
 
 def getData(sensor_id):
     """
-        For a sensor name, return the value of the data associated with it,
+        For a sensor name, return the last value of the data associated with it,
         if it exists. To be used by other classes to retreive information
         from database.
     """
@@ -62,7 +62,7 @@ def getAllData(sensor_id):
 
 def getAllDataWithinPeriod(sensor_id, timeStampBegin, timeStampEnd):
     """
-        For a sensor name, returns all data associated with it,
+        For a sensor name, returns all data associated with it within a desired time period,
         if it exists. To be used by other classes to retreive information
         from database.
     """
