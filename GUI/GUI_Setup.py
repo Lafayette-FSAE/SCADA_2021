@@ -293,6 +293,9 @@ class GUISetup(tk.Frame):
 
             itr = itr+1
             
+        
+        print('BEFORE WE START COORDICT LOOKS LIKE ' + str(coordDict))
+
         ## go to refresh sensor data method
         self.getNewData()
             
