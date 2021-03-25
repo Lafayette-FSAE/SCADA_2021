@@ -327,15 +327,18 @@ class GUISetup(tk.Frame):
     def getNewData(self): 
 
         message = p.get_message() 
-        while (message and (message['data'] != 1 )):
-                print("message "  + str(message))
-                [sensor_key, sensor_value] = self.splitMsg(message['data'])
-                for coordEntry in self.coordDict[sensor_key]:
-                    self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
-                message = p.get_message() 
+        
+        ## message = sensor:value
+        if (message and (message['data'] != 1 )):
+            print("message "  + str(message))
+            [sensor_key, sensor_value] = self.splitMsg(message['data'])
 
-            ## call this method after 1s to refresh data
-        self.after(1000, self.getNewData)
+            for coordEntry in self.coordDict[sensor_key]:
+                self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
+
+        ## call this method after 1s to refresh data
+        self.after(100, self.getNewData)
+
 
       
 ## This method splits the sting from the postgres channel into sensorValue and sensorKey 
