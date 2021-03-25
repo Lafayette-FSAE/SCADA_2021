@@ -326,7 +326,7 @@ class GUISetup(tk.Frame):
 ## This method is recursive in order to update and display changes in data
     def getNewData(self): 
         print('getNewData BEING CALLED')
-
+        dataEntered = False
         for message in p.listen():
         ## message = sensor:value
             if message['data'] != 1 :
