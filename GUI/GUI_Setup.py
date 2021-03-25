@@ -338,8 +338,8 @@ class GUISetup(tk.Frame):
                     print('ABOUT TO PLACE DATA IN ENTRY BOX')
                     self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
                     dataEntered = True
-            if dataEntered:
-                self.after(1, self.getNewData)
+                if dataEntered:
+                    self.after(1, self.getNewData)
         ## call this method after 1s to refresh data
 
 
