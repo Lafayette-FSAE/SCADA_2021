@@ -330,6 +330,7 @@ class GUISetup(tk.Frame):
 
         message = p.get_message() 
         ## message = sensor:value
+        print(message)
 
         if message and (message['data'] != 1 ):
         # if (message and (message['data'] != 1 )):
