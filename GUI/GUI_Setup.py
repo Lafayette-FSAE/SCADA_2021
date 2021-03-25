@@ -349,7 +349,7 @@ class GUISetup(tk.Frame):
                 
             message = p.get_message()
 
-        # self.after(1000, self.getNewData)
+        self.after(1000, self.getNewData)
         ## call this method after 1s to refresh data
 
 
