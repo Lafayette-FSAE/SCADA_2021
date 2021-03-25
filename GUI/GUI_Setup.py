@@ -294,7 +294,7 @@ class GUISetup(tk.Frame):
             itr = itr+1
             
         ## go to refresh sensor data method
-        # self.getNewData()
+        self.getNewData()
             
 
 
@@ -338,7 +338,7 @@ class GUISetup(tk.Frame):
                     self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
 
         ## call this method after 1s to refresh data
-        # self.after(1, self.getNewData)
+        self.after(1000, self.getNewData)
 
 
       
