@@ -325,6 +325,7 @@ class GUISetup(tk.Frame):
 
 ## This method is recursive in order to update and display changes in data
     def getNewData(self): 
+        print('getNewData BEING CALLED')
 
         for message in p.listen():
         ## message = sensor:value
@@ -336,9 +337,10 @@ class GUISetup(tk.Frame):
                 for coordEntry in self.coordDict[sensor_key]:
                     print('ABOUT TO PLACE DATA IN ENTRY BOX')
                     self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
-
+                    dataEntered = True
+            if dataEntered:
+                self.after(1, self.getNewData)
         ## call this method after 1s to refresh data
-        self.after(1000, self.getNewData)
 
 
       
