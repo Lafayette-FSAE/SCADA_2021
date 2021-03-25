@@ -327,7 +327,7 @@ class GUISetup(tk.Frame):
     def getNewData(self): 
 
         message = p.get_message() 
-        while message and (message['data'] != 1 )):
+        while (message and (message['data'] != 1 )):
                 print("message "  + str(message))
                 [sensor_key, sensor_value] = self.splitMsg(message['data'])
                 for coordEntry in self.coordDict[sensor_key]:
