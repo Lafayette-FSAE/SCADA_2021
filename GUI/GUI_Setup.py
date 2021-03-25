@@ -327,19 +327,21 @@ class GUISetup(tk.Frame):
     def getNewData(self): 
         print('getNewData BEING CALLED')
         dataEntered = False
-        for message in p.listen():
+
+        message = p.get_message() 
         ## message = sensor:value
-            if message['data'] != 1 :
-            # if (message and (message['data'] != 1 )):
-                print("message "  + str(message))
-                [sensor_key, sensor_value] = self.splitMsg(message['data'])
-                print('self.coordDict[sensor_key] IS ' + str(self.coordDict[sensor_key]))
-                for coordEntry in self.coordDict[sensor_key]:
-                    print('ABOUT TO PLACE DATA IN ENTRY BOX')
-                    self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
-                    dataEntered = True
-                if dataEntered:
-                    self.after(1, self.getNewData)
+
+        if message and (message['data'] != 1 ):
+        # if (message and (message['data'] != 1 )):
+            print("message "  + str(message))
+            [sensor_key, sensor_value] = self.splitMsg(message['data'])
+            print('self.coordDict[sensor_key] IS ' + str(self.coordDict[sensor_key]))
+            for coordEntry in self.coordDict[sensor_key]:
+                print('ABOUT TO PLACE DATA IN ENTRY BOX')
+                self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
+                dataEntered = True
+            if not dataEntered:
+                self.after(1, self.getNewData)
         ## call this method after 1s to refresh data
 
 
