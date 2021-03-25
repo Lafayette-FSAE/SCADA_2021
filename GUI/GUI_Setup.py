@@ -329,6 +329,7 @@ class GUISetup(tk.Frame):
 ## This method is recursive in order to update and display changes in data
     def getNewData(self): 
         print('getNewData BEING CALLED')
+        print('NOW COORDICT LOOKS LIKE ' + str(self.coordDict))
         dataEntered = False
 
         message = p.get_message() 
