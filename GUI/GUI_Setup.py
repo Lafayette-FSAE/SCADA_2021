@@ -297,7 +297,7 @@ class GUISetup(tk.Frame):
         print('BEFORE WE START' + str(self.pageNumber)+ 'rd COORDICT LOOKS LIKE ' + str(self.coordDict))
 
         ## go to refresh sensor data method
-        self.getNewData()
+        # self.getNewData()
             
 
 
@@ -346,9 +346,10 @@ class GUISetup(tk.Frame):
                 print('ABOUT TO PLACE DATA IN ENTRY BOX')
                 self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
                 dataEntered = True
+                
             message = p.get_message()
 
-        self.after(1000, self.getNewData)
+        # self.after(1000, self.getNewData)
         ## call this method after 1s to refresh data
 
 
