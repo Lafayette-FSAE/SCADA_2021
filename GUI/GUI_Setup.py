@@ -294,7 +294,7 @@ class GUISetup(tk.Frame):
             itr = itr+1
             
         ## go to refresh sensor data method
-        self.getNewData()
+        # self.getNewData()
             
 
 
@@ -332,12 +332,13 @@ class GUISetup(tk.Frame):
             # if (message and (message['data'] != 1 )):
                 print("message "  + str(message))
                 [sensor_key, sensor_value] = self.splitMsg(message['data'])
-
+                print('self.coordDict[sensor_key] IS ' + str(self.coordDict[sensor_key]))
                 for coordEntry in self.coordDict[sensor_key]:
+                    print('ABOUT TO PLACE DATA IN ENTRY BOX')
                     self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
 
         ## call this method after 1s to refresh data
-        self.after(5000, self.getNewData)
+        self.after(1, self.getNewData)
 
 
       
@@ -401,3 +402,4 @@ class GUISetup(tk.Frame):
         for key, value in sensor.items():
             if(key == "unit"):
                 return value
+
