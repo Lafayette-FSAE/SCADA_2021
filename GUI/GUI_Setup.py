@@ -317,12 +317,7 @@ class GUISetup(tk.Frame):
     #     self.after(5000, self.refresh_sensors)
 
 
-## This method is recursive in order to update a
-
-
-    def testMethod(self): 
-        pass
-
+    #every 1s, replace all text fields with values from controller.currValues
     def getNewData(self): 
 
         for sensor_key in self.coordDict:
@@ -332,24 +327,6 @@ class GUISetup(tk.Frame):
 
         ## call this method after 1s to refresh data
         self.after(1000, self.getNewData)
-
-      
-## This method splits the sting from the postgres channel into sensorValue and sensorKey 
-    def splitMsg(self, message): 
-        
-        split_msg = message.split(b":",1)
-        
-        sensor_valueOLD= split_msg[1]
-        #print("sensor_valueOLD: " + str(split_msg[1]))
-        sensor_keyOLD = split_msg[0]
-        #print("sensor_keyOLD " + str(split_msg[0]))
-
-        # remove the random b in the beginging of string
-        sensor_value = sensor_valueOLD.decode('utf-8')
-        sensor_key = sensor_keyOLD.decode('utf-8')
-
-        return [sensor_key, sensor_value]
-
 
     
     # this method puts the data on the screen after it has been updated
