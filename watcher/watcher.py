@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sys, os, logging
 
 lib_path = '/usr/etc/scada'

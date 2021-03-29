@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+import threading
 import os, sys
 os.environ["SDL_FBDEV"] = "/dev/fb0"
 
@@ -16,8 +17,15 @@ sys.path.append(config_path)
 import config
 import yaml
 import collections
-
+import database
+import redis
 import ctypes  # for screen size
+
+redis_data = redis.Redis(host='localhost', port=6379, db=0)
+# creates Publish/Subscribe Redis object called 'p'
+p = redis_data.pubsub()
+#subscribes object to logger
+p.subscribe('logger_data')
 
 
 
@@ -34,6 +42,8 @@ class Main_GUI(tk.Tk):
         # self.setSDLVariable()
         
         self.numOfPages = 0
+
+        self.currValues = {}
 
         self.display_vars = {
             "frames" : {}
@@ -63,6 +73,11 @@ class Main_GUI(tk.Tk):
 
         self.frames = {}
 
+        #this calls all the methods needed to initialize and continuously poll data
+        self.initializeCurrValues()
+        thread = threading.Thread(target=self.pollFromRedis, args=())
+        thread.daemon = True                            # Daemonize thread
+        thread.start()                                  # Start the execution
         
         self.get_pages() #call function to get number of pages to display
         max = self.numOfPages
@@ -80,6 +95,8 @@ class Main_GUI(tk.Tk):
             i = i+1
         
         self.show_frame(0)
+
+
         
             
 
@@ -101,6 +118,35 @@ class Main_GUI(tk.Tk):
     def quitFullScreen(self, event):
         self.fullScreenState = False
         self.attributes("-fullscreen", self.fullScreenState)
+
+    def initializeCurrValues(self):
+        for sensor in config.get('Sensors'):
+            self.currValues[sensor] = database.getData(sensor)
+
+    def pollFromRedis(self):
+        while True:
+            message = p.get_message() 
+            #print("message: " + str(message))
+            ## message = sensor:value
+            if (message and (message['data'] != 1 )):
+                [sensor_key, sensor_value] = self.splitMsg(message['data'])
+                self.currValues[sensor_key] = sensor_value
+    
+    ## This method splits the sting from the postgres channel into sensorValue and sensorKey 
+    def splitMsg(self, message): 
+        
+        split_msg = message.split(b":",1)
+        
+        sensor_valueOLD= split_msg[1]
+        #print("sensor_valueOLD: " + str(split_msg[1]))
+        sensor_keyOLD = split_msg[0]
+        #print("sensor_keyOLD " + str(split_msg[0]))
+
+        # remove the random b in the beginging of string
+        sensor_value = sensor_valueOLD.decode('utf-8')
+        sensor_key = sensor_keyOLD.decode('utf-8')
+
+        return [sensor_key, sensor_value]
 
    ## Method to seet os environment variables for dual display
     

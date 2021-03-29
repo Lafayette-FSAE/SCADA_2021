@@ -16,6 +16,8 @@ yaml_name = 'config.yaml'
 sys.path.append(lib_path)
 sys.path.append(config_path)
 
+new_config_path = os.path.dirname(__file__)
+
 # Loads the YAML config file in a config structure
 
 #HARRY: MADE IMPORTANT EDIT HERE
@@ -26,7 +28,8 @@ def load(forceLoad = False):
 		return
 	
 	#Harry: I changed this from having the config path to not
-	with open(config_path + "/" + yaml_name, 'r') as stream:
+	# with open(config_path + "/" + yaml_name, 'r') as stream:
+	with open(new_config_path + '/'  + yaml_name, 'r') as stream:
 	# with open(os.eniron[])
 		try:
 			__config = yaml.safe_load(stream)

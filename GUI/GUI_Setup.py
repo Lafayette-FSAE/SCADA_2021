@@ -11,18 +11,11 @@ sys.path.append(database_path)
 import config
 import yaml
 import collections
-import redis
 import time
 import sys, os
 import datetime
-import database
 from collections import defaultdict
 
-redis_data = redis.Redis(host='localhost', port=6379, db=0)
-# creates Publish/Subscribe Redis object called 'p'
-p = redis_data.pubsub()
-#subscribes object to logger
-p.subscribe('logger_data')
 
 
 
@@ -262,7 +255,8 @@ class GUISetup(tk.Frame):
 
             #gets most recent value in database
             sensor = sensorEntry.get('sensor')
-            value = database.getData(sensor)
+            # value = database.getData(sensor)
+            value = self.controller.currValues[sensor]
             #entry_.insert(0, str(text))
 
 
@@ -323,44 +317,20 @@ class GUISetup(tk.Frame):
     #     self.after(5000, self.refresh_sensors)
 
 
-## This method is recursive in order to update and display changes in data
+    #every 1s, replace all text fields with values from controller.currValues
     def getNewData(self): 
 
-        message = p.get_message() 
-        
-        ## message = sensor:value
-        if (message and (message['data'] != 1 )):
-            print("message "  + str(message))
-            [sensor_key, sensor_value] = self.splitMsg(message['data'])
-
+        for sensor_key in self.coordDict:
+            sensor_value = self.controller.currValues[sensor_key]
             for coordEntry in self.coordDict[sensor_key]:
-                self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
+                self.placedata_on_screen(coordEntry, sensor_value)
 
         ## call this method after 1s to refresh data
-        self.after(100, self.getNewData)
-
-
-      
-## This method splits the sting from the postgres channel into sensorValue and sensorKey 
-    def splitMsg(self, message): 
-        
-        split_msg = message.split(b":",1)
-        
-        sensor_valueOLD= split_msg[1]
-        #print("sensor_valueOLD: " + str(split_msg[1]))
-        sensor_keyOLD = split_msg[0]
-        #print("sensor_keyOLD " + str(split_msg[0]))
-
-        # remove the random b in the beginging of string
-        sensor_value = sensor_valueOLD.decode('utf-8')
-        sensor_key = sensor_keyOLD.decode('utf-8')
-
-        return [sensor_key, sensor_value]
-
+        self.after(1000, self.getNewData)
 
     
     # this method puts the data on the screen after it has been updated
-    def placedata_on_screen(self, listIndex, value, key):
+    def placedata_on_screen(self, listIndex, value):
         
         # delete entry box with old information
         self.entryBoxList[listIndex].delete(0, "end")

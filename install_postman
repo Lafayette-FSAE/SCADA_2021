@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pip3 install psycopg2
+
+#probably need
+
+#tkinter
+#openpyxl

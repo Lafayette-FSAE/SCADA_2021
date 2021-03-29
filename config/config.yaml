@@ -1562,10 +1562,20 @@ Controls:
     
 
 
-PostProcessing: 
-  - emulator_tsi_drive_state
-  - emulator_temperature
-  - emulator_sloop
+Post_Processing: 
+  ip_address: '139.147.81.5'
+  
+  session_delimiting:
+    input: emulator_tsi_drive_state
+    in_session_condition: 'input == "DRIVE"'
+
+  # always display MAX MIN AVG 
+  # ONLY NUMERICAL DATA can be used
+  expensive_summary_data:
+    - emulator_car_mph
+    - emulator_engine_temperature
+    - emulator_battery_percentage
+
 
 EPAL:
   display_sensors:
