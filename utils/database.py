@@ -45,7 +45,7 @@ def getAllData(sensor_id):
         from database.
     """
     #print(sensor_id)
-    cursor.execute("""
+    cursor.execute(""" 
         SELECT value, timestamp
         FROM data
         WHERE sensor_id = %s
@@ -70,7 +70,7 @@ def getAllDataWithinPeriod(sensor_id, timeStampBegin, timeStampEnd):
     cursor.execute("""
         SELECT value, timestamp
         FROM data
-        WHERE sensor_id = %s && timestamp>= %s && timestamp <= %s
+        WHERE sensor_id = %s and timestamp between %s and %s
         ORDER BY timestamp ASC
     """, [sensor_id, timeStampBegin, timeStampEnd])
 
@@ -80,4 +80,4 @@ def getAllDataWithinPeriod(sensor_id, timeStampBegin, timeStampEnd):
         #If this is the case then there is an issue with the logger class' update method
         return 'ERR IN DATAPATH'
         
-    return data
+    return data 

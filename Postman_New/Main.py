@@ -30,7 +30,9 @@ class Main(tk.Tk):
 
         self.cheapSummaryVars = {
             "filterBy" : " ",
-            "session" : " "
+            "session" : " ",
+            "sessionStart" : " ",
+            "sessionEnd" : " "
         }
         
         # self.screenWidth = self.winfo_screenwidth() # Get current width of canvas

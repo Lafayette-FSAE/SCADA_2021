@@ -80,6 +80,10 @@ class Main_GUI(tk.Tk):
             i = i+1
         
         self.show_frame(0)
+
+        thread = threading.Thread(target=self.pollFromRedis, args=())
+        thread.daemon = True                            # Daemonize thread
+        thread.start()                                  # Start the execution
         
             
 
@@ -101,6 +105,10 @@ class Main_GUI(tk.Tk):
     def quitFullScreen(self, event):
         self.fullScreenState = False
         self.attributes("-fullscreen", self.fullScreenState)
+
+
+    def pollFromRedis(self):
+        pass
 
    ## Method to seet os environment variables for dual display
     

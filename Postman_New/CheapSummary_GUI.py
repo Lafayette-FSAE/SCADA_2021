@@ -4,20 +4,19 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk 
 
-config_path = '/usr/etc/scada/config'
+
+import collections
+
+import time
+lib_path = os.path.dirname(os.path.dirname(__file__))
+config_path = os.path.join(lib_path, 'config')
 sys.path.append(config_path)
 
-database_path = '/usr/etc/scada/utils'
-sys.path.append(database_path)
-#import config
-# import yaml
-import collections
-# import redis
-import time
+import config
 
 import datetime
 import Extract_Data
-# import database
+
 
 # data = redis.Redis(host='localhost', port=6379, db=0)
 
@@ -31,8 +30,12 @@ class CheapGUI(tk.Frame):
         self.controller = controller
         self.parent = parent
 
+        self.winfo_toplevel().title("Cheap Summary")
+        self.my_list = []
+
+        ip_address = config.get("Post_Processing").get("ip_address")
         ## get cheap summary data 
-        Extract_Data.initialize_database('139.147.91.186')
+        Extract_Data.initialize_database('139.147.81.5')
         Extract_Data.getDelimiter()
         timeData = Extract_Data.getTimeStamps()
         self.timeStampList = timeData[0]
@@ -81,16 +84,17 @@ class CheapGUI(tk.Frame):
         
 
         # added sessions to list for TESTING PURPOSES
-        my_list = ["--"]
+        #self.my_list = ["--"]
 
         for i in range(len(self.timeStampList)):
-            my_list.append( str(self.timeStampList[i][0]) + '           '+'Duration: ' + str(self.durationList[i]))
+            self.my_list.append( str(self.timeStampList[i][0]) + '           '+'Duration: ' + str(self.durationList[i]))
+
 
         # while i < 20:
         #     my_list.append("newSesh")
         #     i= i+ 1
         
-        for item in my_list: 
+        for item in self.my_list: 
             my_listbox.insert(END, item)
 
 
@@ -99,8 +103,26 @@ class CheapGUI(tk.Frame):
         listbox = event.widget
         index = listbox.curselection()
         value = listbox.get(index[0])
+        item = self.my_list.index(value)
+        print("ITEM: " + str(item))
+
+        sessionTimeStamps = self.timeStampList[item]
         self.controller.cheapSummaryVars["session"] = value
+        self.controller.cheapSummaryVars["sessionStart"] = sessionTimeStamps[0]
+        self.controller.cheapSummaryVars["sessionEnd"] = sessionTimeStamps[1]
+
+        
+
+
+        
+        print("timestamp: " + str(sessionTimeStamps))
         print(value)
+        # sessionString = self.controller.cheapSummaryVars["session"]
+        # #sessionString.split('           Duration: ')
+        # sessionString.split()
+        # print("session STRING" + str(sessionString))
+        # print(sessionString[0])
+        # print(sessionString[1])
 
 
    
@@ -125,6 +147,10 @@ class CheapGUI(tk.Frame):
         # moreDetailsButton.grid(row = 3, column = 3)
         
         ## NOTEE: you need () at the end of the method command !!!!
+
+
+        # self.controller.cheapSummaryVars["sessionStart"] = sessionString[0]
+        # self.controller.cheapSummaryVars["sessionEnd"] = sessionString[1]
         moreDetailsButton = tk.Button(self, text="Show Details", command = lambda: self.controller.new_window()) 
 
         moreDetailsButton.grid(row = 3, column = 4)

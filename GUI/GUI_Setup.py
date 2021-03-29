@@ -2,6 +2,7 @@
 import tkinter as tk 
 from tkinter import *
 from tkinter import ttk 
+from threading import *
 
 config_path = '/usr/etc/scada/config'
 sys.path.append(config_path)
@@ -323,7 +324,11 @@ class GUISetup(tk.Frame):
     #     self.after(5000, self.refresh_sensors)
 
 
-## This method is recursive in order to update and display changes in data
+## This method is recursive in order to update a
+
+
+    def testMethod(self): 
+        
     def getNewData(self): 
 
         message = p.get_message() 
