@@ -131,6 +131,22 @@ class Main_GUI(tk.Tk):
             if (message and (message['data'] != 1 )):
                 [sensor_key, sensor_value] = self.splitMsg(message['data'])
                 self.currValues[sensor_key] = sensor_value
+    
+    ## This method splits the sting from the postgres channel into sensorValue and sensorKey 
+    def splitMsg(self, message): 
+        
+        split_msg = message.split(b":",1)
+        
+        sensor_valueOLD= split_msg[1]
+        #print("sensor_valueOLD: " + str(split_msg[1]))
+        sensor_keyOLD = split_msg[0]
+        #print("sensor_keyOLD " + str(split_msg[0]))
+
+        # remove the random b in the beginging of string
+        sensor_value = sensor_valueOLD.decode('utf-8')
+        sensor_key = sensor_keyOLD.decode('utf-8')
+
+        return [sensor_key, sensor_value]
 
    ## Method to seet os environment variables for dual display
     
