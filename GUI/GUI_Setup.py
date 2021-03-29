@@ -2,7 +2,6 @@
 import tkinter as tk 
 from tkinter import *
 from tkinter import ttk 
-from threading import *
 
 config_path = '/usr/etc/scada/config'
 sys.path.append(config_path)
@@ -16,7 +15,6 @@ import redis
 import time
 import sys, os
 import datetime
-import database
 from collections import defaultdict
 
 redis_data = redis.Redis(host='localhost', port=6379, db=0)
@@ -263,7 +261,8 @@ class GUISetup(tk.Frame):
 
             #gets most recent value in database
             sensor = sensorEntry.get('sensor')
-            value = database.getData(sensor)
+            # value = database.getData(sensor)
+            value = self.controller.currValues[sensor]
             #entry_.insert(0, str(text))
 
 
@@ -328,20 +327,17 @@ class GUISetup(tk.Frame):
 
 
     def testMethod(self): 
-        
+        pass
+
     def getNewData(self): 
 
-        message = p.get_message() 
-        print("message: " + str(message))
-        ## message = sensor:value
-        if (message and (message['data'] != 1 )):
-            [sensor_key, sensor_value] = self.splitMsg(message['data'])
-
+        for sensor_key in self.coordDict:
+            sensor_value = self.controller.currValues[sensor_key]
             for coordEntry in self.coordDict[sensor_key]:
-                self.placedata_on_screen(coordEntry, sensor_value, sensor_key)
+                self.placedata_on_screen(coordEntry, sensor_value)
 
         ## call this method after 1s to refresh data
-        self.after(1, self.getNewData)
+        self.after(1000, self.getNewData)
 
       
 ## This method splits the sting from the postgres channel into sensorValue and sensorKey 
@@ -363,7 +359,7 @@ class GUISetup(tk.Frame):
 
     
     # this method puts the data on the screen after it has been updated
-    def placedata_on_screen(self, listIndex, value, key):
+    def placedata_on_screen(self, listIndex, value):
         
         # delete entry box with old information
         self.entryBoxList[listIndex].delete(0, "end")

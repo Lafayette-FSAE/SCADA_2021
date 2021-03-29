@@ -2,6 +2,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
+import threading
 import os, sys
 os.environ["SDL_FBDEV"] = "/dev/fb0"
 
@@ -16,6 +17,7 @@ sys.path.append(config_path)
 import config
 import yaml
 import collections
+import database
 
 import ctypes  # for screen size
 
@@ -34,6 +36,8 @@ class Main_GUI(tk.Tk):
         # self.setSDLVariable()
         
         self.numOfPages = 0
+
+        self.currValues = {}
 
         self.display_vars = {
             "frames" : {}
@@ -63,6 +67,11 @@ class Main_GUI(tk.Tk):
 
         self.frames = {}
 
+        #this calls all the methods needed to initialize and continuously poll data
+        self.initializeCurrValues()
+        thread = threading.Thread(target=self.pollFromRedis, args=())
+        thread.daemon = True                            # Daemonize thread
+        thread.start()                                  # Start the execution
         
         self.get_pages() #call function to get number of pages to display
         max = self.numOfPages
@@ -81,9 +90,7 @@ class Main_GUI(tk.Tk):
         
         self.show_frame(0)
 
-        thread = threading.Thread(target=self.pollFromRedis, args=())
-        thread.daemon = True                            # Daemonize thread
-        thread.start()                                  # Start the execution
+
         
             
 
@@ -106,9 +113,18 @@ class Main_GUI(tk.Tk):
         self.fullScreenState = False
         self.attributes("-fullscreen", self.fullScreenState)
 
+    def initializeCurrValues(self):
+        for sensor in config.get('Sensors'):
+            self.currValues[sensor] = database.getData(sensor)
 
     def pollFromRedis(self):
-        pass
+        while True:
+            message = p.get_message() 
+            print("message: " + str(message))
+            ## message = sensor:value
+            if (message and (message['data'] != 1 )):
+                [sensor_key, sensor_value] = self.splitMsg(message['data'])
+                self.currValues[sensor_key] = sensor_value
 
    ## Method to seet os environment variables for dual display
     
