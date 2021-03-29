@@ -18,8 +18,14 @@ import config
 import yaml
 import collections
 import database
-
+import redis
 import ctypes  # for screen size
+
+redis_data = redis.Redis(host='localhost', port=6379, db=0)
+# creates Publish/Subscribe Redis object called 'p'
+p = redis_data.pubsub()
+#subscribes object to logger
+p.subscribe('logger_data')
 
 
 
