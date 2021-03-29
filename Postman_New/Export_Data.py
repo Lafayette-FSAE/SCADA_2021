@@ -108,10 +108,10 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
 
         if currSamplePeriod > samplePeriodDes:
             processedData[sensorIdx] = interpolateData(
-                sensorData[sensorIdx], samplePeriodDes, currSamplePeriod)
+                sensorData[sensorIdx], samplePeriodDes)
         elif currSamplePeriod < samplePeriodDes:
             processedData[sensorIdx] = decimateData(
-                sensorData[sensorIdx], samplePeriodDes, currSamplePeriod)
+                sensorData[sensorIdx], samplePeriodDes)
         else:
             processedData[sensorIdx] = shiftData(sensorData[sensorIdx])
 
@@ -127,26 +127,27 @@ def getSamplePeriods(sensorNames):
     return Periods
 
 
-def interpolateData(data, samplePeriodDes, currSamplePeriod):
+def interpolateData(data, samplePeriodDes):
     '''
 
     '''
-    outputData = pd.Series(database.getData(data)).resample('%dS' % samplePeriodDes).interpolate()
+    samplePeriodDesMS = samplePeriodDes * 1000
+    outputData = pd.Series(database.getData(data)).resample('{}{}'.format(samplePeriodDesMS/100,'ms')).interpolate().asfreq('{}{}'.format(samplePeriodDesMS,'ms'))
     return outputData
 
 
-def decimateData(data, samplePeriodDes, currSamplePeriod):
+def decimateData(data, samplePeriodDes):
     '''
 
     '''
-
-    outputData = []
+    samplePeriodDesMS = samplePeriodDes * 1000
+    outputData = pd.Series(database.getData(data)).resample('{}{}'.format(samplePeriodDesMS,'ms')).interpolate()
     return outputData
 
 def shiftData(data):
     '''
     '''
-
+    
     outputData = []
     return outputData
 
