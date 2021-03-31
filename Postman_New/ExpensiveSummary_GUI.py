@@ -89,7 +89,7 @@ class ExpensiveGUI(tk.Frame):
         # filterButton = tk.Button(self, text="Filter", command = lambda: self.updateScreen(var.get()))
         # filterButton.grid(row = 0, column = 4, sticky = "w")
 
-        Detailsbutton = tk.Button(self, image = laf_img, command = lambda: self.controller.new_window())
-        Detailsbutton.grid(row = 0, column = 0, sticky= "w")
+        # Detailsbutton = tk.Button(self, image = laf_img, command = lambda: self.controller.new_window())
+        # Detailsbutton.grid(row = 0, column = 0, sticky= "w")
 
 
