@@ -62,4 +62,10 @@ signals:
    void finished();
 };
 
+
+// Raf put this here, this is the format we need to wrap in Python
+extern "C" {
+    double readChannel(uint8_t channel);
+}
+
 #endif // USB7402_INTERFACE_H
