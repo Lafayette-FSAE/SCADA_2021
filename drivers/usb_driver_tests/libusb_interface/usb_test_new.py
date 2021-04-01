@@ -16,7 +16,7 @@ import pathlib
 
 if __name__ == "__main__":
     # Load the shared library from this folder into ctypes
-    libname = pathlib.Path().absolute() / "usb7402_interface.so"
+    libname = pathlib.Path().absolute() / "usb-7204.so"
     c_lib = ctypes.CDLL(libname)
     # Set the return type to double
     c_lib.readChannel.restype = ctypes.c_double
