@@ -13,17 +13,17 @@
 
 #include "libusb_interface/pmd.h"
 #include "libusb_interface/usb-7204.h"
-#include <QObject>
-#include <QCoreApplication>
-#include <QTimer>
+// #include <QObject>
+// #include <QCoreApplication>
+// #include <QTimer>
 #include "typedefs.h"
 #include "group.h"
 
 using namespace std;
 
-class usb7402_interface : public QObject
+class usb7402_interface //: public QObject
 {
-    Q_OBJECT
+    // Q_OBJECT
 public:
     usb7402_interface(vector<meta *> sensors);
     ~usb7402_interface();
