@@ -132,7 +132,7 @@ def interpolateData(data, samplePeriodDes):
 
     '''
     samplePeriodDesMS = samplePeriodDes * 1000
-    outputData = pd.Series(database.getData(data)).resample('{}{}'.format(samplePeriodDesMS/100,'ms')).interpolate().asfreq('{}{}'.format(samplePeriodDesMS,'ms'))
+    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS/100,'ms')).interpolate().asfreq('%i%s' % (samplePeriodDesMS,'ms'))
     return outputData
 
 
@@ -141,7 +141,7 @@ def decimateData(data, samplePeriodDes):
 
     '''
     samplePeriodDesMS = samplePeriodDes * 1000
-    outputData = pd.Series(database.getData(data)).resample('{}{}'.format(samplePeriodDesMS,'ms')).interpolate()
+    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS,'ms')).interpolate()
     return outputData
 
 def shiftData(data):
