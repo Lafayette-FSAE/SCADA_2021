@@ -15,6 +15,7 @@ import psycopg2
 import openpyxl
 import config
 import pandas as pd
+import Extract_Data as ed
 
 
 def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes, filePath='./defaultFileName'):
@@ -112,10 +113,10 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
 
         if currSamplePeriod > samplePeriodDes:
             processedData[sensorIdx] = interpolateData(
-                sensorData[sensorIdx], samplePeriodDes, currSamplePeriod)
+                sensorData[sensorIdx], samplePeriodDes)
         elif currSamplePeriod < samplePeriodDes:
             processedData[sensorIdx] = decimateData(
-                sensorData[sensorIdx], samplePeriodDes, currSamplePeriod)
+                sensorData[sensorIdx], samplePeriodDes)
         else:
             processedData[sensorIdx] = shiftData(sensorData[sensorIdx])
 
@@ -158,3 +159,5 @@ def shiftData(data):
 
 # export(sensorNames=None, sensorData=None, timestampBegin=None, timestampEnd=None, samplePeriodDes=1, filePath='./defaultFileName'
 
+ed.initialize_database(139.147.91.184)
+interpolateData()
