@@ -151,5 +151,27 @@ def shiftData(data):
     outputData = []
     return outputData
 
+# THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
+# ip_address = config.get("Post_Processing").get("ip_address")
+ip_address = '139.147.91.184'
+ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
+## get cheap summary data 
+initialize_database(ip_address)
+getDelimiter()
+timeData = getTimeStamps()
+timeStamps = timeData[0]
+durations = timeData[1]
+
+thisSessionStamps = timeStamps[0]
+relevantData = getSensorData(ex_sum_sensors[0], thisSessionStamps[0], thisSessionStamps[1])
+print('data for ' + ex_sum_sensors[0] + ' follows')
+print(str(relevantData))
+
+sensorNames = []
+sensorNames.append(ex_sum_sensors[0])
+sensorData = []
+sensorData.append(relevantData)
+timestampBegin = thisSesssionStamps[0]
+timestampEnd = thisSesssionStamps[1]
 # export(sensorNames=None, sensorData=None, timestampBegin=None, timestampEnd=None, samplePeriodDes=1, filePath='./defaultFileName'
 
