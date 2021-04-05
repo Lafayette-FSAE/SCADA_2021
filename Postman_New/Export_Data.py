@@ -156,14 +156,14 @@ def shiftData(data):
 ip_address = '139.147.91.184'
 ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
 ## get cheap summary data 
-initialize_database(ip_address)
-getDelimiter()
-timeData = getTimeStamps()
+Extract_Data.initialize_database(ip_address)
+Extract_Data.getDelimiter()
+timeData = Extract_Data.getTimeStamps()
 timeStamps = timeData[0]
 durations = timeData[1]
 
 thisSessionStamps = timeStamps[0]
-relevantData = getSensorData(ex_sum_sensors[0], thisSessionStamps[0], thisSessionStamps[1])
+relevantData = Extract_Data.getSensorData(ex_sum_sensors[0], thisSessionStamps[0], thisSessionStamps[1])
 print('data for ' + ex_sum_sensors[0] + ' follows')
 print(str(relevantData))
 
