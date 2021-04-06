@@ -30,7 +30,7 @@ HEADERS = pmd.h usb-500.h usb-1608G.h usb-20X.h usb-1208FS-Plus.h usb-1608FS-Plu
           bth-1208LS.h minilab-1008.h usb-1808.h
 OBJS = $(SRCS:.c=.o)   # same list as SRCS with extension changed
 CC=gcc
-CFLAGS+= -g -Wall -fPIC -O -I/usr/local/include/libusb-1.0 -L/usr/local/lib -lusb-1.0
+CFLAGS+= -g -Wall -fPIC -O -I/usr/local/include/libusb-1.0 -L/usr/local/lib -lusb-1.0 -lhidapi-libusb
 ifeq ($(shell uname), Darwin)
 	SONAME_FLAGS = -install_name
 	SHARED_EXT = dylib
@@ -71,49 +71,49 @@ libmccusb.a: $(OBJS)
 # libusb-1.0
 #
 test-usb500:  test-usb500.c
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1608G:	test-usb1608G.c usb-1608G.o libmccusb.a
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1808:	test-usb1808.c usb-1808.o libmccusb.a
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb2020:	test-usb2020.c usb-2020.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1208FS-Plus:	test-usb1208FS-Plus.c usb-1208FS-Plus.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1608FS-Plus:	test-usb1608FS-Plus.c usb-1608FS-Plus.o libmccusb.a 
 	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1208HS:	test-usb1208HS.c usb-1208HS.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1608HS:	test-usb1608HS.c usb-1608HS.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb20X:	test-usb20X.c usb-20X.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb2600:	test-usb2600.c usb-2600.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb2408:	test-usb2408.c usb-2408.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb2416:	test-usb2416.c usb-2416.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb-ctr:	test-usb-ctr.c usb-ctr.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb2001tc: test-usb2001tc.c usb-2001-tc.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb7202: test-usb7202.c usb-7202.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb7204: test-usb7204.c usb-7204.o libmccusb.a 
 	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
@@ -133,25 +133,25 @@ test-minilab1008: test-minilab1008.c minilab-1008.o libmccusb.a
 	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1024LS:	test-usb1024LS.c usb-1024LS.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb-dio24:	test-usb-dio24.c usb-dio24.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb-dio96H: test-usb-dio96H.c usb-dio96H.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1208LS:	test-usb1208LS.c usb-1208LS.o libmccusb.a
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1208FS:	test-usb1208FS.c usb-1208FS.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1408FS:	test-usb1408FS.c usb-1408FS.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1608FS:	test-usb1608FS.c usb-1608FS.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb1616FS:	test-usb1616FS.c usb-1616FS.o libmccusb.a 
 	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
@@ -163,31 +163,31 @@ test-usb4300:	test-usb4300.c usb-4303.o libmccusb.a
 	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb5201: test-usb5201.c usb-5200.o libmccusb.a
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0
 
 test-usb5203: test-usb5203.c usb-5200.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 test-usb-tc: test-usb-tc.c usb-tc.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 test-usb-tc-ai: test-usb-tc-ai.c usb-tc-ai.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 test-usb-temp: test-usb-temp.c usb-temp.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 test-usb-temp-ai: test-usb-temp-ai.c usb-tc-ai.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 test-usb-ssr: test-usb-ssr.c usb-ssr.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 test-usb-erb: test-usb-erb.c usb-erb.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 test-usb-pdiso8: test-usb-pdiso8.c usb-pdiso8.o libmccusb.a 
-	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0 
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib  -lhidapi-libusb -lusb-1.0
 
 ####################################################################################################
 
