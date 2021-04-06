@@ -71,7 +71,7 @@ libmccusb.a: $(OBJS)
 # libusb-1.0
 #
 test-usb500:  test-usb500.c
-	$(CC) -g -Wall -I. -o $@ $@.c -lm -lusb-1.0
+	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
 
 test-usb1608G:	test-usb1608G.c usb-1608G.o libmccusb.a
 	$(CC) -g -Wall -I. -o $@ $@.c -L. -lmccusb  -lm -L/usr/local/lib -lhidapi-libusb -lusb-1.0 
