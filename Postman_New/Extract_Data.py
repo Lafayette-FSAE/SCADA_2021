@@ -91,7 +91,7 @@ def getTimeStamps():
             timeStampList.append([begin_time, end_time])
             durationList.append(time)
 
-        print('status is' + str(status))
+        # print('status is' + str(status))
 
     # Catches the end of the last session if system breaks during session
     if status == True:
@@ -103,8 +103,8 @@ def getTimeStamps():
     #NOTE: WE ARE NOT ACCOUNTING FOR SESSIONS BEING "TRUE" WHEN SYSTEM TURNS OF AND "TRUE" WHEN TURNED BACK ON
 
 
-    for i in range(len(timeStampList)):
-        print (str(timeStampList[i][0]) +  ' until ' + str(timeStampList[i][1]) + ' duration: ' + str(durationList[i]))
+    # for i in range(len(timeStampList)):
+    #     print (str(timeStampList[i][0]) +  ' until ' + str(timeStampList[i][1]) + ' duration: ' + str(durationList[i]))
 
     return [timeStampList, durationList]
 
@@ -129,8 +129,8 @@ def evaluate_in_session(data):
         elif not data.isdecimal(): #for string variables i.e. states
             data = '"' + data + '"' 
         condition = in_session_condition.replace(delimitSensor, data.replace('\n',''))
-        print( 'about to evaluate ' + condition)
-        print('evaluated: ' + str(eval(condition)))
+        # print( 'about to evaluate ' + condition)
+        # print('evaluated: ' + str(eval(condition)))
         return eval(condition)
     except KeyError:
         return False
