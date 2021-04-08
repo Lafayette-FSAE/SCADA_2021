@@ -43,6 +43,7 @@ class CheapGUI(tk.Frame):
 
         self.dropDownMenu()
         self.listBox()
+        print("HERE")
 
 
         
