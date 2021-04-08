@@ -131,20 +131,21 @@ def getSamplePeriods(sensorNames):
     return Periods
 
 
-def interpolateData(data, samplePeriodDes, currSamplePeriod):
+def interpolateData(data, samplePeriodDes):
     '''
 
     '''
-    outputData = pd.Series(database.getData(data)).resample('%dS' % samplePeriodDes).interpolate()
+    samplePeriodDesMS = samplePeriodDes * 1000
+    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS/100,'ms')).interpolate().asfreq('%i%s' % (samplePeriodDesMS,'ms'))
     return outputData
 
 
-def decimateData(data, samplePeriodDes, currSamplePeriod):
+def decimateData(data, samplePeriodDes):
     '''
 
     '''
-
-    outputData = []
+    samplePeriodDesMS = samplePeriodDes * 1000
+    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS,'ms')).interpolate()
     return outputData
 
 def shiftData(data):
@@ -154,6 +155,27 @@ def shiftData(data):
     outputData = []
     return outputData
 
+# THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
+# ip_address = config.get("Post_Processing").get("ip_address")
+ip_address = '139.147.91.184'
+ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
+## get cheap summary data 
+Extract_Data.initialize_database(ip_address)
+Extract_Data.getDelimiter()
+timeData = Extract_Data.getTimeStamps()
+timeStamps = timeData[0]
+durations = timeData[1]
 
+thisSessionStamps = timeStamps[0]
+relevantData = Extract_Data.getSensorData(ex_sum_sensors[0], thisSessionStamps[0], thisSessionStamps[1])
+print('data for ' + ex_sum_sensors[0] + ' follows')
+print(str(relevantData))
+
+sensorNames = []
+sensorNames.append(ex_sum_sensors[0])
+sensorData = []
+sensorData.append(relevantData)
+timestampBegin = thisSesssionStamps[0]
+timestampEnd = thisSesssionStamps[1]
 # export(sensorNames=None, sensorData=None, timestampBegin=None, timestampEnd=None, samplePeriodDes=1, filePath='./defaultFileName'
 

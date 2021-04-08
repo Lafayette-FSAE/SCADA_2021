@@ -238,7 +238,22 @@ Sensors:
     data_values: [0, 1]
     data_pattern: CYCLE
     data_period: 30
-  
+
+  emulator_differentiated_values:
+    unit: ''
+    inputs:
+      in: emulator_differentiated_values
+    cal_function: in
+    bus_type: EMULATED
+    precision: 0
+    display_variable: number
+    description: "data to be undifferentatied by postprocessor"
+    sample_period: 1
+    var_name:  DiffValues
+    data_values: [0, 5, 10, 5, 0]
+    data_pattern: CYCLE
+    data_period: 25
+    
 
   emulator_temperature:
     unit: '°C'
