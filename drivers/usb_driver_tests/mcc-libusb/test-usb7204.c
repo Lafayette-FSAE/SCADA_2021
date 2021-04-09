@@ -233,7 +233,7 @@ start:
         case 2: 
           gain = BP_5_00V;
           voltage = 4.9;
-	  break;
+	        break;
         case 3: 
           gain = BP_4_00V;
           voltage = 3.9;
