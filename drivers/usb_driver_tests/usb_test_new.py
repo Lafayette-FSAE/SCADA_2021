@@ -23,5 +23,6 @@ if __name__ == "__main__":
 
 
 channel = 0
+c_lib.setup_usb7204()
 result = c_lib.readChannel(ctypes.c_uint8(channel))
 
