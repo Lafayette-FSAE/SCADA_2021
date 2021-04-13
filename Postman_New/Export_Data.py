@@ -15,8 +15,6 @@ import openpyxl
 import config
 import pandas as pd
 import Extract_Data
-import matplotlib.pyplot as plt
-import numpy as np
 
 
 def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes, filePath='./defaultFileName'):
@@ -133,7 +131,7 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
     sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDesMS)).to_series()
     # genePeriods empty list of lists to store new (processed) data in
     processedData = [[] for _ in range(len(sensorNames))]
-
+    processedData[0] = sharedIndex.tolist()
     for sensorIdx in range(len(sensorData)):
         currSamplePeriod = samplePeriods[sensorIdx]
         currDisplayVariable = displayVariables[sensorIdx]
@@ -144,18 +142,19 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
 
             data = shiftData(data, sharedIndex, currSamplePeriod)
             # print("shifted:\n %s\n" % data)
-            processedData = undifferentiateData(data, currSamplePeriod)
+            data = undifferentiateData(data, currSamplePeriod)
         else:
             data = pd.Series(data = map(float,data), index = index)
             # print("sample period: %s\n" % currSamplePeriod)
 
             # print("data:\n %s\n" % data)
-            data = shiftData(data, sharedIndex, currSamplePeriod)
+            data = shiftData(data, sharedIndex, currSamplePeriod) 
             # print("shifted:\n %s\n" % data)
             data = undifferentiateData(data, currSamplePeriod)
             # print("undifferentiated:\n %s\n" % data)
-            processedData[sensorIdx] = interpolateData(data, samplePeriodDes)
+            data = interpolateData(data, samplePeriodDes)
 
+        processedData.append(data.tolist())
 
     return processedData
 
@@ -177,9 +176,10 @@ def interpolateData(data, samplePeriodDes):
 
 def shiftData(data, index, sensorSamplePeriod):
     oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%ims' % (sensorSamplePeriod * 1000))).to_series()
-    data = data.reindex_like(oldIndex, method = 'ffill')
+    outputData = data.reindex_like(oldIndex, method = 'ffill')
+    outputData[-1] = data[-1]
     # print("Reindexed to Current Index:\n %s\n" % data)
-    return data.reindex_like(index)
+    return outputData.reindex_like(index)
 
 def undifferentiateData(data, sensorSamplePeriod):
     outputData = data.resample('%ims' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
