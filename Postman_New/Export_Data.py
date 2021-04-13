@@ -31,7 +31,7 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
 
     executes procedure
     - calls processData
-    - genePeriod timestamp array for y axis label
+    - generate timestamp array for y axis label
     - open new Excel Workbook and Sheet to write to
     - place header (x axis label) row with sensor id's
     - uses a loop structure to place data in Excel sheet
@@ -42,7 +42,7 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     #####################################
     #real data procedure 
 
-    # processedData = processData(sensorData)
+    processedData = processData(sensorData)
 
     #TODO: Here we will generate an array of timestamps based on timeStampBegin, timeStampEnd, and sample Period
     # and insert it in processedData as the first list i.e. first column in the Excel workbook
@@ -50,16 +50,16 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     #####################################
     # doing Excel stuff with fake data
 
-    dummyNames = ['a', 'b', 'c', 'd', 'e']
-    dummyList = [[] for _ in range(6)]
-    dummyList[0] = [0.0, 0.1, 0.2, 0.3, 0.4]
-    for i in range(5):
-        for j in range(5):
-            dummyList[i+1].append(str(10*i + j))
+    # dummyNames = ['a', 'b', 'c', 'd', 'e']
+    # dummyList = [[] for _ in range(6)]
+    # dummyList[0] = [0.0, 0.1, 0.2, 0.3, 0.4]
+    # for i in range(5):
+    #     for j in range(5):
+    #         dummyList[i+1].append(str(10*i + j))
 
-    processedData = dummyList
-    print ('dummyList: ' + str(dummyList))
-    sensorNames = dummyNames
+    # processedData = dummyList
+    # print ('dummyList: ' + str(dummyList))
+    # sensorNames = dummyNames
     
 
     wb = openpyxl.Workbook()
@@ -77,19 +77,19 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
         print('row:' + str(row))
         ws.append(row)
 
-    x_data = openpyxl.chart.Reference(ws, min_col=1, min_row=2, max_row=len(dummyList[0])+1)
+    x_data = openpyxl.chart.Reference(ws, min_col=1, min_row=2, max_row=len(processedData[0])+1)
     print('x_data:')
     print(x_data)
     chart = openpyxl.chart.LineChart()
     for i in range(len(dummyList)-1):
-        y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(dummyList[0])+1)
+        y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(processedData[0])+1)
         title = openpyxl.
         print('y_data:')
         print(y_data)
         s = openpyxl.chart.Series(y_data, xvalues = x_data)
         # print(s)
         chart.append(s)
-    sensorNames = openpyxl.chart.Reference(ws, min_col=2, min_row=2, max_row=len(dummyList))
+    sensorNames = openpyxl.chart.Reference(ws, min_col=2, min_row=2, max_row=len(processedData))
     chart.set_categories(sensorNames)    
 
     # values = openpyxl.chart.Reference(ws, min_col=1, min_row=1, max_col=6, max_row=6)
@@ -129,7 +129,7 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
     samplePeriods, displayVariables = getSensorInfo(sensorNames)
     samplePeriodDesMS = samplePeriodDes * 1000
     sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDesMS)).to_series()
-    # genePeriods empty list of lists to store new (processed) data in
+    # generates empty list of lists to store new (processed) data in
     processedData = [[] for _ in range(len(sensorNames))]
     processedData[0] = sharedIndex.tolist()
     for sensorIdx in range(len(sensorData)):
