@@ -193,7 +193,7 @@ Sensors:
   #     Vin: usb_torque
   #   cal_function: '101.7018*Vin + 145.5199'
   #   bus_type: USB7204
-  #   primary_address: 0
+  #   primary_address: 1
   #   secondary_address: Null
   #   #mouse
   #   # primary_address: 0x413c #vendor id
