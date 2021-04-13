@@ -237,7 +237,7 @@ Sensors:
     var_name:  DriveStateEm
     data_values: [0, 1]
     data_pattern: CYCLE
-    data_period: 30
+    data_period: 5
 
   emulator_differentiated_values:
     unit: ''
