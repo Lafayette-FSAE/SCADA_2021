@@ -11,8 +11,8 @@ sys.path.append(local_path)
 
 import config
 import usb7204_driver
-import ctypes
-import pathlib
+# import ctypes
+# import pathlib
 
 # if __name__ == "__main__":
 #     # Load the shared library from this folder into ctypes
@@ -27,7 +27,7 @@ import pathlib
 # result = c_lib.readChannel(ctypes.c_uint8(channel))
 
 
-print ('READING: ' +usb7204_driver.read('usb_torque'))
+print ('READING: ' + str(usb7204_driver.read('usb_torque')))
 
 
 

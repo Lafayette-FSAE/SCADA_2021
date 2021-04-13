@@ -15,12 +15,12 @@ import redis
 # import usb.core
 # import usb.util
 import time
-
 import pathlib
 import ctypes
 
+
 # Load the shared library from this folder into ctypes
-libname = pathlib.Path(__file__).parent.absolute() / "mcc-libusb/libmccusb.so"
+libname = pathlib.Path(__file__).parent.absolute() / "usb_driver_tests/mcc-libusb/libmccusb.so"
 c_lib = ctypes.CDLL(libname)
 # Set the return type of imported C methods
 c_lib.readChannel.restype = ctypes.c_double
@@ -36,7 +36,7 @@ def read(sensorName):
     channel = channels[sensorName]
     return c_lib.readChannel(ctypes.c_uint8(channel))
 
-#Note: value must be a VOLTAGE between 0 and 5.0
+#Note: value must be a VOLTAGE value between 0 and 5.0
 #Note: in our current hardware configuration (in which we use the USB-7204 DAQ board for data aquisition only)
 #we would never realistically use this method
 def write(sensorName, value):

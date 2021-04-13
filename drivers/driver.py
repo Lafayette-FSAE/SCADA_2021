@@ -14,6 +14,7 @@ import config
 
 from drivers import i2c_driver, emulated_driver
 from drivers import can_driver   #UNCOMMENT
+from drivers import usb7204_driver
 
 SensorList = config.get('Sensors')
 emulating = config.get('emulation')
@@ -36,8 +37,8 @@ def read(Sensor):
         data = i2c_driver.read(Sensor)
     elif(sensor_protocol =='CAN'):
         data = can_drive.read(Sensor)
-    #elif(sensor_protocol == 'USB'):
-        #data= usb_sorter.read(Sensor)
+    elif(sensor_protocol == 'USB7204'):
+        data= usb7204_driver.read(Sensor)
     elif(sensor_protocol == 'VIRTUAL'):
         data= 0
     elif(emulating and sensor_protocol == 'EMULATED'):
