@@ -23,7 +23,7 @@ struct tm date;
 // udev = 0;
 // gain = BP_5_00V; //ONLY SUPPORTING 5V RANGE READING
 
-void setup_usb7204(){
+bool setup_usb7204(){
 
   udev = 0;
   gain = BP_5_00V; 
@@ -31,14 +31,16 @@ void setup_usb7204(){
   ret = libusb_init(NULL);
   if (ret < 0) {
     perror("libusb_init: Failed to initialize libusb");
-    exit(1);
+    // exit(1);
+    return 0;
   }
 
   if ((udev = usb_device_find_USB_MCC(USB7204_PID, NULL))) {
     printf("USB-7204 Device is found!\n");
   } else {
     printf("No device found.\n");
-    exit(0);
+    // exit(0);
+    return 0;
   }
 
   // some initialization
@@ -62,6 +64,7 @@ void setup_usb7204(){
   // Print the calibration date
   getMFGCAL_USB7204(udev, &date);
   printf("\nLast Calibration date: %s", asctime(&date));
+  return 1;
 }
 
 /**

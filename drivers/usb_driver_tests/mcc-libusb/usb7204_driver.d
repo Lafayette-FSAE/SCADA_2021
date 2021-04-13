@@ -42,6 +42,7 @@ usb7204_driver.o usb7204_driver.d : usb7204_driver.c /usr/include/stdc-predef.h 
  /usr/include/arm-linux-gnueabihf/bits/types/struct_FILE.h \
  /usr/include/arm-linux-gnueabihf/bits/stdio_lim.h \
  /usr/include/arm-linux-gnueabihf/bits/sys_errlist.h \
+ /usr/lib/gcc/arm-linux-gnueabihf/8/include/stdbool.h \
  /usr/include/string.h \
  /usr/include/arm-linux-gnueabihf/bits/types/locale_t.h \
  /usr/include/arm-linux-gnueabihf/bits/types/__locale_t.h \

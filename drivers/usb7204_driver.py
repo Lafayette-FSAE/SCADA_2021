@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import sys, os
 
 #Importing the config file
@@ -24,24 +25,28 @@ libname = pathlib.Path(__file__).parent.absolute() / "usb_driver_tests/mcc-libus
 c_lib = ctypes.CDLL(libname)
 # Set the return type of imported C methods
 c_lib.readChannel.restype = ctypes.c_double
+c_lib.setup_usb7204.restype = ctypes.c_bool
 
-# use imported C method to setup USB7204 board
-c_lib.setup_usb7204()
+# use imported C method to setup USB7204 board and set USB driver "connected" status
+connected = c_lib.setup_usb7204()
 
 
 allSensors = config.get('Sensors')
 channels = {} # holds the channel numbers corresponding to devices on USB-7204 board
 
 def read(sensorName):
-    channel = channels[sensorName]
-    return c_lib.readChannel(ctypes.c_uint8(channel))
+    if connected:
+        channel = channels[sensorName]
+        return c_lib.readChannel(ctypes.c_uint8(channel))
+    return None
 
 #Note: value must be a VOLTAGE value between 0 and 5.0
 #Note: in our current hardware configuration (in which we use the USB-7204 DAQ board for data aquisition only)
 #we would never realistically use this method
 def write(sensorName, value):
-    channel = channels[sensorName]
-    c_lib.writeToChannel(ctypes.c_uint8(channel), ctypes.c_float(value))
+    if connected:
+        channel = channels[sensorName]
+        c_lib.writeToChannel(ctypes.c_uint8(channel), ctypes.c_float(value))
 
 
 #setup code to get config info (channel for reading device)

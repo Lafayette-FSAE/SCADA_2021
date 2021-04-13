@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -18,7 +19,7 @@ extern "C" {
 #include "usb-7204.h"
 
 
-void setup_usb7204();
+bool setup_usb7204();
 double readChannel(int channel);
 void writeToChannel(uint8_t channel, float voltage);
 
