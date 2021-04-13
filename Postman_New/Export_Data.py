@@ -10,12 +10,13 @@ sys.path.append(lib_path)
 sys.path.append(config_path)
 
 
-from utils import database
 import psycopg2
 import openpyxl
 import config
 import pandas as pd
-import Extract_Data as ed
+import Extract_Data
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes, filePath='./defaultFileName'):
@@ -103,62 +104,68 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
 
 
     '''
-    samplePeriods = getSamplePeriods(sensorNames)
-
+    samplePeriods, displayVariables = getSensorInfo(sensorNames)
+    samplePeriodDesMS = samplePeriodDes * 1000
+    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDesMS)).to_series()
     # genePeriods empty list of lists to store new (processed) data in
     processedData = [[] for _ in range(len(sensorNames))]
 
-    for sensorIdx in sensorData:
+    for sensorIdx in range(len(sensorData)):
         currSamplePeriod = samplePeriods[sensorIdx]
+        currDisplayVariable = displayVariables[sensorIdx]
+        data, index = zip(*sensorData[sensorIdx])
 
-        if currSamplePeriod > samplePeriodDes:
-            processedData[sensorIdx] = interpolateData(
-                sensorData[sensorIdx], samplePeriodDes)
-        elif currSamplePeriod < samplePeriodDes:
-            processedData[sensorIdx] = decimateData(
-                sensorData[sensorIdx], samplePeriodDes)
+        if(currDisplayVariable == 'state'):
+            data = pd.Series(data = data, index = index)
+
+            data = shiftData(data, sharedIndex, currSamplePeriod)
+            # print("shifted:\n %s\n" % data)
+            processedData = undifferentiateData(data, currSamplePeriod)
         else:
-            processedData[sensorIdx] = shiftData(sensorData[sensorIdx])
+            data = pd.Series(data = map(float,data), index = index)
+            # print("sample period: %s\n" % currSamplePeriod)
+
+            # print("data:\n %s\n" % data)
+            data = shiftData(data, sharedIndex, currSamplePeriod)
+            # print("shifted:\n %s\n" % data)
+            data = undifferentiateData(data, currSamplePeriod)
+            # print("undifferentiated:\n %s\n" % data)
+            processedData[sensorIdx] = interpolateData(data, samplePeriodDes)
+
 
     return processedData
 
 
-def getSamplePeriods(sensorNames):
-    '''
-    this needs to use postgres to retrieve the samplePeriods
-
-    '''
+def getSensorInfo(sensorNames):
     Periods = []
-    return Periods
+    displayVariables = []
+    for sensor in sensorNames:
+        Periods.append(config.get('Sensors').get(sensor).get('sample_period'))
+        displayVariables.append(config.get('Sensors').get(sensor).get('display_variable'))
+
+    return Periods, displayVariables
+
 
 
 def interpolateData(data, samplePeriodDes):
-    '''
 
-    '''
-    samplePeriodDesMS = samplePeriodDes * 1000
-    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS/100,'ms')).interpolate().asfreq('%i%s' % (samplePeriodDesMS,'ms'))
-    return outputData
+    return data.resample('%ims' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate()  
 
+def shiftData(data, index, sensorSamplePeriod):
+    oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%ims' % (sensorSamplePeriod * 1000))).to_series()
+    data = data.reindex_like(oldIndex, method = 'ffill')
+    # print("Reindexed to Current Index:\n %s\n" % data)
+    return data.reindex_like(index)
 
-def decimateData(data, samplePeriodDes):
-    '''
-
-    '''
-    samplePeriodDesMS = samplePeriodDes * 1000
-    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS,'ms')).interpolate()
-    return outputData
-
-def shiftData(data):
-    '''
-    ''' 
-
-    outputData = []
+def undifferentiateData(data, sensorSamplePeriod):
+    outputData = data.resample('%ims' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
+    outputData[-1] = data[-1]
     return outputData
 
 # THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
 # ip_address = config.get("Post_Processing").get("ip_address")
-ip_address = '139.147.91.184'
+# ip_address = '139.147.81.105'
+ip_address = '139.147.91.187'
 ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
 ## get cheap summary data 
 Extract_Data.initialize_database(ip_address)
@@ -167,18 +174,38 @@ timeData = Extract_Data.getTimeStamps()
 timeStamps = timeData[0]
 durations = timeData[1]
 
-thisSessionStamps = timeStamps[0]
-relevantData = Extract_Data.getSensorData(ex_sum_sensors[0], thisSessionStamps[0], thisSessionStamps[1])
-print('data for ' + ex_sum_sensors[0] + ' follows')
+thisSessionStamps = timeStamps[-2]
+relevantData = Extract_Data.getSensorData("emulator_tsi_drive_state", thisSessionStamps[0], thisSessionStamps[1])
+# print('data for ' + ex_sum_sensors[0] + ' follows')
 print(str(relevantData))
 
 sensorNames = []
 sensorNames.append(ex_sum_sensors[0])
 sensorData = []
 sensorData.append(relevantData)
-timestampBegin = thisSesssionStamps[0]
-timestampEnd = thisSesssionStamps[1]
+timestampBegin = thisSessionStamps[0]
+timestampEnd = thisSessionStamps[1]
 # export(sensorNames=None, sensorData=None, timestampBegin=None, timestampEnd=None, samplePeriodDes=1, filePath='./defaultFileName'
 
-ed.initialize_database(139.147.91.184)
-interpolateData()
+# print(sensorData[0])
+# print(sensorData[0])
+
+print('tsb: %s\n tse %s' % (timestampBegin, timestampEnd))
+
+data = processData(['emulator_tsi_drive_state'], [sensorData[0]], timestampBegin, timestampEnd, .5)
+print("output: \n%s\n" % data)
+# data[0].plot(style = 'ok')
+# inputdata, inputindex = zip(*sensorData[0])
+# pd.Series(data = map(float,inputdata), index = inputindex).plot(style = 'ob')
+# plt.legend(['output','input'], loc = 'upper left')
+# plt.show()
+# sharedIndex = pd.date_range(start = timestampBegin, end = timestampEnd, freq = ('%ims' % 1000)).to_series()
+# data = interpolateData(sensorData[0], sharedIndex,.5, 1)
+# print("last val: %s" % data[-1])
+# print("unshifted: ")
+# print(data)
+# print('\n')
+# data = shiftData(data)
+# print("shifted: ")
+# print(data)
+# print('\n')
