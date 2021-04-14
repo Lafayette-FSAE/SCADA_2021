@@ -68,6 +68,7 @@ Display:
       - acc_z
     
     I2C_Additional:
+      - usb_torque
       - linacc_x
       - linacc_y
       - linacc_z
