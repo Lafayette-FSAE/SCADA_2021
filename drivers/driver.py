@@ -42,6 +42,7 @@ def read(Sensor):
     elif(sensor_protocol == 'VIRTUAL'):
         data= 0
     elif(emulating and sensor_protocol == 'EMULATED'):
+        print ('The program is breaking on sensor named: ' + Sensor)
         data = emulated_driver.read(Sensor)
     else:
         return 'Sensor Protocol Not Found'
