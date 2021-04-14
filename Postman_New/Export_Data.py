@@ -114,10 +114,12 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
     - samplePeriodDes: desired sample Period of the outputted data
 
     executes procedure
-    - calls getSamplePeriods
-    - find data lower frequency than samplePeriodDes and interpolate it
-    - find data higher frequency than samplePeriodDes and decimate it
-    - after modifying each data set, put it into a corresponding list in the processedData data structure
+    - creates a common index to be shared by all sensors and makes it the first element in the processedData list
+    - calls getSensorInfo to get sample periods and display variables
+    - shifts data onto a common index using shiftData
+    - undifferentiates data
+    - if the display variable isn't a state, interpolates data
+    - converts data to list and appends it onto processedData list
 
 
 
@@ -126,32 +128,38 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
 
 
     '''
+
+    #get sample periods and display variables of each sensor
     samplePeriods, displayVariables = getSensorInfo(sensorNames)
-    samplePeriodDesMS = samplePeriodDes * 1000
-    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDesMS)).to_series()
+
+    #create an index to be shared by all sensor data
+    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDes * 1000)).to_series()
+
     # generates empty list of lists to store new (processed) data in
     processedData = [[] for _ in range(len(sensorNames))]
     processedData[0] = sharedIndex.tolist()
+
     for sensorIdx in range(len(sensorData)):
         currSamplePeriod = samplePeriods[sensorIdx]
         currDisplayVariable = displayVariables[sensorIdx]
+
+        #unzip sensor data
         data, index = zip(*sensorData[sensorIdx])
 
+        #state sensors are not interpolated and their data is kept as a string
         if(currDisplayVariable == 'state'):
             data = pd.Series(data = data, index = index)
 
             data = shiftData(data, sharedIndex, currSamplePeriod)
-            # print("shifted:\n %s\n" % data)
+
             data = undifferentiateData(data, currSamplePeriod)
         else:
             data = pd.Series(data = map(float,data), index = index)
-            # print("sample period: %s\n" % currSamplePeriod)
 
-            # print("data:\n %s\n" % data)
             data = shiftData(data, sharedIndex, currSamplePeriod) 
-            # print("shifted:\n %s\n" % data)
+
             data = undifferentiateData(data, currSamplePeriod)
-            # print("undifferentiated:\n %s\n" % data)
+
             data = interpolateData(data, samplePeriodDes)
 
         processedData.append(data.tolist())
@@ -159,6 +167,7 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
     return processedData
 
 
+#returns lists of sample periods and display variables when given a list of sensor names
 def getSensorInfo(sensorNames):
     Periods = []
     displayVariables = []
@@ -169,20 +178,23 @@ def getSensorInfo(sensorNames):
     return Periods, displayVariables
 
 
-
+#interpolates data at a frequency 100 times higher than desired and then converts back to the desired frequency
 def interpolateData(data, samplePeriodDes):
 
-    return data.resample('%ims' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate()  
+    return data.resample('%ims' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate().asfreq(samplePeriodDes)
 
+#converts index of data to what it ideally should have been and forward fills and then converts to the desired index without filling empty slots
 def shiftData(data, index, sensorSamplePeriod):
     oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%ims' % (sensorSamplePeriod * 1000))).to_series()
     outputData = data.reindex_like(oldIndex, method = 'ffill')
+    #forward fill doesn't always keep the last value so the last value is manually inserted
     outputData[-1] = data[-1]
-    # print("Reindexed to Current Index:\n %s\n" % data)
     return outputData.reindex_like(index)
 
+#resamples at the data at the sample period and forward fills the empy slots
 def undifferentiateData(data, sensorSamplePeriod):
     outputData = data.resample('%ims' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
+    #forward fill doesn't always keep the last value so the last value is manually inserted
     outputData[-1] = data[-1]
     return outputData
 
