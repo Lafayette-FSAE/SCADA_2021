@@ -74,7 +74,7 @@ class CycleEmulator(SensorEmulator):
         super().__init__(configDict)
 
     def calculateValue(self, timeElapsed):
-        index = int((timeElapsed/self.period)*len(self.values))
+        index = int( math.floor((timeElapsed/self.period)*len(self.values)) )
         return self.values[index]
 
 
