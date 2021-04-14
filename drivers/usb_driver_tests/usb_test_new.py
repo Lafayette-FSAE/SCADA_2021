@@ -3,14 +3,14 @@ import sys, os
 lib_path = '/usr/etc/scada'
 config_path = '/usr/etc/scada/config'
 #this is temporary, just for testing
-local_path = '../utils'
+# local_path = '/../'
 
 sys.path.append(lib_path)
 sys.path.append(config_path)
 sys.path.append(local_path)
 
 import config
-import usb7204_driver
+from drivers import usb7204_driver
 # import ctypes
 # import pathlib
 
