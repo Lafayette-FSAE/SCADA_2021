@@ -7,7 +7,7 @@ config_path = '/usr/etc/scada/config'
 
 sys.path.append(lib_path)
 sys.path.append(config_path)
-sys.path.append(local_path)
+# sys.path.append(local_path)
 
 import config
 from drivers import usb7204_driver
