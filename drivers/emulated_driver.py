@@ -23,7 +23,7 @@ class SensorEmulator():
         # calculate time into period
         timeElapsed = time.time()-self.periodStart
         # check to see if in new period
-        if timeElapsed > self.period:
+        while timeElapsed > self.period:
             # reset periodStart and timeElapsed for new period
             self.periodStart = time.time()
             timeElapsed = timeElapsed - self.period
@@ -74,7 +74,7 @@ class CycleEmulator(SensorEmulator):
         super().__init__(configDict)
 
     def calculateValue(self, timeElapsed):
-        index = int( math.floor((timeElapsed/self.period)*len(self.values)) )
+        index = int( math.floor( (timeElapsed/self.period)*len(self.values) ) )
         return self.values[index]
 
 
