@@ -30,6 +30,10 @@ class CanDriver:
         # #eventually the following lines should take arguments from config
         can_info = config.get('bus_info').get('CAN')
         try:
+            #set up CAN bus connection
+            os.system('ip link set can0 down')
+            os.system('ip link set can0 up type can bitrate 125000')
+
             self.network.connect(channel=can_info.get('channel'), bustype=can_info.get('bus_type'))
             self.connected = True
 

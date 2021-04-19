@@ -11,11 +11,11 @@ sys.path.append(lib_path2)
 sys.path.append(config_path)
 
 
-from utils import database
 import psycopg2
 import openpyxl
 import config
 import pandas as pd
+import Extract_Data
 
 
 def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes, filePath='./defaultFileName'):
@@ -32,7 +32,7 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
 
     executes procedure
     - calls processData
-    - genePeriod timestamp array for y axis label
+    - generate timestamp array for y axis label
     - open new Excel Workbook and Sheet to write to
     - place header (x axis label) row with sensor id's
     - uses a loop structure to place data in Excel sheet
@@ -40,26 +40,28 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
 
     no return value
     '''
+    #####################################
+    #real data procedure 
+
+    processedData = processData(sensorData)
+
+    #TODO: Here we will generate an array of timestamps based on timeStampBegin, timeStampEnd, and sample Period
+    # and insert it in processedData as the first list i.e. first column in the Excel workbook
 
     #####################################
     # doing Excel stuff with fake data
 
-    dummyNames = ['a', 'b', 'c', 'd', 'e']
-    dummyList = [[] for _ in range(5)]
+    # dummyNames = ['a', 'b', 'c', 'd', 'e']
+    # dummyList = [[] for _ in range(6)]
+    # dummyList[0] = [0.0, 0.1, 0.2, 0.3, 0.4]
+    # for i in range(5):
+    #     for j in range(5):
+    #         dummyList[i+1].append(str(10*i + j))
 
-    for i in range(5):
-        for j in range(5):
-            dummyList[i].append(str(10*i + j))
-
-    processedData = dummyList
-    print ('dummyList: ' + str(dummyList))
-    sensorNames = dummyNames
-    #####################################
-
-    # processedData = processData(sensorData)
-
-    #TODO: Here we will genePeriod an array of timestamps based on timeStampBegin, timeStampEnd, and sample Period
-    # and insert it in processedData as the first list i.e. first column in the Excel workbook
+    # processedData = dummyList
+    # print ('dummyList: ' + str(dummyList))
+    # sensorNames = dummyNames
+    
 
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -71,13 +73,35 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     #add headers to Excel sheet
     ws.append(headers)
 
-    print("zipped: " + str(zip(processedData)))
-
     #add real data to Excel sheet
-    for row in zip(processedData):
+    for row in zip(*processedData):
         print('row:' + str(row))
         ws.append(row)
 
+    x_data = openpyxl.chart.Reference(ws, min_col=1, min_row=2, max_row=len(processedData[0])+1)
+    print('x_data:')
+    print(x_data)
+    chart = openpyxl.chart.LineChart()
+    for i in range(len(dummyList)-1):
+        y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(processedData[0])+1)
+        title = openpyxl.
+        print('y_data:')
+        print(y_data)
+        s = openpyxl.chart.Series(y_data, xvalues = x_data)
+        # print(s)
+        chart.append(s)
+    sensorNames = openpyxl.chart.Reference(ws, min_col=2, min_row=2, max_row=len(processedData))
+    chart.set_categories(sensorNames)    
+
+    # values = openpyxl.chart.Reference(ws, min_col=1, min_row=1, max_col=6, max_row=6)
+    # chart = openpyxl.chart.LineChart()
+    # chart.add_data(values, titles_from_data=True)
+    
+    
+    ws.add_chart(chart, "E15")
+
+
+    filePath = filePath + '.xlsx'
     wb.save(filePath)
 
 
@@ -91,10 +115,12 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
     - samplePeriodDes: desired sample Period of the outputted data
 
     executes procedure
-    - calls getSamplePeriods
-    - find data lower frequency than samplePeriodDes and interpolate it
-    - find data higher frequency than samplePeriodDes and decimate it
-    - after modifying each data set, put it into a corresponding list in the processedData data structure
+    - creates a common index to be shared by all sensors and makes it the first element in the processedData list
+    - calls getSensorInfo to get sample periods and display variables
+    - shifts data onto a common index using shiftData
+    - undifferentiates data
+    - if the display variable isn't a state, interpolates data
+    - converts data to list and appends it onto processedData list
 
 
 
@@ -103,62 +129,80 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
 
 
     '''
-    samplePeriods = getSamplePeriods(sensorNames)
 
-    # genePeriods empty list of lists to store new (processed) data in
+    #get sample periods and display variables of each sensor
+    samplePeriods, displayVariables = getSensorInfo(sensorNames)
+
+    #create an index to be shared by all sensor data
+    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDes * 1000)).to_series()
+
+    # generates empty list of lists to store new (processed) data in
     processedData = [[] for _ in range(len(sensorNames))]
+    processedData[0] = sharedIndex.tolist()
 
-    for sensorIdx in sensorData:
+    for sensorIdx in range(len(sensorData)):
         currSamplePeriod = samplePeriods[sensorIdx]
+        currDisplayVariable = displayVariables[sensorIdx]
 
-        if currSamplePeriod > samplePeriodDes:
-            processedData[sensorIdx] = interpolateData(
-                sensorData[sensorIdx], samplePeriodDes, currSamplePeriod)
-        elif currSamplePeriod < samplePeriodDes:
-            processedData[sensorIdx] = decimateData(
-                sensorData[sensorIdx], samplePeriodDes, currSamplePeriod)
+        #unzip sensor data
+        data, index = zip(*sensorData[sensorIdx])
+
+        #state sensors are not interpolated and their data is kept as a string
+        if(currDisplayVariable == 'state'):
+            data = pd.Series(data = data, index = index)
+
+            data = shiftData(data, sharedIndex, currSamplePeriod)
+
+            data = undifferentiateData(data, currSamplePeriod)
         else:
-            processedData[sensorIdx] = shiftData(sensorData[sensorIdx])
+            data = pd.Series(data = map(float,data), index = index)
+
+            data = shiftData(data, sharedIndex, currSamplePeriod) 
+
+            data = undifferentiateData(data, currSamplePeriod)
+
+            data = interpolateData(data, samplePeriodDes)
+
+        processedData.append(data.tolist())
 
     return processedData
 
 
-def getSamplePeriods(sensorNames):
-    '''
-    this needs to use postgres to retrieve the samplePeriods
-
-    '''
+#returns lists of sample periods and display variables when given a list of sensor names
+def getSensorInfo(sensorNames):
     Periods = []
-    return Periods
+    displayVariables = []
+    for sensor in sensorNames:
+        Periods.append(config.get('Sensors').get(sensor).get('sample_period'))
+        displayVariables.append(config.get('Sensors').get(sensor).get('display_variable'))
+
+    return Periods, displayVariables
 
 
+#interpolates data at a frequency 100 times higher than desired and then converts back to the desired frequency
 def interpolateData(data, samplePeriodDes):
-    '''
 
-    '''
-    samplePeriodDesMS = samplePeriodDes * 1000
-    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS/100,'ms')).interpolate().asfreq('%i%s' % (samplePeriodDesMS,'ms'))
-    return outputData
+    return data.resample('%ims' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate().asfreq(samplePeriodDes)
 
+#converts index of data to what it ideally should have been and forward fills and then converts to the desired index without filling empty slots
+def shiftData(data, index, sensorSamplePeriod):
+    oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%ims' % (sensorSamplePeriod * 1000))).to_series()
+    outputData = data.reindex_like(oldIndex, method = 'ffill')
+    #forward fill doesn't always keep the last value so the last value is manually inserted
+    outputData[-1] = data[-1]
+    return outputData.reindex_like(index)
 
-def decimateData(data, samplePeriodDes):
-    '''
-
-    '''
-    samplePeriodDesMS = samplePeriodDes * 1000
-    outputData = pd.Series(database.getData(data)).resample('%i%s' % (samplePeriodDesMS,'ms')).interpolate()
-    return outputData
-
-def shiftData(data):
-    '''
-    ''' 
-
-    outputData = []
+#resamples at the data at the sample period and forward fills the empy slots
+def undifferentiateData(data, sensorSamplePeriod):
+    outputData = data.resample('%ims' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
+    #forward fill doesn't always keep the last value so the last value is manually inserted
+    outputData[-1] = data[-1]
     return outputData
 
 # THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
 # ip_address = config.get("Post_Processing").get("ip_address")
-ip_address = '139.147.91.184'
+# ip_address = '139.147.81.105'
+ip_address = '139.147.91.187'
 ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
 ## get cheap summary data 
 Extract_Data.initialize_database(ip_address)
@@ -167,16 +211,38 @@ timeData = Extract_Data.getTimeStamps()
 timeStamps = timeData[0]
 durations = timeData[1]
 
-thisSessionStamps = timeStamps[0]
-relevantData = Extract_Data.getSensorData(ex_sum_sensors[0], thisSessionStamps[0], thisSessionStamps[1])
-print('data for ' + ex_sum_sensors[0] + ' follows')
+thisSessionStamps = timeStamps[-2]
+relevantData = Extract_Data.getSensorData("emulator_tsi_drive_state", thisSessionStamps[0], thisSessionStamps[1])
+# print('data for ' + ex_sum_sensors[0] + ' follows')
 print(str(relevantData))
 
 sensorNames = []
 sensorNames.append(ex_sum_sensors[0])
 sensorData = []
 sensorData.append(relevantData)
-timestampBegin = thisSesssionStamps[0]
-timestampEnd = thisSesssionStamps[1]
+timestampBegin = thisSessionStamps[0]
+timestampEnd = thisSessionStamps[1]
 # export(sensorNames=None, sensorData=None, timestampBegin=None, timestampEnd=None, samplePeriodDes=1, filePath='./defaultFileName'
 
+# print(sensorData[0])
+# print(sensorData[0])
+
+print('tsb: %s\n tse %s' % (timestampBegin, timestampEnd))
+
+data = processData(['emulator_tsi_drive_state'], [sensorData[0]], timestampBegin, timestampEnd, .5)
+print("output: \n%s\n" % data)
+# data[0].plot(style = 'ok')
+# inputdata, inputindex = zip(*sensorData[0])
+# pd.Series(data = map(float,inputdata), index = inputindex).plot(style = 'ob')
+# plt.legend(['output','input'], loc = 'upper left')
+# plt.show()
+# sharedIndex = pd.date_range(start = timestampBegin, end = timestampEnd, freq = ('%ims' % 1000)).to_series()
+# data = interpolateData(sensorData[0], sharedIndex,.5, 1)
+# print("last val: %s" % data[-1])
+# print("unshifted: ")
+# print(data)
+# print('\n')
+# data = shiftData(data)
+# print("shifted: ")
+# print(data)
+# print('\n')
