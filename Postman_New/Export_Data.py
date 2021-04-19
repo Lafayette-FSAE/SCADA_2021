@@ -4,9 +4,10 @@ import sys, os
 
 lib_path = os.path.dirname(os.path.dirname(__file__))
 config_path = os.path.join(lib_path, 'config')
-lib_path = os.path.join(lib_path, 'utils')
+lib_path2 = os.path.join(lib_path, 'utils')
 
 sys.path.append(lib_path)
+sys.path.append(lib_path2)
 sys.path.append(config_path)
 
 
