@@ -111,7 +111,7 @@ class ExportGUI(tk.Tk):
 
 
 
-    def exportData():
+    def exportData(self):
         #def getSensorData(sensor_id, timeStampBegin, timeStampEnd):
         timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
         timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
