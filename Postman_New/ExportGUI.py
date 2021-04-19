@@ -1,0 +1,150 @@
+#!/usr/bin/python3
+
+import sys, os
+import tkinter as tk 
+from tkinter import *
+from tkinter import ttk 
+
+import collections
+
+import time
+from datetime import datetime
+lib_path = os.path.dirname(os.path.dirname(__file__))
+config_path = os.path.join(lib_path, 'config')
+sys.path.append(config_path)
+
+import Extract_Data
+import Export_Data
+
+import config
+
+MED_FONT = ("Times New Roman", 12)
+
+class ExportGUI(tk.Tk):
+
+    def __init__(self, *args, **kwargs):
+        tk.Tk.__init__(self, *args, **kwargs)
+
+        # temporary for testing 
+        self.screenWidth = 700
+        self.screenHeight = 700
+
+        ## classs specific varibles
+        self.row_place = 0 
+        self.chosenSensors = []
+        self.sensorList = []
+
+
+
+        pathLabel = tk.Label(self, text = "File Path: ", font= MED_FONT)
+        pathLabel.grid(row = 20, column = 0,  sticky = "w")
+
+        defaultPath = "/ScadaRepo/SCADA_2021/Postman_New"
+
+        pathEntryBox = tk.Entry(self, width = 30)
+        pathEntryBox.insert(0, defaultPath)
+        pathEntryBox.grid( row = 20, column = 1)
+
+        fileNameLabel = tk.Label(self, text = "File Name: ", font= MED_FONT)
+        fileNameLabel.grid(row = 21, column = 0,  sticky = "w")
+
+        # datetime object containing current date and time
+        now = datetime.now()
+        # dd/mm/YY H:M:S
+        dt_string = now.strftime("%d/%m/%Y-%H:%M:%S")
+
+        self.fileNameEntryBox = tk.Entry(self, width = 30)
+        self.fileNameEntryBox.grid( row = 21, column = 1)
+
+        samplePeriodLabel = tk.Label(self, text = "Sample Period: ", font= MED_FONT)
+        samplePeriodLabel.grid(row = 22, column = 0,  sticky = "w")
+
+        self.samplePeriodLabelEntryBox = tk.Entry(self, width = 20)
+        self.samplePeriodLabelEntryBox.grid( row = 22, column = 1)
+
+
+        extractDataButton = tk.Button(self, text="Export Data", command = lambda: self.exportData()) 
+        extractDataButton.grid(row = 22, column = 20)
+
+        self.getSensors()
+        self.addSensor()
+
+
+    def getSensors(self): 
+        config.load(forceLoad=True)
+        yahurd = config.get('Sensors')
+
+        for sen in yahurd:
+            # print("sen" + str(sen))
+            self.sensorList.append(sen)
+
+
+    def addSensor(self): 
+
+        ## drop down menu for sensors in that session from the database 
+        ## maybe make method in Export_Data to return a list of sensors in that session 
+    
+        SENSORS = self.sensorList
+        var = StringVar(self)
+        var.set("---") # default value
+
+        sensorMenu = OptionMenu(self, var, *SENSORS)
+        sensorMenu.grid(row = self.row_place, column = 0)
+
+        self.addSensorButton = tk.Button(self, text="Add Sensor", command = lambda: self.saveVars(var.get())) 
+        self.addSensorButton.grid(row = self.row_place, column = 1)
+
+        self.row_place = self.row_place + 1
+
+    def saveVars(self, listvariable):
+
+        if(listvariable == "---"):
+            self.popup_msg()
+            
+        else: 
+            self.addSensorButton.destroy()
+            print("varGet : " + str(listvariable))
+            self.chosenSensors.append(listvariable)
+
+            ## call addcheckBoxes() here 
+            self.addSensor()
+
+
+
+    def exportData():
+        #def getSensorData(sensor_id, timeStampBegin, timeStampEnd):
+        timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
+        timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
+        samplePeriod = self.samplePeriodLabelEntryBox.get()
+        fileName = self.fileNameEntryBox.get()
+        sensorDataList = [] 
+        for i in self.sensorList:
+            sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
+            sensorDataList.append(sensorData)
+        
+        Export_Data.export(self.sensorList, sensorDataList, timestampBegin, timeStampEnd, samplePeriod,  fileName)
+
+    #export from Export_Data 
+
+    ## sample rate -- freq for data output in seconds 
+    ## cant be smaller than 1 ms 
+
+
+
+
+##--------- HELPER METHODS---------------------------------------
+    def popup_msg(self):
+        popup = tk.Tk()
+        popup.wm_title("!")
+
+        label = tk.Label(popup, text="User Must Select a Sensor from List", font=MED_FONT)
+        label.grid(row=0, column = 3)
+        B1 = ttk.Button(popup, text="Okay", command = popup.destroy)
+        B1.grid(row = 3, column = 3)
+
+
+
+    
+ 
+app = ExportGUI()
+app.mainloop()
