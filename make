@@ -32,6 +32,7 @@ cp scada /usr/bin/scada
 cp sorter/sorter.py /usr/bin/scada_sorter.py
 cp calibrator/calibrator.py /usr/bin/scada_calibrator.py
 cp logger/logger.py /usr/bin/scada_logger.py
+cp watcher/watcher.py /usr/bin/scada_watcher.py
 cp GUI/MainGUI.py /usr/bin/scada_gui.py
 
 # create a workspace and copy important files into it
@@ -51,6 +52,7 @@ cp -r drivers /usr/etc/scada/drivers
 cp sorter/sorter.service /etc/systemd/system
 cp calibrator/calibrator.service /etc/systemd/system
 cp logger/logger.service /etc/systemd/system
+cp watcher/watcher.service /etc/systemd/system
 cp GUI/gui.service /etc/systemd/system
 
 systemctl daemon-reload
@@ -59,6 +61,7 @@ systemctl daemon-reload
 systemctl enable sorter
 systemctl enable calibrator
 systemctl enable logger
+systemctl enable watcher
 
 echo 'MAKE COMPLETE'
 
