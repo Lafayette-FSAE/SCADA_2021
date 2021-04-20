@@ -20,7 +20,7 @@ import config
 
 MED_FONT = ("Times New Roman", 14)
 
-class ExportGUI(tk.Tk):
+class ExportGUI_Frame(tk.Tk):
 
     # def __init__(self, *args, **kwargs):
     #     tk.Tk.__init__(self, *args, **kwargs)
