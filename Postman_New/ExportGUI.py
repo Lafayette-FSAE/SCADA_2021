@@ -14,7 +14,7 @@ config_path = os.path.join(lib_path, 'config')
 sys.path.append(config_path)
 
 import Extract_Data
-# import Export_Data
+import Export_Data
 
 import config
 
