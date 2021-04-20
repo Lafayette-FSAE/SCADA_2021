@@ -43,7 +43,7 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     #####################################
     #real data procedure 
 
-    processedData = processData(sensorData)
+    processedData = processData(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes)
 
     #TODO: Here we will generate an array of timestamps based on timeStampBegin, timeStampEnd, and sample Period
     # and insert it in processedData as the first list i.e. first column in the Excel workbook
@@ -61,22 +61,22 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     # processedData = dummyList
     # print ('dummyList: ' + str(dummyList))
     # sensorNames = dummyNames
-    
+    #####################################
 
-    # wb = openpyxl.Workbook()
-    # ws = wb.active
+    wb = openpyxl.Workbook()
+    ws = wb.active
 
-    # # build headers list
-    # headers = sensorNames
-    # # insert time heading on left side of row
-    # headers.insert(0, 'Timestamp')
-    # #add headers to Excel sheet
-    # ws.append(headers)
+    # build headers list
+    headers = sensorNames
+    # insert time heading on left side of row
+    headers.insert(0, 'Timestamp')
+    #add headers to Excel sheet
+    ws.append(headers)
 
-    # #add real data to Excel sheet
-    # for row in zip(*processedData):
-    #     print('row:' + str(row))
-    #     ws.append(row)
+    #add real data to Excel sheet
+    for row in zip(*processedData):
+        print('row:' + str(row))
+        ws.append(row)
 
     # x_data = openpyxl.chart.Reference(ws, min_col=1, min_row=2, max_row=len(processedData[0])+1)
     # print('x_data:')
@@ -100,8 +100,8 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     # ws.add_chart(chart, "E15")
 
 
-    # filePath = filePath + '.xlsx'
-    # wb.save(filePath)
+    filePath = filePath + '.xlsx'
+    wb.save(filePath)
 
 
 def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePeriodDes):
@@ -123,8 +123,8 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
 
 
 
-    returns processedData: a list of lists [[sensor1Data],[sensor2Data],[sensor3Data]] of all data falling between the given timestamps,
-                            but processed
+    returns processedData: a list of lists [[newTimeVector],[sensor1Data],[sensor2Data],[sensor3Data]] of all data falling between the given timestamps,
+                            but processed and aligned to a single time vector stored in the first list
 
 
     '''
@@ -233,6 +233,7 @@ print('tsb: %s\n tse %s' % (timestampBegin, timestampEnd))
 
 data = processData([sensorTesting], [sensorData[0]], timestampBegin, timestampEnd, .5)
 print("output: \n%s\n" % data)
+
 # data[0].plot(style = 'ok')
 # inputdata, inputindex = zip(*sensorData[0])
 # pd.Series(data = map(float,inputdata), index = inputindex).plot(style = 'ob')
@@ -250,3 +251,5 @@ print("output: \n%s\n" % data)
 # print('\n')
 
 #TESTING FOR EXPORT TO EXCEL PART
+print('About to test Excel Export:')
+export([sensorTesting], [sensorData[0]], timestampBegin, timestampEnd, .5)
