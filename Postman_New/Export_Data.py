@@ -83,7 +83,6 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     chart = openpyxl.chart.LineChart()
     for i in range(len(dummyList)-1):
         y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(processedData[0])+1)
-        title = openpyxl.
         print('y_data:')
         print(y_data)
         s = openpyxl.chart.Series(y_data, xvalues = x_data)
@@ -201,7 +200,7 @@ def undifferentiateData(data, sensorSamplePeriod):
 # THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
 # ip_address = config.get("Post_Processing").get("ip_address")
 # ip_address = '139.147.81.105'
-ip_address = '139.147.91.187'
+ip_address = '139.147.91.189'
 ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
 ## get cheap summary data 
 Extract_Data.initialize_database(ip_address)
@@ -210,13 +209,15 @@ timeData = Extract_Data.getTimeStamps()
 timeStamps = timeData[0]
 durations = timeData[1]
 
-thisSessionStamps = timeStamps[-2]
-relevantData = Extract_Data.getSensorData("emulator_tsi_drive_state", thisSessionStamps[0], thisSessionStamps[1])
-# print('data for ' + ex_sum_sensors[0] + ' follows')
+sensorTesting = "emulator_car_mph"
+
+thisSessionStamps = timeStamps[50]
+relevantData = Extract_Data.getSensorData(sensorTesting, thisSessionStamps[0], thisSessionStamps[1])
+print('data for emulator_tsi_drive_state follows')
 print(str(relevantData))
 
 sensorNames = []
-sensorNames.append(ex_sum_sensors[0])
+sensorNames.append(sensorTesting)
 sensorData = []
 sensorData.append(relevantData)
 timestampBegin = thisSessionStamps[0]
@@ -228,7 +229,7 @@ timestampEnd = thisSessionStamps[1]
 
 print('tsb: %s\n tse %s' % (timestampBegin, timestampEnd))
 
-data = processData(['emulator_tsi_drive_state'], [sensorData[0]], timestampBegin, timestampEnd, .5)
+data = processData([sensorTesting], [sensorData[0]], timestampBegin, timestampEnd, .5)
 print("output: \n%s\n" % data)
 # data[0].plot(style = 'ok')
 # inputdata, inputindex = zip(*sensorData[0])
@@ -245,3 +246,5 @@ print("output: \n%s\n" % data)
 # print("shifted: ")
 # print(data)
 # print('\n')
+
+#TESTING FOR EXPORT TO EXCEL PART
