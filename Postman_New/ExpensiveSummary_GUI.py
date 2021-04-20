@@ -86,10 +86,12 @@ class ExpensiveGUI(tk.Frame):
             self.rowPlace = self.rowPlace + 2 
             self.colPlace = 0
 
-        # filterButton = tk.Button(self, text="Filter", command = lambda: self.updateScreen(var.get()))
-        # filterButton.grid(row = 0, column = 4, sticky = "w")
 
-        # Detailsbutton = tk.Button(self, image = laf_img, command = lambda: self.controller.new_window())
-        # Detailsbutton.grid(row = 0, column = 0, sticky= "w")
+        # exitButton = tk.Button(self, text="Exit", command = lambda: ExpensiveGUI.destory())
+        # exitButton.grid(row = 0, column = 4, sticky = "w")
+
+        ## button to go to ExportGUI
+        # pickSensorButton = tk.Button(self, image = laf_img, command = lambda: self.controller.new_window2())
+        # pickSensorButton.grid(row = 10, column = 10, sticky= "w")
 
 

@@ -35,7 +35,7 @@ class CheapGUI(tk.Frame):
 
         ip_address = config.get("Post_Processing").get("ip_address")
         ## get cheap summary data 
-        Extract_Data.initialize_database('139.147.81.5')
+        Extract_Data.initialize_database(ip_address)
         Extract_Data.getDelimiter()
         timeData = Extract_Data.getTimeStamps()
         self.timeStampList = timeData[0]
