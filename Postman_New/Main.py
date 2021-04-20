@@ -4,12 +4,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk 
 
-# config_path = '/usr/etc/scada/config'
-# sys.path.append(config_path)
 
-# database_path = '/usr/etc/scada/utils'
-# sys.path.append(database_path)
-#import config
 import collections
 
 import datetime
@@ -76,7 +71,7 @@ class Main(tk.Tk):
         self.frames[ExpensiveGUI] = frame
         frame.grid(row=0, column=0, sticky="nsew")
 
-        # create a new window for Export Data GUI
+    # create a new window for Export Data GUI
     def new_window2(self):
         #self.newWindow.destroy()
         self.newWindow2 = tk.Toplevel(self)
@@ -86,7 +81,6 @@ class Main(tk.Tk):
 
 
 
-        
-
+    
 app = Main()
 app.mainloop()
