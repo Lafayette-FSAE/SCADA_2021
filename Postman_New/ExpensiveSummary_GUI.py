@@ -88,7 +88,7 @@ class ExpensiveGUI(tk.Frame):
             self.colPlace = 0
 
 
-        # exitButton = tk.Button(self, text="Exit", command = lambda: ExpensiveGUI_Frame.destory())
+        # exitButton = tk.Button(self, text="Exit", command = lambda: ExpensiveGUI.destory())
         # exitButton.grid(row = 20, column = 20, sticky = "w")
 
         ## button to go to ExportGUI

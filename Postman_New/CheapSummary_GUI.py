@@ -43,13 +43,10 @@ class CheapGUI(tk.Frame):
 
         self.dropDownMenu()
         self.listBox()
-        print("HERE")
+        #print("HERE")
 
 
-        
-
-
-
+    ## Create drop down menu for filtering options 
     def dropDownMenu(self): 
         OPTIONS = [
             "Last Hour",
@@ -68,13 +65,13 @@ class CheapGUI(tk.Frame):
         filterButton.grid(row = 0, column = 1, sticky = "w")
 
 
+    # Creates list box for timeStamps 
     def listBox(self): 
         # create scroll bar
         my_scrollbar = Scrollbar(self, orient = VERTICAL)
         my_scrollbar.grid(column=2,row=7,  sticky= "ns")
        
         # create list box for session entries
-        #my_listbox = tk.Listbox(self, exportselection=False)
         my_listbox = Listbox(self, yscrollcommand = my_scrollbar.set, width=55)
         
         # configure scroll bar to list box
@@ -82,30 +79,23 @@ class CheapGUI(tk.Frame):
 
         my_listbox.grid(column= 1, row = 7)
         my_listbox.bind("<<ListboxSelect>>", self.show_entry)
-        
-
-        # added sessions to list for TESTING PURPOSES
-        #self.my_list = ["--"]
+    
 
         for i in range(len(self.timeStampList)):
             self.my_list.append( str(self.timeStampList[i][0]) + '           '+'Duration: ' + str(self.durationList[i]))
 
-
-        # while i < 20:
-        #     my_list.append("newSesh")
-        #     i= i+ 1
         
         for item in self.my_list: 
             my_listbox.insert(END, item)
 
 
-    ## sets and shows the session clicked on by user
+    ## Method sets and shows the session clicked on by user
     def show_entry(self, event):
         listbox = event.widget
         index = listbox.curselection()
         value = listbox.get(index[0])
         item = self.my_list.index(value)
-        print("ITEM: " + str(item))
+        #print("ITEM: " + str(item))
 
         sessionTimeStamps = self.timeStampList[item]
         self.controller.cheapSummaryVars["session"] = value
@@ -113,30 +103,21 @@ class CheapGUI(tk.Frame):
         self.controller.cheapSummaryVars["sessionEnd"] = sessionTimeStamps[1]
 
         
-
-
-        
-        print("timestamp: " + str(sessionTimeStamps))
-        print(value)
-        # sessionString = self.controller.cheapSummaryVars["session"]
-        # #sessionString.split('           Duration: ')
-        # sessionString.split()
-        # print("session STRING" + str(sessionString))
-        # print(sessionString[0])
-        # print(sessionString[1])
+        # print("timestamp: " + str(sessionTimeStamps))
+        # print(value)
 
 
    
 
 
-    ## this method will remove sessions from the session box displayed on screen 
+    ## Method will remove sessions from the session box displayed on screen 
     ## depeding on which option the user selected frmo the options menu
     def updateScreen(self, filterVar): 
         
         # set the filterBy varriable 
         self.controller.cheapSummaryVars["filterBy"] = filterVar
         print(str(self.controller.cheapSummaryVars["filterBy"]))
-        self.showCheapDescription()
+        #self.showCheapDescription()
 
         # add condition statements depending on filterVar
         # ...
@@ -144,16 +125,15 @@ class CheapGUI(tk.Frame):
         # elif filterVar == "1 Day":
         # elif filterVar == "1 Week":
         # elif filterVar == "1 Year":
-
-
-
-
-
-    #method to show the texual cheap description 
-    def showCheapDescription(self):
+        
+        
         moreDetailsButton = tk.Button(self, text="Show Details", command = lambda: self.controller.new_window()) 
-
         moreDetailsButton.grid(row = 3, column = 4)
+
+
+
+    # #method to show the texual cheap description 
+    # def showCheapDescription(self):
 
 
 

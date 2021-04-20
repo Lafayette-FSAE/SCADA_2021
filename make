@@ -34,6 +34,7 @@ cp calibrator/calibrator.py /usr/bin/scada_calibrator.py
 cp logger/logger.py /usr/bin/scada_logger.py
 cp watcher/watcher.py /usr/bin/scada_watcher.py
 cp GUI/MainGUI.py /usr/bin/scada_gui.py
+cp GUI/dash2.py /usr/bin/scada_dash.py
 
 # create a workspace and copy important files into it
 mkdir -p /usr/etc/scada
