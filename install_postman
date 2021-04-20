@@ -1,8 +1,6 @@
 #!/bin/bash
 
 pip3 install psycopg2
-
-#probably need
-
-#tkinter
-#openpyxl
+pip3 install pandas
+pip3 install tkinter
+pip3 install openpyxl
