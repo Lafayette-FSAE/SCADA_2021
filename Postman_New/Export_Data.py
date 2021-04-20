@@ -133,7 +133,8 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
     samplePeriods, displayVariables = getSensorInfo(sensorNames)
 
     #create an index to be shared by all sensor data
-    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDes * 1000)).to_series()
+    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%fms' % (samplePeriodDes * 1000)))
+    sharedIndex = sharedIndex.to_series()
 
     # generates empty list of lists to store new (processed) data in
     processedData = [[] for _ in range(len(sensorNames))]
@@ -181,11 +182,11 @@ def getSensorInfo(sensorNames):
 #interpolates data at a frequency 100 times higher than desired and then converts back to the desired frequency
 def interpolateData(data, samplePeriodDes):
 
-    return data.resample('%ims' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate().asfreq(samplePeriodDes)
+    return data.resample('%fms' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate().asfreq('%fms' % ((samplePeriodDes * 1000)))
 
 #converts index of data to what it ideally should have been and forward fills and then converts to the desired index without filling empty slots
 def shiftData(data, index, sensorSamplePeriod):
-    oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%ims' % (sensorSamplePeriod * 1000))).to_series()
+    oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%fms' % (sensorSamplePeriod * 1000))).to_series()
     outputData = data.reindex_like(oldIndex, method = 'ffill')
     #forward fill doesn't always keep the last value so the last value is manually inserted
     outputData[-1] = data[-1]
@@ -193,7 +194,7 @@ def shiftData(data, index, sensorSamplePeriod):
 
 #resamples at the data at the sample period and forward fills the empy slots
 def undifferentiateData(data, sensorSamplePeriod):
-    outputData = data.resample('%ims' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
+    outputData = data.resample('%fms' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
     #forward fill doesn't always keep the last value so the last value is manually inserted
     outputData[-1] = data[-1]
     return outputData
@@ -237,7 +238,7 @@ print("output: \n%s\n" % data)
 # pd.Series(data = map(float,inputdata), index = inputindex).plot(style = 'ob')
 # plt.legend(['output','input'], loc = 'upper left')
 # plt.show()
-# sharedIndex = pd.date_range(start = timestampBegin, end = timestampEnd, freq = ('%ims' % 1000)).to_series()
+# sharedIndex = pd.date_range(start = timestampBegin, end = timestampEnd, freq = ('%fms' % 1000)).to_series()
 # data = interpolateData(sensorData[0], sharedIndex,.5, 1)
 # print("last val: %s" % data[-1])
 # print("unshifted: ")
