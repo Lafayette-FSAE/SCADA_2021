@@ -140,18 +140,17 @@ class CheapGUI(tk.Frame):
 
         # add condition statements depending on filterVar
         # ...
+        # if filterVar == "Last Hour":
+        # elif filterVar == "1 Day":
+        # elif filterVar == "1 Week":
+        # elif filterVar == "1 Year":
+
+
+
 
 
     #method to show the texual cheap description 
     def showCheapDescription(self):
-        # moreDetailsButton = tk.Button(self, text="Okay", command = lambda: self.controller.new_frame("ExpensiveGUI"))
-        # moreDetailsButton.grid(row = 3, column = 3)
-        
-        ## NOTEE: you need () at the end of the method command !!!!
-
-
-        # self.controller.cheapSummaryVars["sessionStart"] = sessionString[0]
-        # self.controller.cheapSummaryVars["sessionEnd"] = sessionString[1]
         moreDetailsButton = tk.Button(self, text="Show Details", command = lambda: self.controller.new_window()) 
 
         moreDetailsButton.grid(row = 3, column = 4)

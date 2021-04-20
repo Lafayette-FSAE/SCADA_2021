@@ -61,7 +61,6 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     # processedData = dummyList
     # print ('dummyList: ' + str(dummyList))
     # sensorNames = dummyNames
-    #####################################
 
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -84,6 +83,7 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     # chart = openpyxl.chart.LineChart()
     # for i in range(len(dummyList)-1):
     #     y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(processedData[0])+1)
+    #     title = openpyxl.
     #     print('y_data:')
     #     print(y_data)
     #     s = openpyxl.chart.Series(y_data, xvalues = x_data)
@@ -98,7 +98,6 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     
     
     # ws.add_chart(chart, "E15")
-
 
     filePath = filePath + '.xlsx'
     wb.save(filePath)
