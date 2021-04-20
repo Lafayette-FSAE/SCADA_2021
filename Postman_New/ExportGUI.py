@@ -14,13 +14,14 @@ config_path = os.path.join(lib_path, 'config')
 sys.path.append(config_path)
 
 import Extract_Data
-# import Export_Data
+import Export_Data
 
 import config
 
 MED_FONT = ("Times New Roman", 14)
 
-class ExportGUI_Frame(tk.Tk):
+# Needed to use tk.Frame in order to make a new window!!!
+class ExportGUI_Frame(tk.Frame):
 
     # def __init__(self, *args, **kwargs):
     #     tk.Tk.__init__(self, *args, **kwargs)
@@ -29,23 +30,22 @@ class ExportGUI_Frame(tk.Tk):
         
 
         self.controller = controller
-        self.parent = parent 
+        #self.parent = parent 
 
-        # temporary for testing 
         self.screenWidth = 900
         self.screenHeight = 900
+        
+        self.container = tk.Frame(self, width = self.screenWidth, height = self.screenHeight)
 
         ## classs specific varibles
         self.row_place = 0 
         self.chosenSensors = []
         self.sensorList = []
 
-
-
         pathLabel = tk.Label(self, text = "File Path: ", font= MED_FONT)
         pathLabel.grid(row = 20, column = 0,  sticky = "w")
 
-        defaultPath = "/ScadaRepo/SCADA_2021/Postman_New"
+        defaultPath = "C:/Users/adamd/OneDrive/Documents/School/Car/SCADA_2021/Postman_New"
 
         self.pathEntryBox = tk.Entry(self, width = 30)
         self.pathEntryBox.insert(0, defaultPath)
@@ -55,14 +55,8 @@ class ExportGUI_Frame(tk.Tk):
         fileNameLabel.grid(row = 21, column = 0,  sticky = "w")
 
         # datetime object containing current date and time
-        self.now = datetime.now()
-        # dd/mm/YY H:M:S
-        self.dt_string = self.now.strftime("%d/%m/%Y-%H:%M:%S")
-
-        self.fileNameEntryBox = tk.Entry(self, width = 30)
-        self.fileNameEntryBox.insert(0, self.dt_string)
-        self.fileNameEntryBox.grid( row = 21, column = 1)
-
+        self.updateTime()
+        
         samplePeriodLabel = tk.Label(self, text = "Note: Sample Period cannot be smaller than 1ms ", font= MED_FONT)
         samplePeriodLabel.grid(row = 22, column = 0,  sticky = "w")
 
@@ -72,7 +66,6 @@ class ExportGUI_Frame(tk.Tk):
         self.samplePeriodLabelEntryBox = tk.Entry(self, width = 20)
         self.samplePeriodLabelEntryBox.grid( row = 23, column = 1)
 
-
         extractDataButton = tk.Button(self, text="Export Data", command = lambda: self.exportData()) 
         extractDataButton.grid(row = 23, column = 20)
 
@@ -80,20 +73,18 @@ class ExportGUI_Frame(tk.Tk):
         self.addSensor()
 
 
+    # Method gets list of sensors from the config file and stores them in sensorList 
     def getSensors(self): 
         config.load(forceLoad=True)
         yahurd = config.get('Sensors')
 
         for sen in yahurd:
-            # print("sen" + str(sen))
             self.sensorList.append(sen)
 
-
+    ## Method creates drop down menu and allows user to select 
+    ## Muliple sensors to be exported
     def addSensor(self): 
 
-        ## drop down menu for sensors in that session from the database 
-        ## maybe make method in Export_Data to return a list of sensors in that session 
-    
         SENSORS = self.sensorList
         var = StringVar(self)
         var.set("---") # default value
@@ -106,6 +97,7 @@ class ExportGUI_Frame(tk.Tk):
 
         self.row_place = self.row_place + 1
 
+    # Method saves currently selected variables on GUI before exporting 
     def saveVars(self, listvariable):
 
         if(listvariable == "---"):
@@ -123,16 +115,9 @@ class ExportGUI_Frame(tk.Tk):
             self.addSensor()
 
 
-    def updateTime(self): 
-         #update the time for the fileName 
-        self.now = datetime.now()
-        self.dt_string = self.now.strftime("%d/%m/%Y-%H:%M:%S")
-        self.fileNameEntryBox = tk.Entry(self, width = 30)
-        self.fileNameEntryBox.insert(0, self.dt_string)
-        self.fileNameEntryBox.grid( row = 21, column = 1)
-
+    ## Method calls export data method from Export_Data Class 
     def exportData(self):
-        #pass 
+
         # update the time for the fileName
         self.updateTime()
         fileName = self.fileNameEntryBox.get()
@@ -154,21 +139,22 @@ class ExportGUI_Frame(tk.Tk):
             timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
             print(str(timestampBegin))
 
-            # timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
-            # timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
-            # samplePeriod = self.samplePeriodLabelEntryBox.get()
-            # fileName = self.fileNameEntryBox.get()
-            # sensorDataList = [] 
-            # for i in self.chosenSensors:
-            #     sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
-            #     sensorDataList.append(sensorData)
+            timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
+            timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
+            samplePeriod = self.samplePeriodLabelEntryBox.get()
+            fileName = self.fileNameEntryBox.get()
+            sensorDataList = [] 
+            for i in self.chosenSensors:
+                sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
+                sensorDataList.append(sensorData)
             
-            # Export_Data.export(self.chosenSensors, sensorDataList, timestampBegin, timeStampEnd, samplePeriod,  fileName)
+            Export_Data.export(self.chosenSensors, sensorDataList, timestampBegin, timeStampEnd, int(samplePeriod),  fileName)
             self.popup_msg("Export Complete!")
 
 
 
 ##--------- HELPER METHODS---------------------------------------
+    # Displays popup window for error handling and fail saves
     def popup_msg(self, msg):
         popup = tk.Tk()
         popup.wm_title("!")
@@ -177,10 +163,21 @@ class ExportGUI_Frame(tk.Tk):
         label.grid(row=0, column = 3)
         B1 = ttk.Button(popup, text="Okay", command = popup.destroy)
         B1.grid(row = 3, column = 3)
+ 
+ 
+    # Helper method to update the time for the fileName to most recent time before exporting 
+    def updateTime(self): 
+         #update the time for the fileName 
+        self.now = datetime.now()
+        self.dt_string = self.now.strftime("%d_%m_%Y_%H_%M_%S")
+        self.fileNameEntryBox = tk.Entry(self, width = 30)
+        self.fileNameEntryBox.insert(0, self.dt_string)
+        self.fileNameEntryBox.grid( row = 21, column = 1)
+
 
 
 
     
- 
+## For tesing 
 # app = ExportGUI()
 # app.mainloop()
