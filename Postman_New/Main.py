@@ -78,11 +78,12 @@ class Main(tk.Tk):
 
         # create a new window for Export Data GUI
     def new_window2(self):
-        #self.new_window.destroy()
+        #self.newWindow.destroy()
         self.newWindow2 = tk.Toplevel(self)
-        frame = ExportGUI_Frame(self.newWindow2, self)
-        self.frames[ExportGUI_Frame] = frame
-        frame.grid(row=0, column=0, sticky="nsew")
+        self.app = ExportGUI_Frame(self.newWindow2, self)
+        #frame = ExportGUI_Frame(self.newWindow2, self)
+        #self.frames[ExportGUI_Frame] = frame
+        #frame.grid(row=0, column=0, sticky="nsew")
 
 
         
