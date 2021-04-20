@@ -17,7 +17,7 @@ import datetime
 import ctypes  # for screen size
 from CheapSummary_GUI import CheapGUI
 from ExpensiveSummary_GUI import ExpensiveGUI
-from ExportGUI import ExportGUI
+from ExportGUI import ExportGUI_Frame
 
 
 LARGE_FONT = ("Times New Roman", 12)
@@ -80,8 +80,8 @@ class Main(tk.Tk):
     def new_window2(self):
         #self.new_window.destroy()
         self.newWindow2 = tk.Toplevel(self)
-        frame = ExportGUI(self.newWindow2, self)
-        self.frames[ExportGUI] = frame
+        frame = ExportGUI_Frame(self.newWindow2, self)
+        self.frames[ExportGUI_Frame] = frame
         frame.grid(row=0, column=0, sticky="nsew")
 
 
