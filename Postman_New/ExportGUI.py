@@ -29,11 +29,13 @@ class ExportGUI_Frame(tk.Tk):
         
 
         self.controller = controller
-        self.parent = parent 
+        #self.parent = parent 
 
         # temporary for testing 
-        # self.screenWidth = 900
-        # self.screenHeight = 900
+        self.screenWidth = 900
+        self.screenHeight = 900
+        
+        self.container = tk.Frame(self, width = self.screenWidth, height = self.screenHeight)
 
         ## classs specific varibles
         self.row_place = 0 
