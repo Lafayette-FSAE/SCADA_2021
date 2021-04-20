@@ -62,44 +62,47 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     # print ('dummyList: ' + str(dummyList))
     # sensorNames = dummyNames
     
+############----------------------------------------- START COMMENT 
 
-    wb = openpyxl.Workbook()
-    ws = wb.active
+    # wb = openpyxl.Workbook()
+    # ws = wb.active
 
-    # build headers list
-    headers = sensorNames
-    # insert time heading on left side of row
-    headers.insert(0, 'Timestamp')
-    #add headers to Excel sheet
-    ws.append(headers)
+    # # build headers list
+    # headers = sensorNames
+    # # insert time heading on left side of row
+    # headers.insert(0, 'Timestamp')
+    # #add headers to Excel sheet
+    # ws.append(headers)
 
-    #add real data to Excel sheet
-    for row in zip(*processedData):
-        print('row:' + str(row))
-        ws.append(row)
+    # #add real data to Excel sheet
+    # for row in zip(*processedData):
+    #     print('row:' + str(row))
+    #     ws.append(row)
 
-    x_data = openpyxl.chart.Reference(ws, min_col=1, min_row=2, max_row=len(processedData[0])+1)
-    print('x_data:')
-    print(x_data)
-    chart = openpyxl.chart.LineChart()
-    for i in range(len(dummyList)-1):
-        y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(processedData[0])+1)
-        title = openpyxl.
-        print('y_data:')
-        print(y_data)
-        s = openpyxl.chart.Series(y_data, xvalues = x_data)
-        # print(s)
-        chart.append(s)
-    sensorNames = openpyxl.chart.Reference(ws, min_col=2, min_row=2, max_row=len(processedData))
-    chart.set_categories(sensorNames)    
-
-    # values = openpyxl.chart.Reference(ws, min_col=1, min_row=1, max_col=6, max_row=6)
+    # x_data = openpyxl.chart.Reference(ws, min_col=1, min_row=2, max_row=len(processedData[0])+1)
+    # print('x_data:')
+    # print(x_data)
     # chart = openpyxl.chart.LineChart()
-    # chart.add_data(values, titles_from_data=True)
-    
-    
-    ws.add_chart(chart, "E15")
+    # for i in range(len(dummyList)-1):
+    #     y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(processedData[0])+1)
+    #     title = openpyxl.
+    #     print('y_data:')
+    #     print(y_data)
+    #     s = openpyxl.chart.Series(y_data, xvalues = x_data)
+    #     # print(s)
+    #     chart.append(s)
+    # sensorNames = openpyxl.chart.Reference(ws, min_col=2, min_row=2, max_row=len(processedData))
+    # chart.set_categories(sensorNames)    
 
+    # # values = openpyxl.chart.Reference(ws, min_col=1, min_row=1, max_col=6, max_row=6)
+    # # chart = openpyxl.chart.LineChart()
+    # # chart.add_data(values, titles_from_data=True)
+    
+    
+    # ws.add_chart(chart, "E15")
+
+
+############----------------------------------------- END COMMENT 
 
     filePath = filePath + '.xlsx'
     wb.save(filePath)

@@ -14,20 +14,26 @@ config_path = os.path.join(lib_path, 'config')
 sys.path.append(config_path)
 
 import Extract_Data
-import Export_Data
+# import Export_Data
 
 import config
 
-MED_FONT = ("Times New Roman", 12)
+MED_FONT = ("Times New Roman", 14)
 
 class ExportGUI(tk.Tk):
 
-    def __init__(self, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     tk.Tk.__init__(self, *args, **kwargs)
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        
+
+        self.controller = controller
+        self.parent = parent 
 
         # temporary for testing 
-        self.screenWidth = 700
-        self.screenHeight = 700
+        self.screenWidth = 900
+        self.screenHeight = 900
 
         ## classs specific varibles
         self.row_place = 0 
@@ -41,30 +47,34 @@ class ExportGUI(tk.Tk):
 
         defaultPath = "/ScadaRepo/SCADA_2021/Postman_New"
 
-        pathEntryBox = tk.Entry(self, width = 30)
-        pathEntryBox.insert(0, defaultPath)
-        pathEntryBox.grid( row = 20, column = 1)
+        self.pathEntryBox = tk.Entry(self, width = 30)
+        self.pathEntryBox.insert(0, defaultPath)
+        self.pathEntryBox.grid( row = 20, column = 1)
 
         fileNameLabel = tk.Label(self, text = "File Name: ", font= MED_FONT)
         fileNameLabel.grid(row = 21, column = 0,  sticky = "w")
 
         # datetime object containing current date and time
-        now = datetime.now()
+        self.now = datetime.now()
         # dd/mm/YY H:M:S
-        dt_string = now.strftime("%d/%m/%Y-%H:%M:%S")
+        self.dt_string = self.now.strftime("%d/%m/%Y-%H:%M:%S")
 
         self.fileNameEntryBox = tk.Entry(self, width = 30)
+        self.fileNameEntryBox.insert(0, self.dt_string)
         self.fileNameEntryBox.grid( row = 21, column = 1)
 
-        samplePeriodLabel = tk.Label(self, text = "Sample Period: ", font= MED_FONT)
+        samplePeriodLabel = tk.Label(self, text = "Note: Sample Period cannot be smaller than 1ms ", font= MED_FONT)
         samplePeriodLabel.grid(row = 22, column = 0,  sticky = "w")
 
+        samplePeriodLabel = tk.Label(self, text = "Sample Period (in seconds): ", font= MED_FONT)
+        samplePeriodLabel.grid(row = 23, column = 0,  sticky = "w")
+
         self.samplePeriodLabelEntryBox = tk.Entry(self, width = 20)
-        self.samplePeriodLabelEntryBox.grid( row = 22, column = 1)
+        self.samplePeriodLabelEntryBox.grid( row = 23, column = 1)
 
 
         extractDataButton = tk.Button(self, text="Export Data", command = lambda: self.exportData()) 
-        extractDataButton.grid(row = 22, column = 20)
+        extractDataButton.grid(row = 23, column = 20)
 
         self.getSensors()
         self.addSensor()
@@ -88,8 +98,8 @@ class ExportGUI(tk.Tk):
         var = StringVar(self)
         var.set("---") # default value
 
-        sensorMenu = OptionMenu(self, var, *SENSORS)
-        sensorMenu.grid(row = self.row_place, column = 0)
+        self.sensorMenu = OptionMenu(self, var, *SENSORS)
+        self.sensorMenu.grid(row = self.row_place, column = 0)
 
         self.addSensorButton = tk.Button(self, text="Add Sensor", command = lambda: self.saveVars(var.get())) 
         self.addSensorButton.grid(row = self.row_place, column = 1)
@@ -99,45 +109,71 @@ class ExportGUI(tk.Tk):
     def saveVars(self, listvariable):
 
         if(listvariable == "---"):
-            self.popup_msg()
+            self.popup_msg("User Must Select a Sensor from List")
             
         else: 
             self.addSensorButton.destroy()
             print("varGet : " + str(listvariable))
             self.chosenSensors.append(listvariable)
 
-            ## call addcheckBoxes() here 
+            #disable changes to currently selected sensors 
+            self.sensorMenu.configure(state="disabled")
+            #update the time for the fileName 
+            self.updateTime()
             self.addSensor()
 
 
+    def updateTime(self): 
+         #update the time for the fileName 
+        self.now = datetime.now()
+        self.dt_string = self.now.strftime("%d/%m/%Y-%H:%M:%S")
+        self.fileNameEntryBox = tk.Entry(self, width = 30)
+        self.fileNameEntryBox.insert(0, self.dt_string)
+        self.fileNameEntryBox.grid( row = 21, column = 1)
 
     def exportData(self):
-        #def getSensorData(sensor_id, timeStampBegin, timeStampEnd):
-        timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
-        timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
-        samplePeriod = self.samplePeriodLabelEntryBox.get()
+        #pass 
+        # update the time for the fileName
+        self.updateTime()
         fileName = self.fileNameEntryBox.get()
-        sensorDataList = [] 
-        for i in self.sensorList:
-            sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
-            sensorDataList.append(sensorData)
+        samplePeriod = self.samplePeriodLabelEntryBox.get()
+
+        ## Fail Safe Checks
+        if not self.samplePeriodLabelEntryBox.get():
+            self.popup_msg("Sample Period Field is Empty!")
+        elif not self.fileNameEntryBox.get():
+            self.popup_msg("File Name Field is Empty!")
+        elif not self.pathEntryBox.get():
+            self.popup_msg("File Path Field is Empty!")
+        elif not self.chosenSensors: 
+            self.popup_msg("User Must Select Sensors")
         
-        Export_Data.export(self.sensorList, sensorDataList, timestampBegin, timeStampEnd, samplePeriod,  fileName)
+        else:
+            print(str(fileName))
+            print(str(samplePeriod))
+            timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
+            print(str(timestampBegin))
 
-    #export from Export_Data 
-
-    ## sample rate -- freq for data output in seconds 
-    ## cant be smaller than 1 ms 
-
+            # timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
+            # timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
+            # samplePeriod = self.samplePeriodLabelEntryBox.get()
+            # fileName = self.fileNameEntryBox.get()
+            # sensorDataList = [] 
+            # for i in self.chosenSensors:
+            #     sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
+            #     sensorDataList.append(sensorData)
+            
+            # Export_Data.export(self.chosenSensors, sensorDataList, timestampBegin, timeStampEnd, samplePeriod,  fileName)
+            self.popup_msg("Export Complete!")
 
 
 
 ##--------- HELPER METHODS---------------------------------------
-    def popup_msg(self):
+    def popup_msg(self, msg):
         popup = tk.Tk()
         popup.wm_title("!")
 
-        label = tk.Label(popup, text="User Must Select a Sensor from List", font=MED_FONT)
+        label = tk.Label(popup, text=msg, font=MED_FONT)
         label.grid(row=0, column = 3)
         B1 = ttk.Button(popup, text="Okay", command = popup.destroy)
         B1.grid(row = 3, column = 3)
