@@ -146,5 +146,5 @@ class ExportGUI(tk.Tk):
 
     
  
-app = ExportGUI()
-app.mainloop()
+# app = ExportGUI()
+# app.mainloop()
