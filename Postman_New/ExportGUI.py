@@ -156,16 +156,16 @@ class ExportGUI_Frame(tk.Frame):
             timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
             print(str(timestampBegin))
 
-            # timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
-            # timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
-            # samplePeriod = self.samplePeriodLabelEntryBox.get()
-            # fileName = self.fileNameEntryBox.get()
-            # sensorDataList = [] 
-            # for i in self.chosenSensors:
-            #     sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
-            #     sensorDataList.append(sensorData)
+            timestampBegin = self.controller.cheapSummaryVars["sessionStart"] 
+            timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"] 
+            samplePeriod = self.samplePeriodLabelEntryBox.get()
+            fileName = self.fileNameEntryBox.get()
+            sensorDataList = [] 
+            for i in self.chosenSensors:
+                sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
+                sensorDataList.append(sensorData)
             
-            # Export_Data.export(self.chosenSensors, sensorDataList, timestampBegin, timeStampEnd, samplePeriod,  fileName)
+            Export_Data.export(self.chosenSensors, sensorDataList, timestampBegin, timeStampEnd, samplePeriod,  fileName)
             self.popup_msg("Export Complete!")
 
 
