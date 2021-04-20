@@ -82,8 +82,8 @@ class Main(tk.Tk):
         self.newWindow2 = tk.Toplevel(self)
         self.app = ExportGUI_Frame(self.newWindow2, self)
         #frame = ExportGUI_Frame(self.newWindow2, self)
-        #self.frames[ExportGUI_Frame] = frame
-        #frame.grid(row=0, column=0, sticky="nsew")
+        self.frames[ExportGUI_Frame] = self.app
+        self.app.grid(row=0, column=0, sticky="nsew")
 
 
         

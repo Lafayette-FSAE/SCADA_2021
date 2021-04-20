@@ -32,8 +32,8 @@ class ExportGUI_Frame(tk.Tk):
         self.parent = parent 
 
         # temporary for testing 
-        self.screenWidth = 900
-        self.screenHeight = 900
+        # self.screenWidth = 900
+        # self.screenHeight = 900
 
         ## classs specific varibles
         self.row_place = 0 
