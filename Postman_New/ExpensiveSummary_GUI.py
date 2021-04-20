@@ -20,6 +20,7 @@ import time
 import datetime
 import Extract_Data
 import statistics
+from ExportGUI import ExportGUI_Frame
 
 # data = redis.Redis(host='localhost', port=6379, db=0)
 
@@ -87,8 +88,8 @@ class ExpensiveGUI(tk.Frame):
             self.colPlace = 0
 
 
-        exitButton = tk.Button(self, text="Exit", command = lambda: ExpensiveGUI.destory())
-        exitButton.grid(row = 20, column = 20, sticky = "w")
+        # exitButton = tk.Button(self, text="Exit", command = lambda: ExpensiveGUI_Frame.destory())
+        # exitButton.grid(row = 20, column = 20, sticky = "w")
 
         ## button to go to ExportGUI
         pickSensorButton = tk.Button(self, text = "Confirm Sensors for Export" , command = lambda: self.controller.new_window2())
