@@ -62,7 +62,10 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     # print ('dummyList: ' + str(dummyList))
     # sensorNames = dummyNames
     
+<<<<<<< HEAD
 ############----------------------------------------- START COMMENT 
+=======
+>>>>>>> f34b33f0ef9456e20c3c7202ea817ba036929327
 
     # wb = openpyxl.Workbook()
     # ws = wb.active
@@ -85,7 +88,10 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     # chart = openpyxl.chart.LineChart()
     # for i in range(len(dummyList)-1):
     #     y_data = openpyxl.chart.Reference(ws, min_col=i+2, min_row=2, max_row=len(processedData[0])+1)
+<<<<<<< HEAD
     #     title = openpyxl.
+=======
+>>>>>>> f34b33f0ef9456e20c3c7202ea817ba036929327
     #     print('y_data:')
     #     print(y_data)
     #     s = openpyxl.chart.Series(y_data, xvalues = x_data)
@@ -100,12 +106,15 @@ def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDe
     
     
     # ws.add_chart(chart, "E15")
+<<<<<<< HEAD
 
+=======
+>>>>>>> f34b33f0ef9456e20c3c7202ea817ba036929327
 
 ############----------------------------------------- END COMMENT 
 
-    filePath = filePath + '.xlsx'
-    wb.save(filePath)
+    # filePath = filePath + '.xlsx'
+    # wb.save(filePath)
 
 
 def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePeriodDes):
@@ -137,7 +146,8 @@ def processData(sensorNames, sensorData, timeStampBegin, timeStampEnd, samplePer
     samplePeriods, displayVariables = getSensorInfo(sensorNames)
 
     #create an index to be shared by all sensor data
-    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%ims' % samplePeriodDes * 1000)).to_series()
+    sharedIndex = pd.date_range(start = timeStampBegin, end = timeStampEnd, freq = ('%fms' % (samplePeriodDes * 1000)))
+    sharedIndex = sharedIndex.to_series()
 
     # generates empty list of lists to store new (processed) data in
     processedData = [[] for _ in range(len(sensorNames))]
@@ -185,11 +195,11 @@ def getSensorInfo(sensorNames):
 #interpolates data at a frequency 100 times higher than desired and then converts back to the desired frequency
 def interpolateData(data, samplePeriodDes):
 
-    return data.resample('%ims' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate().asfreq(samplePeriodDes)
+    return data.resample('%fms' % ((samplePeriodDes * 1000)/100), origin = 'start').mean().interpolate().asfreq('%fms' % ((samplePeriodDes * 1000)))
 
 #converts index of data to what it ideally should have been and forward fills and then converts to the desired index without filling empty slots
 def shiftData(data, index, sensorSamplePeriod):
-    oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%ims' % (sensorSamplePeriod * 1000))).to_series()
+    oldIndex = pd.date_range(start = index.index[0], end = index.index[-1], freq = ('%fms' % (sensorSamplePeriod * 1000))).to_series()
     outputData = data.reindex_like(oldIndex, method = 'ffill')
     #forward fill doesn't always keep the last value so the last value is manually inserted
     outputData[-1] = data[-1]
@@ -197,7 +207,7 @@ def shiftData(data, index, sensorSamplePeriod):
 
 #resamples at the data at the sample period and forward fills the empy slots
 def undifferentiateData(data, sensorSamplePeriod):
-    outputData = data.resample('%ims' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
+    outputData = data.resample('%fms' % (sensorSamplePeriod * 1000), origin = 'start').ffill()
     #forward fill doesn't always keep the last value so the last value is manually inserted
     outputData[-1] = data[-1]
     return outputData
@@ -205,7 +215,7 @@ def undifferentiateData(data, sensorSamplePeriod):
 # THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
 # ip_address = config.get("Post_Processing").get("ip_address")
 # ip_address = '139.147.81.105'
-ip_address = '139.147.91.187'
+ip_address = '139.147.91.189'
 ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
 ## get cheap summary data 
 Extract_Data.initialize_database(ip_address)
@@ -214,13 +224,15 @@ timeData = Extract_Data.getTimeStamps()
 timeStamps = timeData[0]
 durations = timeData[1]
 
-thisSessionStamps = timeStamps[-2]
-relevantData = Extract_Data.getSensorData("emulator_tsi_drive_state", thisSessionStamps[0], thisSessionStamps[1])
-# print('data for ' + ex_sum_sensors[0] + ' follows')
+sensorTesting = "emulator_car_mph"
+
+thisSessionStamps = timeStamps[50]
+relevantData = Extract_Data.getSensorData(sensorTesting, thisSessionStamps[0], thisSessionStamps[1])
+print('data for '+ sensorTesting +' follows')
 print(str(relevantData))
 
 sensorNames = []
-sensorNames.append(ex_sum_sensors[0])
+sensorNames.append(sensorTesting)
 sensorData = []
 sensorData.append(relevantData)
 timestampBegin = thisSessionStamps[0]
@@ -232,14 +244,14 @@ timestampEnd = thisSessionStamps[1]
 
 print('tsb: %s\n tse %s' % (timestampBegin, timestampEnd))
 
-data = processData(['emulator_tsi_drive_state'], [sensorData[0]], timestampBegin, timestampEnd, .5)
+data = processData([sensorTesting], [sensorData[0]], timestampBegin, timestampEnd, .5)
 print("output: \n%s\n" % data)
 # data[0].plot(style = 'ok')
 # inputdata, inputindex = zip(*sensorData[0])
 # pd.Series(data = map(float,inputdata), index = inputindex).plot(style = 'ob')
 # plt.legend(['output','input'], loc = 'upper left')
 # plt.show()
-# sharedIndex = pd.date_range(start = timestampBegin, end = timestampEnd, freq = ('%ims' % 1000)).to_series()
+# sharedIndex = pd.date_range(start = timestampBegin, end = timestampEnd, freq = ('%fms' % 1000)).to_series()
 # data = interpolateData(sensorData[0], sharedIndex,.5, 1)
 # print("last val: %s" % data[-1])
 # print("unshifted: ")
@@ -249,3 +261,5 @@ print("output: \n%s\n" % data)
 # print("shifted: ")
 # print(data)
 # print('\n')
+
+#TESTING FOR EXPORT TO EXCEL PART
