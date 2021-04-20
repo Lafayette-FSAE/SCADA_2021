@@ -47,7 +47,7 @@ class ExportGUI_Frame(tk.Frame):
         pathLabel = tk.Label(self, text = "File Path: ", font= MED_FONT)
         pathLabel.grid(row = 20, column = 0,  sticky = "w")
 
-        defaultPath = "/ScadaRepo/SCADA_2021/Postman_New"
+        defaultPath = "C:/Users/adamd/OneDrive/Documents/School/Car/SCADA_2021/Postman_New"
 
         self.pathEntryBox = tk.Entry(self, width = 30)
         self.pathEntryBox.insert(0, defaultPath)
@@ -59,7 +59,7 @@ class ExportGUI_Frame(tk.Frame):
         # datetime object containing current date and time
         self.now = datetime.now()
         # dd/mm/YY H:M:S
-        self.dt_string = self.now.strftime("%d/%m/%Y-%H:%M:%S")
+        self.dt_string = self.now.strftime("%d_%m_%Y_%H_%M_%S")
 
         self.fileNameEntryBox = tk.Entry(self, width = 30)
         self.fileNameEntryBox.insert(0, self.dt_string)
@@ -128,7 +128,7 @@ class ExportGUI_Frame(tk.Frame):
     def updateTime(self): 
          #update the time for the fileName 
         self.now = datetime.now()
-        self.dt_string = self.now.strftime("%d/%m/%Y-%H:%M:%S")
+        self.dt_string = self.now.strftime("%d_%m_%Y_%H_%M_%S")
         self.fileNameEntryBox = tk.Entry(self, width = 30)
         self.fileNameEntryBox.insert(0, self.dt_string)
         self.fileNameEntryBox.grid( row = 21, column = 1)
@@ -165,7 +165,7 @@ class ExportGUI_Frame(tk.Frame):
                 sensorData = Extract_Data.getSensorData(i, timestampBegin,timeStampEnd)
                 sensorDataList.append(sensorData)
             
-            Export_Data.export(self.chosenSensors, sensorDataList, timestampBegin, timeStampEnd, samplePeriod,  fileName)
+            Export_Data.export(self.chosenSensors, sensorDataList, timestampBegin, timeStampEnd, int(samplePeriod),  fileName)
             self.popup_msg("Export Complete!")
 
 

@@ -18,7 +18,7 @@ import pandas as pd
 import Extract_Data
 
 
-def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes, filePath='./defaultFileName'):
+def export(sensorNames, sensorData, timestampBegin, timestampEnd, samplePeriodDes, filePath):
     '''
     main method of Export_Data module
 
@@ -250,5 +250,5 @@ print("output: \n%s\n" % data)
 # print('\n')
 
 #TESTING FOR EXPORT TO EXCEL PART
-print('About to test Excel Export:')
-export([sensorTesting], [sensorData[0]], timestampBegin, timestampEnd, .5)
+# print('About to test Excel Export:')
+# export([sensorTesting], [sensorData[0]], timestampBegin, timestampEnd, .5)
