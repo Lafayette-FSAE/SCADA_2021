@@ -15,6 +15,7 @@ import config
 from drivers import i2c_driver, emulated_driver
 from drivers import can_driver   #UNCOMMENT
 from drivers import usb7204_driver
+from drivers import gpio_driver
 
 SensorList = config.get('Sensors')
 emulating = config.get('emulation')
@@ -39,6 +40,8 @@ def read(Sensor):
         data = can_drive.read(Sensor)
     elif(sensor_protocol == 'USB7204'):
         data= usb7204_driver.read(Sensor)
+    elif(sensor_protocol == 'GPIO'):
+        data= gpio_driver.read(Sensor)
     elif(sensor_protocol == 'VIRTUAL'):
         data= 0
     elif(emulating and sensor_protocol == 'EMULATED'):
@@ -67,6 +70,8 @@ def write(Sensor,Value):
 #         usb_sorter.write(Sensor,Value)
     elif(emulating and sensor_protocol == 'EMULATED'):
         emulated_driver.write(Sensor,Value)
+    elif(sensor_protocol == 'GPIO'):
+        data= gpio_driver.write(Sensor,Value)
     else:
         return 'Sensor Protocol Not Found'
 
