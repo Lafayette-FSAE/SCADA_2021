@@ -188,23 +188,23 @@ IMU_Config_Constants:
 ## Tip: Recommended max 15 characters for var_name in order to avoid cutting off data on screen 
 Sensors:
 #USB sensors
-  usb_torque:
-    unit: 'Nm'
-    inputs:
-      Vin: usb_torque
-    cal_function: '101.7018*Vin + 145.5199'
-    bus_type: USB7204
-    primary_address: 1 #channel num
-    secondary_address: Null
-    #mouse
-    # primary_address: 0x413c #vendor id
-    # secondary_address: 0x301a #product id
-    precision: 2
-    display_variable: number 
-    description: "Torque value read from USB torque sensor"
-    bit_length: 16 #probably don't need this
-    sample_period: 1
-    var_name: usb_torque
+  # usb_torque:
+  #   unit: 'Nm'
+  #   inputs:
+  #     Vin: usb_torque
+  #   cal_function: '101.7018*Vin + 145.5199'
+  #   bus_type: USB7204
+  #   primary_address: 1 #channel num
+  #   secondary_address: Null
+  #   #mouse
+  #   # primary_address: 0x413c #vendor id
+  #   # secondary_address: 0x301a #product id
+  #   precision: 2
+  #   display_variable: number 
+  #   description: "Torque value read from USB torque sensor"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 1
+  #   var_name: usb_torque
 
 #emulated sensors
   # emulator_motor_temp:
