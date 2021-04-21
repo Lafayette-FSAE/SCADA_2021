@@ -670,7 +670,21 @@ Sensors:
   #   sample_period: 5
   #   var_name: PackSerial
       
-
+#GPIO  
+  scada_relay:
+      unit: ''
+      inputs:
+        In: scada_relay
+      cal_function: 'In'
+      bus_type: GPIO
+      primary_address: 7 #RELAY PIN NUMBER
+      secondary_address: [0x04]
+      precision: 0
+      display_variable: int  # type of data displayed on screen 
+      description: "This is Relay with Pi pin # 7 or GPIO4 pin"
+      bit_length: 16
+      sample_period: 1
+      var_name: scada_relay
 
 # I2C 
   rtc_time: 
