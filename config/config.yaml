@@ -18,7 +18,7 @@ can_nodes:
   #     id: 3
   #     eds_file:
   pack1:
-      id: 4
+      id: 10
       eds_file: 'Pack.eds'
   # pack2: 
   #     id: 5
