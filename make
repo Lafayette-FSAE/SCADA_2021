@@ -18,6 +18,7 @@ chmod +x scada
 chmod +x sorter/sorter.py
 chmod +x calibrator/calibrator.py
 chmod +x logger/logger.py
+chmod +x watcher/watcher.py
 chmod +x GUI/MainGUI.py
 
 
