@@ -23,10 +23,11 @@ class SensorEmulator():
         # calculate time into period
         timeElapsed = time.time()-self.periodStart
         # check to see if in new period
-        while timeElapsed > self.period:
-            # reset periodStart and timeElapsed for new period
-            self.periodStart = time.time()
-            timeElapsed = timeElapsed - self.period
+        if type(self) is not ConstantEmulator:
+            while timeElapsed > self.period:
+                # reset periodStart and timeElapsed for new period
+                self.periodStart = time.time()
+                timeElapsed = timeElapsed - self.period
         self.currValue = self.calculateValue(timeElapsed)
         print('about to return a current value of ' + str(self.currValue))
         return self.currValue
