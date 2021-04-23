@@ -35,6 +35,7 @@ cp logger/logger.py /usr/bin/scada_logger.py
 cp watcher/watcher.py /usr/bin/scada_watcher.py
 cp GUI/MainGUI.py /usr/bin/scada_gui.py
 cp GUI/dash2.py /usr/bin/scada_dash.py
+cp rtc_setup.py /usr/bin/scadartc_setup.py
 
 # create a workspace and copy important files into it
 mkdir -p /usr/etc/scada

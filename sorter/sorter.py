@@ -23,6 +23,8 @@ Redisdata = redis.Redis(host='localhost', port=6379, db=0)
 data = Redisdata.pubsub()
 data.subscribe('raw_data')
 
+os.system('sudo python3 /usr/bin/scadartc_setup.py')
+
 #Local Dictionary for Sensor Period Count
 SensorList = config.get('Sensors')
 

@@ -4,6 +4,7 @@ import smbus
 import redis
 import utils
 import time
+from datetime import datetime
 
 #Declariing i2C Bus
 bus = smbus.SMBus(1) ##CHNAGED BUS to 3 for debigging
@@ -55,6 +56,7 @@ def read_rtc(Sensor):
     try:
         sensor_address = config.get('Sensors').get(str(Sensor)).get('primary_address') 
         reg_address = config.get('Sensors').get(str(Sensor)).get('secondary_address')
+        FMT = '%Y-%m-%d %H:%M:%S'
 
         for i in range(len(config.get('Sensors').get(str(Sensor)).get('secondary_address'))):
             busval = bus.read_byte_data(sensor_address,reg_address[i])
@@ -70,9 +72,10 @@ def read_rtc(Sensor):
                 months_data = str(hex(((busval & 0xF0)>> 4))) + str(hex((busval & 0xF)))
             elif (i == 5):
                 years_data = str(hex(((busval & 0xF0)>> 4))) + str(hex((busval & 0xF)))
-
-        #return (years_data + ":" + months_data + ":" + days_data + ":" + hours_data + ":" + mins_data + ":" + seconds_data).replace("0x","")
-        return (hours_data + ":" + mins_data + ":" + seconds_data).replace("0x","")
+                
+        time_str = (years_data + "-" + months_data + "-" + days_data + " " + hours_data + ":" + mins_data + ":" + seconds_data).replace("0x","")
+        return datetime.strptime(time_str, FMT).timestamp()
+        #return (hours_data + ":" + mins_data + ":" + seconds_data).replace("0x","")
 
     except IOError:
         time.sleep(.0001)
