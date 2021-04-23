@@ -4,7 +4,7 @@ import config
 import redis
 import utils
 import time
-import Rpi.GPIO as GPIO
+#import Rpi.GPIO as GPIO
 #sudo apt-get install python-rpi.gpio
 #nano ledexample.py
 

@@ -72,8 +72,8 @@ def read_rtc(Sensor):
                 months_data = str(hex(((busval & 0xF0)>> 4))) + str(hex((busval & 0xF)))
             elif (i == 5):
                 years_data = str(hex(((busval & 0xF0)>> 4))) + str(hex((busval & 0xF)))
-                
-        time_str = (years_data + "-" + months_data + "-" + days_data + " " + hours_data + ":" + mins_data + ":" + seconds_data).replace("0x","")
+
+        time_str = ("20"+ years_data + "-" + months_data + "-" + days_data + " " + hours_data + ":" + mins_data + ":" + seconds_data).replace("0x","")
         return datetime.strptime(time_str, FMT).timestamp()
         #return (hours_data + ":" + mins_data + ":" + seconds_data).replace("0x","")
 
