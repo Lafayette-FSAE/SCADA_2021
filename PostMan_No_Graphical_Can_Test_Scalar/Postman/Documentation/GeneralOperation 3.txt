@@ -1,0 +1,24 @@
+(See Objects.txt for more information on Collectors,Actions, and collectionLists)
+Select session:
+    -Looks through the data table and determines the sessions available based on the scada:session entries.
+     Also collects data about each sessions: duration, start time, etc.
+    -Creates a GUI selectable list that holds the available sessions so that user can select the desired session
+    -Upon selecting (clicking on) a session from the list, the program collects the requested data and displays it in the report
+    -NOTE: Currently, only works on the single provided report template file
+
+Fill collectionLists based on the template:
+    -Goes through the template and extracts all the keys
+    -For each key, it checks if the Collector for the corresponding key's sensor already exists; if the Collector already exists:
+     add the Action for the key to the correct Collector. If the Collector didn't already exist: then create the Collector,
+     and add the key's Action to it.
+     (In short: create the action for each key and then associate it with the correct Collector)
+    -Now exists a list of collectionLists with a Collector and list of Actions
+
+Execute the actions in each collectionList:
+    -Run through each collectionList and execute each Action in the list of Actions (collecting the names/values)
+
+Create a copy of the template, and then replace the keys with the requested values from the collectionLists:
+    -Creates a copy of the template
+    -For each key in the template, replace it with the corresponding name/value from the collectionLists.
+    (search through the collectionLists and then their actions to find the corresponding keyname and then retrieve name/value)
+

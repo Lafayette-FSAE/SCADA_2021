@@ -2,7 +2,7 @@
 import tkinter as tk 
 from tkinter import *
 from tkinter import ttk 
-
+import sys, os
 config_path = '/usr/etc/scada/config'
 sys.path.append(config_path)
 
@@ -12,7 +12,8 @@ import config
 import yaml
 import collections
 import time
-import sys, os
+import subprocess
+
 import datetime
 from collections import defaultdict
 
@@ -64,6 +65,14 @@ class GUISetup(tk.Frame):
         # add spaces for asthetic purposes
         self.add_space(13, 4)
         self.add_space(14, 4)
+
+        ## add reseet button 
+        filePathReset ='/usr/etc/scada/GUI/resetButton.png'
+        img_1 = PhotoImage(file = filePathReset)  
+        reset_button = tk.Button(self, image = img_1,  command = lambda: self.runProcess())
+        reset_button.image=img_1
+        reset_button.grid(row = 18, column = 0, sticky = "w")
+
 
 
         ## create button image for Next Page
@@ -371,3 +380,9 @@ class GUISetup(tk.Frame):
         for key, value in sensor.items():
             if(key == "unit"):
                 return value
+
+    def runProcess(self): 
+        subprocess.run(["sudo", "bash", "make"])
+        python = sys.executable
+        os.execl(python, python, * sys.argv)
+
