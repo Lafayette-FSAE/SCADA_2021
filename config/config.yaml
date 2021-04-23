@@ -115,22 +115,22 @@ Display:
 
     Motor_Controller:
       - pack1_serialnumber
-      - motor_select_application
-      - motor_dc_link_circuit_voltage
-      - motor_throttle_voltage
-      - motor_controller_temp_over_23
-      - motor_controller_temp_fahrenheit
-      - motor_current_torque_actual
-      - motor_current_demand
-      - motor_electric_power
-      - motor_warnings
-      - motor_controller_temp
-      - motor_digital_inputs
-      - motor_velocity_actual_value
-      - motor_velocity_actual_avg
-      - motor_temp
-      - motor_flux_actual_current
-      - motor_status
+      # - motor_select_application
+      # - motor_dc_link_circuit_voltage
+      # - motor_throttle_voltage
+      # - motor_controller_temp_over_23
+      # - motor_controller_temp_fahrenheit
+      # - motor_current_torque_actual
+      # - motor_current_demand
+      # - motor_electric_power
+      # - motor_warnings
+      # - motor_controller_temp
+      # - motor_digital_inputs
+      # - motor_velocity_actual_value
+      # - motor_velocity_actual_avg
+      # - motor_temp
+      # - motor_flux_actual_current
+      # - motor_status
     
     EPAL_Demo:
       - emulator_bool_drive_signal
@@ -655,7 +655,7 @@ Sensors:
   #   sample_period: 5
   #   var_name: MC_temp>23
 
-  # pack1_serialnumber:
+  pack1_serialnumber:
     unit: ''
     inputs:
       in: pack1_serialnumber
