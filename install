@@ -43,7 +43,9 @@ echo '@/usr/bin/scada_gui.py' >> autostart
 cd /boot 
 echo 'dtoverlay=i2c-gpio,bus=3,i2c_gpio_sda=02,i2c_gpio_scl=03' >> config.txt
 
-
+# Adding the RTC setup file to rclocal for rtc setup on boot
+cd /etc
+echo 'sudo python3 /usr/bin/scadartc_setup.py' >> rc.local
 
 # Setup Can 
 cd /boot
