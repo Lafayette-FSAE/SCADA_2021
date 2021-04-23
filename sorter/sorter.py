@@ -16,7 +16,7 @@ import config
 import redis
 
 #Setting Up I2C Bus Connection 
-bus = smbus.SMBus(3) ##Currently On Bus 3 with clock stretching 
+bus = smbus.SMBus(1) ##Currently On Bus 3 with clock stretching 
 
 #Setting up connectiion to Redis Server
 Redisdata = redis.Redis(host='localhost', port=6379, db=0)
