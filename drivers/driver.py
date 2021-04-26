@@ -14,7 +14,7 @@ import config
 
 from drivers import i2c_driver, emulated_driver
 from drivers import can_driver   #UNCOMMENT
-# from drivers import usb7204_driver
+from drivers import usb7204_driver
 from drivers import gpio_driver
 
 SensorList = config.get('Sensors')
