@@ -43,7 +43,7 @@ ldconfig
 
 
 
-cd ../.. #go up 2 levels from SCADA_2021/usb_dependencies/mcc-libusb/ to SCADA_2021/
+cd ../../.. #go up 3 levels from SCADA_2021/drivers/usb_dependencies/mcc-libusb/ to SCADA_2021/
 
 #Creating GUI Startup Files 
 
@@ -53,7 +53,7 @@ sudo chmod +x GUI/MainGUI.py
 #sudo chmod +x /usr/etc/scada/GUI
 
 cd /usr/bin
-sudo chmod +x scada_gui.py
+sudo chmod +x scada_gui.py #NOTE TO TEAM: this doesn't work unless you've already run make
 cp -r /etc/xdg/lxsession /home/pi/.config
 cd /home/pi/.config/lxsession/LXDE-pi
 ## ADD the following line to the end of the file 
