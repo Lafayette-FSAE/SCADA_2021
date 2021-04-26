@@ -112,6 +112,9 @@ Display:
       - mag_raduis_lsb
       - mag_raduis_msb
       - st_result
+      - mag_x
+      - mag_y
+      - mag_z
 
     Motor_Controller:
       - pack1_serialnumber
@@ -981,6 +984,51 @@ Sensors:
     bit_length: 16 #probably don't need this
     sample_period: 0.2 #sample period in seconds
     var_name: gravity_z
+
+  mag_x:
+    unit: ''
+    inputs:
+      In: mag_x
+    cal_function: 'In'
+    bus_type: I2C
+    primary_address: 0x28
+    secondary_address: [0x0E,0x0F]
+    precision: 2
+    display_variable: number
+    description: "IMU Mag X Component"
+    bit_length: 16 #probably don't need this
+    sample_period: 0.2 #sample period in seconds
+    var_name: mag_x
+
+  mag_y:
+    unit: ''
+    inputs:
+      In: mag_y
+    cal_function: 'In'
+    bus_type: I2C
+    primary_address: 0x28
+    secondary_address: [0x10,0x11]
+    precision: 2
+    display_variable: number
+    description: "IMU Mag Y Component"
+    bit_length: 16 #probably don't need this
+    sample_period: 0.2 #sample period in seconds  
+    var_name: mag_y
+
+  mag_z:
+    unit: ''
+    inputs:
+      In: mag_z
+    cal_function: 'In'
+    bus_type: I2C
+    primary_address: 0x28
+    secondary_address: [0x12,0x13]
+    precision: 2
+    display_variable: number
+    description: "IMU Mag Z Component"
+    bit_length: 16 #probably don't need this
+    sample_period: 0.2 #sample period in seconds
+    var_name: mag_z
 
 #IMU Confiuratoin Registers 
 
