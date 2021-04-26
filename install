@@ -43,7 +43,7 @@ ldconfig
 
 
 
-cd ../.. #go up 2 levels from SCADA_2021/usb_dependencies/mcc-libusb/ to SCADA_2021/
+cd ../../..  #go up 3 levels from SCADA_2021/drivers/usb_dependencies/mcc-libusb/ to SCADA_2021/
 
 #Creating GUI Startup Files 
 
