@@ -38,8 +38,8 @@ def read(Sensor):
         data = i2c_driver.read(Sensor)
     elif(sensor_protocol =='CAN'):
         data = can_drive.read(Sensor)
-    # elif(sensor_protocol == 'USB7204'):
-        # data= usb7204_driver.read(Sensor)
+    elif(sensor_protocol == 'USB7204'):
+        data= usb7204_driver.read(Sensor)
     elif(sensor_protocol == 'GPIO'):
         data= gpio_driver.read(Sensor)
     elif(sensor_protocol == 'VIRTUAL'):
@@ -66,8 +66,8 @@ def write(Sensor,Value):
         i2c_driver.write(Sensor, Value)
     elif(sensor_protocol =='CAN'):
         can_drive.write(Sensor,Value)
-#     elif(sensor_protocol == 'USB'):
-#         usb_sorter.write(Sensor,Value)
+    elif(sensor_protocol == 'USB'):
+        usb7204_driver.write(Sensor,Value)
     elif(emulating and sensor_protocol == 'EMULATED'):
         emulated_driver.write(Sensor,Value)
     elif(sensor_protocol == 'GPIO'):
