@@ -1,4 +1,0 @@
-usb/fw/USBQuad06Fpga.lo: usb/fw/USBQuad06Fpga.c \
- /usr/include/stdc-predef.h
-
-/usr/include/stdc-predef.h:

@@ -1,3 +1,0 @@
-usb/fw/Usb26xxFpga.lo: usb/fw/Usb26xxFpga.c /usr/include/stdc-predef.h
-
-/usr/include/stdc-predef.h:
