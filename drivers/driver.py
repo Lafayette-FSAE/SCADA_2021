@@ -26,10 +26,6 @@ emulating = config.get('emulation')
 
 can_drive = can_driver.CanDriver() #TODO: Fix this ambiguous ass name  ##UNCOMENNETTTT!!!
 
-#Set RTC Time to Sys Time 
-#os.system ()
-
-
 # Method to read from the sesnor objects depending on protocol                
 def read(Sensor):
 #make it look at the folder for what protocol to use

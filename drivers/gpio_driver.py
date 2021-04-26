@@ -5,8 +5,7 @@ import redis
 import utils
 import time
 import RPi.GPIO as GPIO
-#sudo apt-get install python-rpi.gpio
-#nano ledexample.py
+
 
 #General method to read from GPIO value with primary adress as GPIO pin number
 def read(Sensor):

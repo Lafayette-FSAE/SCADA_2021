@@ -8,6 +8,7 @@ apt-get install redis-server
 apt-get install can-utils
 apt-get install i2c-tools
 apt-get install python-smbus
+sudo apt-get install python-rpi.gpio
 apt install python3-tk
 apt install postgresql libpq-dev postgresql-client postgresql-client-common -y
 # apt-get install python-usb python3-usb

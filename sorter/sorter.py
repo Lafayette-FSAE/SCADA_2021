@@ -70,6 +70,15 @@ def imu_setup():
         driver.write('opr_mode_reg',config.get('IMU_Config_Constants').get('NDOF_MODE'))
         time.sleep(0.7)
 
+## Methods to Configure the Pi time to RTC on boot
+def rtc_pitimesteup():
+    clk_id = time.CLOCK_REALTIME
+    t = time.clock_gettime(clk_id)
+
+    if (t < driver.read('rtc_time')): 
+        os.system('sudo python3 /usr/bin/scadartc_setup.py')
+        time.sleep(1)
+
 
 while True: 
     #for Sensors: <-- needs to be name of list of sensors
@@ -78,6 +87,8 @@ while True:
     ## IMU Setup
     imu_setup()
 
+    ## RTC Setup
+    rtc_pitimesteup()
 
     # Reading
     for sensorName in SensorList :
