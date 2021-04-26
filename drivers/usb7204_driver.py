@@ -21,7 +21,7 @@ import ctypes
 
 
 # Load the shared library from this folder into ctypes
-libname = pathlib.Path(__file__).parent.absolute() / "usb_driver_tests/mcc-libusb/libmccusb.so"
+libname = pathlib.Path(__file__).parent.absolute() / "usb_dependencies/mcc-libusb/libmccusb.so"
 c_lib = ctypes.CDLL(libname)
 # Set the return type of imported C methods
 c_lib.readChannel.restype = ctypes.c_double

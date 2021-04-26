@@ -29,7 +29,8 @@ pip3 install canopen
 cd drivers/usb_dependencies
 cp 61-mcc.rules /etc/udev/rules.d/99-mcc.rules
 
-cd hidapi 
+cd hidapi
+chmod +x bootstrap
 ./bootstrap
 ./configure
 make
