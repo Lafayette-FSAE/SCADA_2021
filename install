@@ -10,8 +10,9 @@ apt-get install i2c-tools
 apt-get install python-smbus
 apt install python3-tk
 apt install postgresql libpq-dev postgresql-client postgresql-client-common -y
-sudo apt-get install python-usb python3-usb
-
+# apt-get install python-usb python3-usb
+apt-get install libusb-1.0-0 libusb-1.0-0-dev
+apt-get install libudev-dev libfox-1.6-dev autotools-dev autoconf automake libtool
 
 # install python dependencies
 pip3 install python-can
@@ -22,8 +23,26 @@ pip3 install pyyaml
 pip3 install smbus
 pip install pyyaml #not sure why we need this, but we do
 pip3 install canopen
-pip3 install pyusb
+# pip3 install pyusb #pretty sure we can remove this
 
+#compiling USB driver C library dependencies
+cd drivers/usb_dependencies
+cp 61-mcc.rules /etc/udev/rules.d/99-mcc.rules
+
+cd hidapi 
+./bootstrap
+./configure
+make
+make install
+
+cd ../mcc-libusb
+make
+make install
+ldconfig
+
+
+
+cd ../.. #go up 2 levels from SCADA_2021/usb_dependencies/mcc-libusb/ to SCADA_2021/
 
 #Creating GUI Startup Files 
 
@@ -31,6 +50,7 @@ pip3 install pyusb
 #cd /usr/etc/scada/GUI 
 sudo chmod +x GUI/MainGUI.py 
 #sudo chmod +x /usr/etc/scada/GUI
+
 cd /usr/bin
 sudo chmod +x scada_gui.py
 cp -r /etc/xdg/lxsession /home/pi/.config
