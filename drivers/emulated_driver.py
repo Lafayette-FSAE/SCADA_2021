@@ -41,7 +41,7 @@ class ConstantEmulator(SensorEmulator):
         super().__init__(configDict)
         self.currValue = self.values
 
-    def calculateValue(self, timeElapsed):
+    def getValue(self):
         return self.currValue
         # done this way so that a different constant value can be written to the sensor
 
