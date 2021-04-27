@@ -1620,6 +1620,17 @@ Controls:
   #       sensor: motor_select_application
   #       value: 1
 
+  sloop_relay:
+    max_duration: 2
+    inputs:
+      temp: emulator_temperature
+    entry_condition:
+      str: 'temp > 70'
+      type: INSTANTANEOUS
+    action:
+      type: WRITE
+      sensor: scada_relay
+      value: 1
 
   epal_temp_warning:
     cooldown: 1
