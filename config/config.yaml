@@ -47,13 +47,15 @@ Display:
     2:
       - IMU_Config_Reg
       - IMU_Config_Reg2
-      - EPAL_Demo
+      - IMU_Config_Reg3
+      
     
     3: 
+      - EPAL_Demo
       - Motor_Controller
 
   Groups: 
-  # max 18 sensor per 1 group
+  # max 15 sensor per 1 group
   # Try to limit # of characters for Group name to avoid wasting space on screen
     I2C_Sensors:
       - emulator_tsi_drive_state
@@ -90,6 +92,8 @@ Display:
       - acc_xoffset_lsb
       - acc_xoffset_msb
       - acc_yoffset_lsb
+
+    IMU_Config_Reg2: 
       - acc_yoffset_msb
       - acc_zoffset_lsb
       - acc_zoffset_msb
@@ -101,7 +105,8 @@ Display:
       - mag_zoffset_msb
 
 
-    IMU_Config_Reg2:
+
+    IMU_Config_Reg3:
       - gyro_xoffset_lsb
       - gyro_xoffset_msb
       - gyro_yoffset_lsb
