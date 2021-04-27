@@ -73,7 +73,7 @@ class GUISetup(tk.Frame):
         img_1 = PhotoImage(file = filePathReset)  
         reset_button = tk.Button(self, image = img_1,  command = lambda: self.runProcess())
         reset_button.image=img_1
-        reset_button.grid(row = 18, column = 0, sticky = "w")
+        reset_button.grid(row = 30, column = 0, sticky = "w")
 
 
 
