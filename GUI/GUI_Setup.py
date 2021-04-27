@@ -16,6 +16,8 @@ import subprocess
 
 import datetime
 from collections import defaultdict
+## for reset button
+from tkinter import filedialog
 
 
 
@@ -384,8 +386,13 @@ class GUISetup(tk.Frame):
     def runProcess(self): 
         # pass
         #subprocess.run(["cd", ".."])
-        os.system('cd ..')
-        subprocess.run(["sudo", "bash", "make"])
+        # os.system('cd ..')
+        # global folder_path
+        # filename = filedialog.askdirectory()
+        # folder_path.set(filename)
+        # print(filename)
+
+        subprocess.run(["cd", "..", "sudo", "bash", "make"])
         python = sys.executable
         os.execl(python, python, * sys.argv)
 
