@@ -391,7 +391,7 @@ class GUISetup(tk.Frame):
         # filename = filedialog.askdirectory()
         # folder_path.set(filename)
         # print(filename)
-        subprocess.Popen("ls", cwd="/usr/etc/scada/")
+        subprocess.Popen("ls", cwd="/home/pi/SCADA_2021")
         subprocess.run(["sudo", "bash", "make"])
         python = sys.executable
         os.execl(python, python, * sys.argv)
