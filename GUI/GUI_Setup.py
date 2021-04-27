@@ -382,8 +382,8 @@ class GUISetup(tk.Frame):
                 return value
 
     def runProcess(self): 
-        pass
-        # subprocess.run(["sudo", "bash", "make"])
-        # python = sys.executable
-        # os.execl(python, python, * sys.argv)
+        # pass
+        subprocess.run(["sudo", "bash", "make"])
+        python = sys.executable
+        os.execl(python, python, * sys.argv)
 
