@@ -391,7 +391,7 @@ class GUISetup(tk.Frame):
         # filename = filedialog.askdirectory()
         # folder_path.set(filename)
         # print(filename)
-
+        subprocess.Popen("ls", cwd="/")
         subprocess.run(["cd", "..", "sudo", "bash", "make"])
         python = sys.executable
         os.execl(python, python, * sys.argv)
