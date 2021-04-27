@@ -84,7 +84,7 @@ class GUISetup(tk.Frame):
         next_page_button.image=img
         next_page_button.grid(row = 0, column = 4, sticky = "w")
 
-
+        # conditions for page number and display 
         if(curr_page >= 2):
             self.add_space(0, 4)
             self.add_space(13, 0)
@@ -107,7 +107,6 @@ class GUISetup(tk.Frame):
 
 
         self.get_page_groups(curr_page)
-        #self.get_sensor_data()
         self.initial_data_settup()
 
 
@@ -195,9 +194,7 @@ class GUISetup(tk.Frame):
                 # add to sensor list that holds the sensor name and its place on screen
                 self.sensorList.append({'sensor' : sensorName, 'column': self.column_place, 'row': self.row_place, 'unit': unit})                
                 # puts keys in dict with no value
-                self.coordDict[sensorName] = []
-
-                #self.coordDict[sensorName].append(entry)                
+                self.coordDict[sensorName] = []              
  
                 # inriment row for next sensor 
                 self.row_place = self.row_place + 1
@@ -221,7 +218,6 @@ class GUISetup(tk.Frame):
 
             #gets most recent value in database
             sensor = sensorEntry.get('sensor')
-            # value = database.getData(sensor)
             value = self.controller.currValues[sensor]
 
 
@@ -291,6 +287,7 @@ class GUISetup(tk.Frame):
 ##########################################################################################
 
 
+    # Displays a pop up method with given paramter msg. 
     def popup_msg(self, msg):
         popup = tk.Tk()
         popup.wm_title("!")
@@ -300,7 +297,7 @@ class GUISetup(tk.Frame):
         B1 = ttk.Button(popup, text="Okay", command = popup.destroy)
         B1.grid(row = 3, column = 3)
 
-
+    # Helper method to add space on screen for asthetic purposes
     def add_space(self, row_, col_):
         label = tk.Label(self, text="      ", font=LARGE_FONT)
         label.grid(row=row_, column = col_, sticky = "e")
@@ -312,8 +309,9 @@ class GUISetup(tk.Frame):
             if(key == "unit"):
                 return value
 
-    def runProcess(self): 
 
+    # Method for Reset Button 
+    def runProcess(self): 
         subprocess.check_call(["sudo", "bash", "make"], cwd="/home/pi/SCADA_2021")
         python = sys.executable
         os.execl(python, python, * sys.argv)
