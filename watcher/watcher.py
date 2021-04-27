@@ -113,9 +113,9 @@ class Control:
     
     def checkExitCondition(self):
         if self.exitCondition is not None:
-            return (self.maxDuration is not None and time.time() - lastActive > self.maxDuration) or self.exitCondition.check()
+            return (self.maxDuration is not None and time.time() - self.lastActive > self.maxDuration) or self.exitCondition.check()
         else:
-            return (self.maxDuration is not None and time.time() - lastActive > self.maxDuration) 
+            return (self.maxDuration is not None and time.time() - self.lastActive > self.maxDuration) 
 
     #checks conditions and changes active/inactive state accordingly
     def update(self):
