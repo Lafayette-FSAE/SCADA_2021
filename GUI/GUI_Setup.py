@@ -12,12 +12,12 @@ import config
 import yaml
 import collections
 import time
-import subprocess
+
 
 import datetime
 from collections import defaultdict
 ## for reset button
-from tkinter import filedialog
+import subprocess
 
 
 
@@ -206,51 +206,6 @@ class GUISetup(tk.Frame):
                 break
 
 
-    # # Method gets the data to display on the screen 
-    # def get_sensor_data(self):
-        
-    #     itr = 0 ## iterator to keep track of name_list index 
-
-    #     # for each sensor in the list of sensors to be displayed
-    #     for sensor in self.sensorList:
-
-    #         sensorName = sensor.get('sensor')
-    #         value = database.getData(sensorName)
-
-    #         if value is None:
-    #             value = 'None'
-            
-    #         ## Add value to entry box on screen 
-    #         entry_ = tk.Entry(self, width = BOX_WIDTH)
-
-    #         ## Display units according to data status
-    #         if str(value) == 'no data':
-    #             unit = " "
-    #         elif sensor.get('unit') is None: 
-    #             unit = " "
-    #         else:
-    #             unit = sensor.get('unit')
-
-
-    #         text = str(value) + " " + unit
-    #         entry_.insert(0, str(text))
-
-    #         # find the corresponding row and column places 
-    #         rowPlace = sensor.get('row') + 1
-    #         column_place = sensor.get('column') + 1
-
-    #         entry_.grid( row = rowPlace, column = column_place)
-            
-            
-    #         # add the entryBox to the entryBox list 
-    #         self.entryBoxList.append(entry_)
-    #         # add to dataList 
-    #         self.dataList.append(value)
-            
-
-    #     ## go to refresh sensor data method
-    #     self.refresh_sensors()
-
 
 
      # Method gets the data to display on the screen 
@@ -268,7 +223,6 @@ class GUISetup(tk.Frame):
             sensor = sensorEntry.get('sensor')
             # value = database.getData(sensor)
             value = self.controller.currValues[sensor]
-            #entry_.insert(0, str(text))
 
 
             ## Display units according to data status
@@ -301,31 +255,6 @@ class GUISetup(tk.Frame):
         ## go to refresh sensor data method
         self.getNewData()
             
-
-
-    # ## This method runs on a continuous loop to refresh the sensor data
-    # def refresh_sensors(self):
-    #     itr = 0 ## iterator for datalist index 
-
-    #     # for a sensors in the list of sensors to be displayed
-    #     for sensor in self.sensorList:
-    #         old_data = self.dataList[itr]
-            
-    #         sensorName = sensor.get('sensor')
-    #         new_data = database.getData(sensorName)      
-    #         # if the data has been updated
-    #         if(new_data != old_data):
-    #             self.dataList[itr] = new_data
-    #             self.placedata_on_screen(itr, new_data, sensor)
-
-    #         #Harry: I put this in for debugging
-    #         print('Iterator:' + str(itr))
-    #         print('Sensor:' + sensorName )
-    #         print('New Data:' + new_data)
-
-    #         itr = itr + 1
-    #     # refresh data every 2 s
-    #     self.after(5000, self.refresh_sensors)
 
 
     #every 1s, replace all text fields with values from controller.currValues
@@ -384,16 +313,8 @@ class GUISetup(tk.Frame):
                 return value
 
     def runProcess(self): 
-        # pass
-        #subprocess.run(["cd", ".."])
-        # os.system('cd ..')
-        # global folder_path
-        # filename = filedialog.askdirectory()
-        # folder_path.set(filename)
-        # print(filename)
+
         subprocess.check_call(["sudo", "bash", "make"], cwd="/home/pi/SCADA_2021")
-        #subprocess.Popen("ls", cwd="/home/pi/SCADA_2021").run(["sudo", "bash", "make"])
-        #subprocess.run(["sudo", "bash", "make"])
         python = sys.executable
         os.execl(python, python, * sys.argv)
 
