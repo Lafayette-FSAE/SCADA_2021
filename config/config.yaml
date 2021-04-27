@@ -680,8 +680,8 @@ Sensors:
         In: scada_relay
       cal_function: 'In'
       bus_type: GPIO
-      primary_address: 7 #RELAY PIN NUMBER
-      secondary_address: [0x04]
+      primary_address: 4 #RELAY PIN NUMBER
+      secondary_address: [0x07]
       precision: 0
       display_variable: int  # type of data displayed on screen 
       description: "This is Relay with Pi pin # 7 or GPIO4 pin"
