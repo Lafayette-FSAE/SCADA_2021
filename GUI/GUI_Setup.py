@@ -391,8 +391,9 @@ class GUISetup(tk.Frame):
         # filename = filedialog.askdirectory()
         # folder_path.set(filename)
         # print(filename)
-        subprocess.Popen("ls", cwd="/home/pi/SCADA_2021")
-        subprocess.run(["sudo", "bash", "make"])
+        subprocess.check_call(["sudo", "bash", "make"], cwd="/home/pi/SCADA_2021")
+        #subprocess.Popen("ls", cwd="/home/pi/SCADA_2021").run(["sudo", "bash", "make"])
+        #subprocess.run(["sudo", "bash", "make"])
         python = sys.executable
         os.execl(python, python, * sys.argv)
 
