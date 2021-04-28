@@ -91,8 +91,6 @@ def write(sensorName, value):
 
 def configure_emulator(sensorDict):
     pattern = sensorDict.get('data_pattern')
-    print('sensor called' +
-          sensorDict['var_name'] + 'has pattern_type' + pattern)
     if pattern == 'CYCLE':
         return CycleEmulator(sensorDict)
     elif pattern == 'SINE':

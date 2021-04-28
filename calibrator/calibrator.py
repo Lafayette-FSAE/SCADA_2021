@@ -32,7 +32,7 @@ def execute(Sensor_val):
     output = ''
 
     #Debuggin
-    print(str(Sensor_val[0]) +":  Sensor Value: " + Sensor_val[1] )
+    # print(str(Sensor_val[0]) +":  Sensor Value: " + Sensor_val[1] )
 
     if (Sensor_val[1] == 'no data'): 
         output = 'no data'
@@ -67,7 +67,7 @@ def execute(Sensor_val):
 def Virtual_execute(Sensor_val):
     output = ''
     #Debuggin
-    print(str(Sensor_val[0]) +":  Sensor Value: " + Sensor_val[1] )
+    # print(str(Sensor_val[0]) +":  Sensor Value: " + Sensor_val[1] )
     no_data_bolean = False
     retrived_input = ''
     calibration_func = config.get('Sensors').get(Sensor_val[0]).get('cal_function')

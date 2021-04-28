@@ -3,8 +3,8 @@
 
 # # make sure can bus is set up for testing
 modprobe can
-ip link set can0 down
-ip link set can0 up type can bitrate 125000
+# ip link set can0 down
+# ip link set can0 up type can bitrate 125000
 
 # # make sure virtual can bus is set up for testing
 # modprobe vcan
