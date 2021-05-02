@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 
 #Declariing i2C Bus
-bus = smbus.SMBus(1) ##CHNAGED BUS to 3 for debigging
+bus = smbus.SMBus(3) ##CHNAGED BUS to 3 for debigging
 
 # General i2c Read Method
 def read(Sensor):
