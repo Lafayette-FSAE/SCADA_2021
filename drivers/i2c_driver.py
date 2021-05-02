@@ -1,7 +1,6 @@
 import sys, os
 import smbus
 import redis
-import utils
 import time
 from datetime import datetime
 
