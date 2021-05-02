@@ -42,7 +42,13 @@ def write(Sensor, Value):
         else:
             #Obtaining reg_adress list from Config YAML file
             reg_address = config.get('Sensors').get(str(Sensor)).get('secondary_address')
-            bus.write_byte_data(sensor_address,reg_address,Value)
+            numofBits = countTotalBits(Value)
+
+            if(numofBits <= 8): #Use write_byte_data to write 8 bits
+                bus.write_byte_data(sensor_address,reg_address,Value)
+            else: #Use write_word_data to write value in 16 bits
+                bus.write_word_data(sensor_address,reg_address,Value)
+
     except IOError:
         time.sleep(.0001)
 
@@ -100,6 +106,12 @@ def write_rtc(Sensor,Value):
     
     except IOError:
         time.sleep(.0001)
+
+#Function to find the number of bits used to represent a number. This function to be used in the write i2c write method
+def countTotalBits(num):
+     #convert number into it's binary and remove first two characters 0b.
+     binary = bin(num)[2:]
+     return len(binary)
 
 
     
