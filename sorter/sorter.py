@@ -12,6 +12,7 @@ sys.path.append(config_path)
 
 from drivers import driver
 import utils
+from utils import rtc_setup
 import config
 import redis
 
@@ -23,7 +24,7 @@ Redisdata = redis.Redis(host='localhost', port=6379, db=0)
 data = Redisdata.pubsub()
 data.subscribe('raw_data')
 
-os.system('sudo python3 /usr/bin/scadartc_setup.py')
+rtc_setup.set_RTCtime()
 
 #Local Dictionary for Sensor Period Count
 SensorList = config.get('Sensors')
@@ -76,7 +77,7 @@ def rtc_pitimesteup():
     t = time.clock_gettime(clk_id)
 
     if (t < driver.read('rtc_time')): 
-        os.system('sudo python3 /usr/bin/scadartc_setup.py')
+        rtc_setup.set_RTCtime()
         time.sleep(1)
 
 
