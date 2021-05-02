@@ -1,10 +1,18 @@
 import sys, os
-import config
 import smbus
 import redis
 import utils
 import time
 from datetime import datetime
+
+#CONFIG PATH
+lib_path = '/usr/etc/scada'
+config_path = '/usr/etc/scada/config'
+
+sys.path.append(lib_path)
+sys.path.append(config_path)
+
+import config
 
 #Declariing i2C Bus
 bus = smbus.SMBus(3) ##CHNAGED BUS to 3 for debigging
