@@ -25,7 +25,8 @@ Redisdata = redis.Redis(host='localhost', port=6379, db=0)
 data = Redisdata.pubsub()
 data.subscribe('raw_data')
 
-rtc_setup.set_RTCtime()
+#COMMENTING OUT TEMPORARILY
+#rtc_setup.set_RTCtime()
 
 #Local Dictionary for Sensor Period Count
 SensorList = config.get('Sensors')
@@ -43,7 +44,7 @@ while True:
     # milliseconds = int(time()*1000)
 
     ## RTC Startup Setup
-    rtc_setup.rtc_pitimesteup()
+    #rtc_setup.rtc_pitimesteup()
 
     ## IMU Startup Setup
     imu_setup.imu_config()
