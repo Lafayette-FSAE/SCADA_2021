@@ -13,6 +13,7 @@ import config
 
 #Module to that holds methods to intialize the BNO-055 IMU 
 
+onSetup = False  #Boolean var used to peform imu setup on startup
 
 def imu_reset():
     #IMU IN CONFIG MODE
