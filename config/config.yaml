@@ -108,8 +108,6 @@ Display:
       - gyro_y
       - gyro_z
 
-
-
     IMU_Config_Reg3:
       - gyro_xoffset_lsb
       - gyro_xoffset_msb
@@ -1078,7 +1076,6 @@ Sensors:
     bit_length: 16 #probably don't need this
     sample_period: 5
     var_name: P1Cell7SOC
-
   pack1_cell8_soc:
     unit: '%'
     inputs:
