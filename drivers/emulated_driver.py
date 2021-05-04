@@ -29,7 +29,7 @@ class SensorEmulator():
                 self.periodStart = time.time()
                 timeElapsed = timeElapsed - self.period
         self.currValue = self.calculateValue(timeElapsed)
-        print('about to return a current value of ' + str(self.currValue))
+        # print('about to return a current value of ' + str(self.currValue))
         return self.currValue
 
     def calculateValue(self, timeElapsed):
