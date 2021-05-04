@@ -744,20 +744,20 @@ Sensors:
     sample_period: 1 #sample period in seconds
     var_name: imu_calsts
 
-  # gyro_cal:
-  #   unit: ''
-  #   inputs:
-  #     In: imu_calsts
-  #   cal_function: '(In >> 4) & 0x03'
-  #   bus_type: VIRTUAL 
-  #   primary_address: 0x28
-  #   secondary_address: 
-  #   precision: 0
-  #   display_variable: number
-  #   description: "GYRO Calibration Status " #Needs to be 3 to be fully calibrated 
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 1 #sample period in seconds
-  #   var_name: gyro_cal
+  gyro_cal:
+    unit: ''
+    inputs:
+      In: imu_calsts
+    cal_function: '(In >> 4) & 0x03'
+    bus_type: VIRTUAL 
+    primary_address: 0x28
+    secondary_address: 
+    precision: 0
+    display_variable: number
+    description: "GYRO Calibration Status " #Needs to be 3 to be fully calibrated 
+    bit_length: 16 #probably don't need this
+    sample_period: 1 #sample period in seconds
+    var_name: gyro_cal
 
   acc_cal:
     unit: ''
@@ -774,20 +774,20 @@ Sensors:
     sample_period: 1 #sample period in seconds
     var_name: acc_cal
   
-  # mag_cal:
-  #   unit: ''
-  #   inputs:
-  #     In: imu_calsts
-  #   cal_function: 'In & 0x03'
-  #   bus_type: VIRTUAL
-  #   primary_address: 0x28
-  #   secondary_address: 
-  #   precision: 0
-  #   display_variable: number
-  #   description: "Magntometer Calibration Status" #Needs to be 3 to be fully calibrated
-  #   bit_length: 8 
-  #   sample_period: 1 #sample period in seconds
-  #   var_name: mag_cal
+  mag_cal:
+    unit: ''
+    inputs:
+      In: imu_calsts
+    cal_function: 'In & 0x03'
+    bus_type: VIRTUAL
+    primary_address: 0x28
+    secondary_address: 
+    precision: 0
+    display_variable: number
+    description: "Magntometer Calibration Status" #Needs to be 3 to be fully calibrated
+    bit_length: 8 
+    sample_period: 1 #sample period in seconds
+    var_name: mag_cal
 
   acc_x:
     unit: 'm/s^2'
