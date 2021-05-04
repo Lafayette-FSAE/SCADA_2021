@@ -997,7 +997,7 @@ Sensors:
     unit: ''
     inputs:
       In: mag_x
-    cal_function: 'In'
+    cal_function: 'In*(1/16)'
     bus_type: I2C
     primary_address: 0x28
     secondary_address: [0x0E,0x0F]
@@ -1012,7 +1012,7 @@ Sensors:
     unit: ''
     inputs:
       In: mag_y
-    cal_function: 'In'
+    cal_function: 'In*(1/16)'
     bus_type: I2C
     primary_address: 0x28
     secondary_address: [0x10,0x11]
@@ -1027,7 +1027,7 @@ Sensors:
     unit: ''
     inputs:
       In: mag_z
-    cal_function: 'In'
+    cal_function: 'In*(1/16)'
     bus_type: I2C
     primary_address: 0x28
     secondary_address: [0x12,0x13]
