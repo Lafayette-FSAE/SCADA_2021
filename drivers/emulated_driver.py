@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import math
 import time
-import config
 import sys
 import os
 
@@ -12,6 +11,7 @@ config_path = '/usr/etc/scada/config'
 sys.path.append(lib_path)
 sys.path.append(config_path)
 
+import config
 
 class SensorEmulator():
     def __init__(self, configDict):

@@ -1214,7 +1214,6 @@ Sensors:
     sample_period: 5
     var_name: P1Cell16SOC
 
-
   pack1_cell12_temp:
     unit: 'C'
     inputs:
