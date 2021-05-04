@@ -53,6 +53,7 @@ Display:
     3: 
       - EPAL_Demo
       - Motor_Controller
+      - Batteries
 
   Groups: 
   # max 15 sensor per 1 group
@@ -142,6 +143,13 @@ Display:
       # - motor_temp
       # - motor_flux_actual_current
       # - motor_status
+
+    Batteries:
+      - pack1_serialnumber
+      - pack1_voltage
+      - pack1_cell12_voltage
+      - pack1_cell12_soc
+      - pack1_cell12_temp
     
     EPAL_Demo:
       - emulator_bool_drive_signal
@@ -1205,6 +1213,22 @@ Sensors:
     bit_length: 16 #probably don't need this
     sample_period: 5
     var_name: P1Cell16SOC
+
+
+  pack1_cell12_temp:
+    unit: 'C'
+    inputs:
+      in: pack1_cell12_soc
+    cal_function: 'in' #calibration function needed
+    bus_type: CAN
+    primary_address: 0x3003
+    secondary_address: 0x0C
+    precision: 1
+    display_variable: number 
+    description: "Temperature of Cell 12 of Pack 1 in degrees C"
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: P1Cell12Temp
 
   
       
