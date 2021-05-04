@@ -26,17 +26,18 @@ def read(Sensor):
         else:
             data = 0
             reg_address = config.get('Sensors').get(str(Sensor)).get('secondary_address')
-
-            if (type(reg_address) == list): 
-            #adds the values for each byte of the sensor together to get the overall result of the sensor
-                for i in range(len(reg_address)):
-                #data = data + bus.read_byte_data(sensor_address,reg_address[i]) << (8 * i)
-                # Using Bitwise And Instead here 
-                    data = data|bus.read_byte_data(sensor_address,reg_address[i]) << (8 * i)
-            else: 
-                data = bus.read_byte_data(sensor_address,reg_address) 
+            bit_length = config.get('Sensors').get(str(Sensor)).get('bit_length')
+            if(bit_length == 8): #Read Byte
+                if (type(reg_address) == list): 
+                #adds the values for each byte of the sensor together to get the overall result of the sensor
+                    for i in range(len(reg_address)):
+                        data = data|bus.read_byte_data(sensor_address,reg_address[i]) << (8 * i)
+                else: 
+                    data = bus.read_byte_data(sensor_address,reg_address) 
+            else: # Read Word
+                data = bus.read_word_data(sensor_address,reg_address)
                                 
-            return data
+        return data
     except IOError:
         time.sleep(.0001)
 
