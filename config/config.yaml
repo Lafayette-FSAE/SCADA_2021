@@ -103,6 +103,9 @@ Display:
       - mag_yoffset_msb
       - mag_zoffset_lsb
       - mag_zoffset_msb
+      - gyro_x
+      - gyro_y
+      - gyro_z
 
 
 
@@ -1486,6 +1489,51 @@ Sensors:
     bit_length: 8
     sample_period: 0.2 #sample period in seconds
     var_name: stReslt
+
+  gyro_x:
+    unit: ''
+    inputs:
+      In: gyro_x
+    cal_function: 'In'
+    bus_type: I2C
+    primary_address: 0x28
+    secondary_address: [0x14,0x15]
+    precision: 3
+    display_variable: number
+    description: "Gyro X Component"
+    bit_length: 8
+    sample_period: 0.2 #sample period in seconds
+    var_name: gyro_x
+
+  gyro_y:
+    unit: ''
+    inputs:
+      In: gyro_y
+    cal_function: 'In'
+    bus_type: I2C
+    primary_address: 0x28
+    secondary_address: [0x16,0x17]
+    precision: 3
+    display_variable: number
+    description: "Gyro Y Compoenent"
+    bit_length: 8
+    sample_period: 0.2 #sample period in seconds
+    var_name: gyro_y
+
+  gyro_z:
+    unit: ''
+    inputs:
+      In: gyro_z
+    cal_function: 'In'
+    bus_type: I2C
+    primary_address: 0x28
+    secondary_address: [0x18,0x19]
+    precision: 3
+    display_variable: number
+    description: "Gyro Z Component"
+    bit_length: 8
+    sample_period: 0.2 #sample period in seconds
+    var_name: gyro_z
 
 
     #ACTUAL SENSORS LISTEDED HERE WITH BASIC FORMAT
