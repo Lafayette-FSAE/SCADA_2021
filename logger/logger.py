@@ -37,6 +37,7 @@ p = redis_data.pubsub()
 # p subscribes to get messages from 2 channels in Redis
 p.subscribe('calculated_data')
 p.subscribe('new-session')
+p.subscribe('logs')
 
 # create Postrgres database cursor
 #  a cursor is like a dummy user in a database that executes commands and retrieves results
@@ -56,6 +57,14 @@ CREATE TABLE IF NOT EXISTS data(
     id SERIAL PRIMARY KEY,
     sensor_id VARCHAR(255) NOT NULL,
     value VARCHAR(255),
+    timestamp TIMESTAMP DEFAULT NOW()
+);
+""")
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS logs(
+    id SERIAL PRIMARY KEY,
+    message VARCHAR(255),
     timestamp TIMESTAMP DEFAULT NOW()
 );
 """)
@@ -162,6 +171,13 @@ def update(msgData):
 
         # I think this method should call "database.commit()" here
 
+def update_logs(msgData):
+    # adds data to data table
+    cursor.execute("""
+        INSERT INTO logs (message)
+        VALUES (%s)
+    """, [msgData])
+
 # Harry: THIS IS THE ACTUAL CODE THAT RUNS
 
 while True:
@@ -176,6 +192,8 @@ while True:
             update(message['data'])
         elif message['channel'] in ['new-session']:
             delimit_session()
+        elif message['channel'] in ['logs']:
+            update_logs(message['data'])
 
     # Harry: if no messages available, commit changes to database and wait for next loop
     else:
