@@ -145,6 +145,7 @@ Display:
     Batteries:
       - pack1_serialnumber
       - pack1_voltage
+      - pack1_soc
       - pack1_cell12_voltage
       - pack1_cell12_soc
       - pack1_cell12_temp
@@ -702,10 +703,10 @@ Sensors:
     sample_period: 5
     var_name: Pack1Volts
 
-  pack1_SOC:
+  pack1_soc:
     unit: '%'
     inputs:
-      in: pack1_SOC
+      in: pack1_soc
     cal_function: 'in' #calibration function needed
     bus_type: CAN
     primary_address: 0x2007
