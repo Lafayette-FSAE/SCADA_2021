@@ -38,9 +38,10 @@ class LogsGUI(tk.Frame):
         label.grid(row = 0, column = 2,  sticky = "e")
 
         back_page = self.controller.numOfPages
+        print("back page" + str(back_page))
 
         filePath2 = '/usr/etc/scada/GUI/prevPageButton2.png'
         img2 = PhotoImage(file = filePath2)  
-        prev_page_button = tk.Button(self, image = img2, command = lambda: self.controller.show_frame(back_page))
+        prev_page_button = tk.Button(self, image = img2, command = lambda: self.controller.show_frame(back_page -1 ))
         prev_page_button.image=img2
         prev_page_button.grid(row = 0, column = 1, sticky= "w")
