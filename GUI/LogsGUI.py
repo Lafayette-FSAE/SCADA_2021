@@ -49,7 +49,8 @@ class LogsGUI(tk.Frame):
 
         # for logs 
         # os.system('tail -n 100 /var/log/syslog | grep scada')
-        p = sub.Popen('sudo scada logs',stdout=sub.PIPE, stderr=sub.PIPE)
+        p = sub.Popen(["sudo", "scada", "logs"],stdout=sub.PIPE, stderr=sub.PIPE)
+       # subprocess.check_call(["sudo", "scada", "logs"], cwd="/home/pi/SCADA_2021")
         output, errors = p.communicate()
         label_logs = tk.Label(self, text = output, font= TITLE_FONT)
         label.grid(row = 1, column = 0,  sticky = "e")
