@@ -11,6 +11,7 @@ lib_path = '/usr/etc/scada/GUI'
 sys.path.append(lib_path)
 
 from GUI_Setup import GUISetup
+from LogsGUI import LogsGUI
 config_path = '/usr/etc/scada/config'
 sys.path.append(config_path)
 
@@ -92,8 +93,15 @@ class Main_GUI(tk.Tk):
             #frame.configure(bg = 'red') #  set background color 
             self.display_vars["frames"][i] = self.frames[i]
 
-
             i = i+1
+        
+
+        # create logs page for last page
+        Logsframe = LogsGUI(self.container, self, i)
+        self.frames[i] = Logsframe
+        Logsframe.grid(row=0, column=0, sticky="nsew")
+        self.display_vars["frames"][i] = self.frames[i]
+        
         
         self.show_frame(0)
 
