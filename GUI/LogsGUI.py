@@ -17,7 +17,7 @@ import time
 import datetime
 from collections import defaultdict
 ## for reset button
-import subprocess
+import subprocess as sub
 
 
 
@@ -45,3 +45,12 @@ class LogsGUI(tk.Frame):
         prev_page_button = tk.Button(self, image = img2, command = lambda: self.controller.show_frame(back_page -1 ))
         prev_page_button.image=img2
         prev_page_button.grid(row = 0, column = 1, sticky= "w")
+        
+
+        # for logs 
+        # os.system('tail -n 100 /var/log/syslog | grep scada')
+        p = sub.Popen('sudo scada logs',stdout=sub.PIPE, stderr=sub.PIPE)
+        output, errors = p.communicate()
+        label_logs = tk.Label(self, text = output, font= TITLE_FONT)
+        label.grid(row = 1, column = 0,  sticky = "e")
+        ## contents fo logs redis channel 
