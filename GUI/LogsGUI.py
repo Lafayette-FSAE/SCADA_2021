@@ -36,3 +36,12 @@ class LogsGUI(tk.Frame):
         ## Display Page Number
         label = tk.Label(self, text = "SCADA LOGS ", font= TITLE_FONT)
         label.grid(row = 0, column = 2,  sticky = "e")
+
+        back_page = self.controller.numOfPages
+
+        filePath2 = '/usr/etc/scada/GUI/prevPageButton2.png'
+        img2 = PhotoImage(file = filePath2)  
+        prev_page_button = tk.Button(self, image = img2, command = lambda: self.controller.show_frame(back_page))
+        prev_page_button.image=img2
+        prev_page_button.grid(row = 0, column = 1, sticky= "w")
+        next_page_button.destroy()
