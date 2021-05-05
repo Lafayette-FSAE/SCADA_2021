@@ -52,6 +52,7 @@ class LogsGUI(tk.Frame):
         p = sub.Popen(["sudo", "scada", "logs"],stdout=sub.PIPE, stderr=sub.PIPE)
        # subprocess.check_call(["sudo", "scada", "logs"], cwd="/home/pi/SCADA_2021")
         output, errors = p.communicate()
-        label_logs = tk.Label(self, text = output, font= TITLE_FONT)
-        label.grid(row = 1, column = 0,  sticky = "e")
+        text = Text(root)
+        text.grid(row = 0, column = 1, sticky= "w")
+        text.insert(END, output)
         ## contents fo logs redis channel 
