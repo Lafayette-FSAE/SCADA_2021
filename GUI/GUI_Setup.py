@@ -97,7 +97,7 @@ class GUISetup(tk.Frame):
             prev_page_button.grid(row = 0, column = 1, sticky= "w")
             next_page_button.destroy()
 
-            if(curr_page != self.controller.numOfPages):
+            if(curr_page != (self.controller.numOfPages + 1)):
 
                 filePath ='/usr/etc/scada/GUI/nextPageButton2.png'
                 img3 = PhotoImage(file = filePath)  
