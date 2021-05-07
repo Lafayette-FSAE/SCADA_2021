@@ -80,8 +80,8 @@ class LogsGUI(tk.Frame):
             #print("message: " + str(message))
             ## message = sensor:value
             if (message and (message['data'] != 1 )):
-                [sensor_key, sensor_value] = self.splitMsg(message['data'])
-                logData = sensor_value
-                print(logData)
+                print(message)
+                # logData = self.splitMsg(message['data'])
+                # print(logData)
     
 
