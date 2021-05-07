@@ -1363,7 +1363,7 @@ Sensors:
       'True': 'In*(1/100)'
     bus_type: I2C
     primary_address: 0x28
-    secondary_address: [0x55,0x56]
+    secondary_address: [0x08,0x09]
     precision: 2
     display_variable: number
     description: "IMU Acclerometer X Vector"
@@ -1380,7 +1380,7 @@ Sensors:
       'True': 'In*(1/100)'
     bus_type: I2C
     primary_address: 0x28
-    secondary_address: [0x57,0x58]
+    secondary_address: [0x0A,0x0B]
     precision: 2
     display_variable: number
     description: "IMU Acclerometer Y Vector"
@@ -1397,7 +1397,7 @@ Sensors:
       'True': 'In*(1/100)'
     bus_type: I2C
     primary_address: 0x28
-    secondary_address: [0x59,0x5A]
+    secondary_address: [0x0C,0x0D]
     precision: 2
     display_variable: number
     description: "IMU Acclerometer Z Vector"
@@ -2099,6 +2099,7 @@ Sensors:
     bit_length: 8
     sample_period: 0.2 #sample period in seconds
     var_name: gyro_z
+
 
 
     #ACTUAL SENSORS LISTEDED HERE WITH BASIC FORMAT
