@@ -71,7 +71,7 @@ class LogsGUI(tk.Frame):
         text.insert(END, output)
         ## contents fo logs redis channel 
 
-        self.pollFromRedis()
+        #self.pollFromRedis()
     
 
     def pollFromRedis(self):
