@@ -33,7 +33,7 @@ p.subscribe('logs')
 
 # # create Postrgres database cursor
 # #  a cursor is like a dummy user in a database that executes commands and retrieves results
-cursor = database.cursor()
+
 
 
 
