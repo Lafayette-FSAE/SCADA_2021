@@ -67,7 +67,7 @@ class LogsGUI(tk.Frame):
         p = sub.Popen(["sudo", "scada", "logs"],stdout=sub.PIPE, stderr=sub.PIPE)
         output, errors = p.communicate()
         text = Text(self)
-        text.grid(row = 0, column = 1, sticky= "w")
+        text.grid(row = 2, column = 1, sticky= "w")
         text.insert(END, output)
         ## contents fo logs redis channel 
 
