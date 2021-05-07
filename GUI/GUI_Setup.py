@@ -73,7 +73,14 @@ class GUISetup(tk.Frame):
         img_1 = PhotoImage(file = filePathReset)  
         reset_button = tk.Button(self, image = img_1,  command = lambda: self.runProcess())
         reset_button.image=img_1
-        reset_button.grid(row = 30, column = 0, sticky = "w")
+        reset_button.grid(row = 0, column = 5, sticky = "w")
+
+        ## Logs BUTTON
+        filePathLogs ='/usr/etc/scada/GUI/logsButton.png'
+        img_logs = PhotoImage(file = filePathLogs)  
+        logs_button = tk.Button(self, image = img_logs,  command = lambda: self.controller.show_frame(self.controller.numOfPages))
+        logs_button.image=img_logs
+        logs_button.grid(row = 0, column = 4, sticky = "e")
 
 
 
@@ -82,7 +89,7 @@ class GUISetup(tk.Frame):
         img = PhotoImage(file = filePath)  
         next_page_button = tk.Button(self, image = img,  command = lambda: self.controller.show_frame(next_frame))
         next_page_button.image=img
-        next_page_button.grid(row = 0, column = 4, sticky = "w")
+        next_page_button.grid(row = 0, column = 3, sticky = "e")
 
         # conditions for page number and display 
         if(curr_page >= 2):
