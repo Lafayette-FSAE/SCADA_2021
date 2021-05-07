@@ -3,21 +3,36 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk 
 import sys, os
+
 config_path = '/usr/etc/scada/config'
 sys.path.append(config_path)
 
 database_path = '/usr/etc/scada/utils'
 sys.path.append(database_path)
+import redis
 import config
 import yaml
 import collections
 import time
+import psycopg2
+import database
 
 
 import datetime
 from collections import defaultdict
 ## for reset button
 import subprocess as sub
+
+# # creates instance of Redis
+redis_data = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+
+# # creates Publish/Subscribe Redis object called 'p'
+p = redis_data.pubsub()
+# # p subscribes to get messages
+p.subscribe('logs')
+
+# # create Postrgres database cursor
+# #  a cursor is like a dummy user in a database that executes commands and retrieves results
 
 
 
@@ -35,7 +50,7 @@ class LogsGUI(tk.Frame):
 
         ## Display Page Number
         label = tk.Label(self, text = "SCADA LOGS ", font= TITLE_FONT)
-        label.grid(row = 0, column = 2,  sticky = "e")
+        label.grid(row = 0, column = 1,  sticky = "w")
 
         back_page = self.controller.numOfPages
         print("back page" + str(back_page))
@@ -44,15 +59,29 @@ class LogsGUI(tk.Frame):
         img2 = PhotoImage(file = filePath2)  
         prev_page_button = tk.Button(self, image = img2, command = lambda: self.controller.show_frame(back_page -1 ))
         prev_page_button.image=img2
-        prev_page_button.grid(row = 0, column = 1, sticky= "w")
+        prev_page_button.grid(row = 0, column = 1, sticky= "e")
         
 
         # for logs 
         # os.system('tail -n 100 /var/log/syslog | grep scada')
         p = sub.Popen(["sudo", "scada", "logs"],stdout=sub.PIPE, stderr=sub.PIPE)
-       # subprocess.check_call(["sudo", "scada", "logs"], cwd="/home/pi/SCADA_2021")
         output, errors = p.communicate()
         text = Text(self)
-        text.grid(row = 0, column = 1, sticky= "w")
+        text.grid(row = 2, column = 1, sticky= "w")
         text.insert(END, output)
         ## contents fo logs redis channel 
+
+        #self.pollFromRedis()
+    
+
+    def pollFromRedis(self):
+        while True:
+            message = p.get_message() 
+            #print("message: " + str(message))
+            ## message = sensor:value
+            if (message and (message['data'] != 1 )):
+                print(message)
+                # logData = self.splitMsg(message['data'])
+                # print(logData)
+    
+
