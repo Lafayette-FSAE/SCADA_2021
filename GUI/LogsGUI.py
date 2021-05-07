@@ -10,7 +10,7 @@ sys.path.append(config_path)
 
 database_path = '/usr/etc/scada/utils'
 sys.path.append(database_path)
-import config
+# import config
 import yaml
 import collections
 import time
