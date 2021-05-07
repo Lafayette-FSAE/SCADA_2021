@@ -3,15 +3,15 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk 
 import sys, os
-import psycopg2
-import redis
+# import psycopg2
+# import redis
 config_path = '/usr/etc/scada/config'
 sys.path.append(config_path)
 
 database_path = '/usr/etc/scada/utils'
 sys.path.append(database_path)
 # import config
-import yaml
+#import yaml
 import collections
 import time
 
@@ -21,17 +21,17 @@ from collections import defaultdict
 ## for reset button
 import subprocess as sub
 
-# creates instance of Redis
-redis_data = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+# # creates instance of Redis
+# redis_data = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
-# creates Publish/Subscribe Redis object called 'p'
-p = redis_data.pubsub()
-# p subscribes to get messages
-p.subscribe('logs')
+# # creates Publish/Subscribe Redis object called 'p'
+# p = redis_data.pubsub()
+# # p subscribes to get messages
+# p.subscribe('logs')
 
-# create Postrgres database cursor
-#  a cursor is like a dummy user in a database that executes commands and retrieves results
-cursor = database.cursor()
+# # create Postrgres database cursor
+# #  a cursor is like a dummy user in a database that executes commands and retrieves results
+# cursor = database.cursor()
 
 
 
