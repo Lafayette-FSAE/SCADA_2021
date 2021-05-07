@@ -3,15 +3,15 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk 
 import sys, os
-# import psycopg2
-# import redis
+
 config_path = '/usr/etc/scada/config'
 sys.path.append(config_path)
 
 database_path = '/usr/etc/scada/utils'
 sys.path.append(database_path)
-# import config
-#import yaml
+import redis
+import config
+import yaml
 import collections
 import time
 
