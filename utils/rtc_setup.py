@@ -23,4 +23,4 @@ def rtc_pitimesteup():
 
     if (t < driver.read('rtc_time')): 
         set_RTCtime()
-        time.sleep(1)
+        
