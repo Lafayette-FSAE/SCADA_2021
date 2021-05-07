@@ -14,6 +14,7 @@ import config
 import yaml
 import collections
 import time
+import psycopg2
 import database
 
 
