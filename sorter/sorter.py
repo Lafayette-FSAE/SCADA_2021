@@ -25,8 +25,7 @@ Redisdata = redis.Redis(host='localhost', port=6379, db=0)
 data = Redisdata.pubsub()
 data.subscribe('raw_data')
 
-#COMMENTING OUT TEMPORARILY
-#rtc_setup.set_RTCtime()
+rtc_setup.set_RTCtime()
 
 #Local Dictionary for Sensor Period Count
 SensorList = config.get('Sensors')
@@ -43,8 +42,8 @@ while True:
     #for Sensors: <-- needs to be name of list of sensors
     # milliseconds = int(time()*1000)
 
-    ## RTC Startup Setup
-    #rtc_setup.rtc_pitimesteup()
+    # RTC Startup Setup
+    rtc_setup.rtc_pitimesteup()
 
     ## IMU Startup Setup
     imu_setup.imu_config()
@@ -54,8 +53,8 @@ while True:
     for sensorName in SensorList :
         if(time.time() - last_sampled[sensorName] > sample_period[sensorName] and float(sample_period[sensorName]) != 0.0):
             
-            # print('SENSOR NAME IS ' + sensorName + 'and its type is')
-            # print(type(sensorName))
+            print('SENSOR NAME IS ' + sensorName + 'and its type is')
+            print(type(sensorName))
 
             #Appending sensor name to sensor value for distinction in redis database
             key = '{}:{}'.format(sensorName, driver.read(sensorName))
