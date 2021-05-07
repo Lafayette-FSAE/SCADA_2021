@@ -22,16 +22,16 @@ from collections import defaultdict
 import subprocess as sub
 
 # # creates instance of Redis
-# redis_data = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
+redis_data = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
 
 # # creates Publish/Subscribe Redis object called 'p'
-# p = redis_data.pubsub()
+p = redis_data.pubsub()
 # # p subscribes to get messages
-# p.subscribe('logs')
+p.subscribe('logs')
 
 # # create Postrgres database cursor
 # #  a cursor is like a dummy user in a database that executes commands and retrieves results
-# cursor = database.cursor()
+cursor = database.cursor()
 
 
 
