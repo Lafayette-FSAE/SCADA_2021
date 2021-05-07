@@ -93,7 +93,7 @@ class GUISetup(tk.Frame):
 
         # conditions for page number and display 
         if(curr_page >= 2):
-            self.add_space(0, 4)
+            #self.add_space(0, 4)
             self.add_space(13, 0)
             self.add_space(14, 0)
             
