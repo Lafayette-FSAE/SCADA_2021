@@ -110,7 +110,7 @@ class GUISetup(tk.Frame):
                 img3 = PhotoImage(file = filePath)  
                 next_page_button2 = tk.Button(self, image = img3, command = lambda: self.controller.show_frame(next_frame))
                 next_page_button2.image=img3
-                next_page_button2.grid(row = 0, column = 4, sticky = "w")
+                next_page_button2.grid(row = 0, column = 3, sticky = "w")
 
 
         self.get_page_groups(curr_page)
