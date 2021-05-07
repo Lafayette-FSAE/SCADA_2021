@@ -35,6 +35,7 @@ def load(forceLoad = False):
 			__config = yaml.safe_load(stream)
 			__loaded = True
 			logging.info('Successfully loaded config file')
+			print ('LOADED CONFIG FILE IN config.py') #debug
 		except yaml.YAMLError as exc:
 			print(exc)
 

@@ -221,7 +221,7 @@ class Log(Action):
         self.message = configDict.get('message')
 
     def execute(self):
-        Redisdata.publish('watcher_log',self.message)
+        Redisdata.publish('logs',self.message)
         pass
 
 

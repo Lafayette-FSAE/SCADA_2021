@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 import math
 import time
-import config
 import sys
 import os
 
@@ -12,6 +11,7 @@ config_path = '/usr/etc/scada/config'
 sys.path.append(lib_path)
 sys.path.append(config_path)
 
+import config
 
 class SensorEmulator():
     def __init__(self, configDict):
@@ -29,7 +29,7 @@ class SensorEmulator():
                 self.periodStart = time.time()
                 timeElapsed = timeElapsed - self.period
         self.currValue = self.calculateValue(timeElapsed)
-        print('about to return a current value of ' + str(self.currValue))
+        # print('about to return a current value of ' + str(self.currValue))
         return self.currValue
 
     def calculateValue(self, timeElapsed):
