@@ -59,7 +59,7 @@ class LogsGUI(tk.Frame):
         img2 = PhotoImage(file = filePath2)  
         prev_page_button = tk.Button(self, image = img2, command = lambda: self.controller.show_frame(back_page -1 ))
         prev_page_button.image=img2
-        prev_page_button.grid(row = 0, column = 1, sticky= "w")
+        prev_page_button.grid(row = 0, column = 1, sticky= "e")
         
 
         # for logs 
