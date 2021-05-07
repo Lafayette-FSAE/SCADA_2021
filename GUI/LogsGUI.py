@@ -50,7 +50,7 @@ class LogsGUI(tk.Frame):
 
         ## Display Page Number
         label = tk.Label(self, text = "SCADA LOGS ", font= TITLE_FONT)
-        label.grid(row = 0, column = 2,  sticky = "e")
+        label.grid(row = 0, column = 1,  sticky = "w")
 
         back_page = self.controller.numOfPages
         print("back page" + str(back_page))
