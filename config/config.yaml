@@ -733,170 +733,170 @@ Sensors:
     sample_period: 5
     var_name: Pack1Discharge
 
-  pack1_cell1_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell1_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x01
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 1 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell1Volts
+  # pack1_cell1_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell1_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x01
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 1 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell1Volts
   
-  pack1_cell2_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell2_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x02
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 2 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell2Volts
+  # pack1_cell2_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell2_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x02
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 2 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell2Volts
   
-  pack1_cell3_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell1_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x03
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 3 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell3Volts
+  # pack1_cell3_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell1_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x03
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 3 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell3Volts
   
-  pack1_cell4_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell4_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x04
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 4 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell4Volts
+  # pack1_cell4_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell4_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x04
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 4 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell4Volts
 
-  pack1_cell5_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell5_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x05
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 5 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell5Volts
+  # pack1_cell5_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell5_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x05
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 5 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell5Volts
 
-  pack1_cell6_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell6_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x06
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 6 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell6Volts
+  # pack1_cell6_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell6_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x06
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 6 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell6Volts
 
-  pack1_cell7_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell7_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x07
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 7 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell7Volts
+  # pack1_cell7_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell7_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x07
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 7 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell7Volts
 
-  pack1_cell8_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell8_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x08
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 8 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell8Volts
+  # pack1_cell8_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell8_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x08
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 8 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell8Volts
 
-  pack1_cell9_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell9_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x09
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 9 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell9Volts
+  # pack1_cell9_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell9_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x09
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 9 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell9Volts
 
-  pack1_cell10_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell10_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x0A
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 10 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell10Volts
+  # pack1_cell10_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell10_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x0A
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 10 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell10Volts
 
-  pack1_cell11_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell11_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x0B
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 11 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell11Volts
+  # pack1_cell11_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell11_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x0B
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 11 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell11Volts
 
   pack1_cell12_voltage:
     unit: 'V'
@@ -913,229 +913,229 @@ Sensors:
     sample_period: 5
     var_name: P1Cell12Volt
 
-  pack1_cell13_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell13_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x0D
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 13 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell13Volts
+  # pack1_cell13_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell13_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x0D
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 13 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell13Volts
 
-  pack1_cell14_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell14_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x0E
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 14 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell14Volts
+  # pack1_cell14_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell14_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x0E
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 14 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell14Volts
 
-  pack1_cell15_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell15_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x0F
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 15 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell15Volts
+  # pack1_cell15_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell15_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x0F
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 15 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell15Volts
 
-  pack1_cell16_voltage:
-    unit: 'V'
-    inputs:
-      in: pack1_cell16_voltage
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3002
-    secondary_address: 0x10
-    precision: 0
-    display_variable: number 
-    description: "Voltage of Cell 16 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell16Volts
+  # pack1_cell16_voltage:
+  #   unit: 'V'
+  #   inputs:
+  #     in: pack1_cell16_voltage
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3002
+  #   secondary_address: 0x10
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "Voltage of Cell 16 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell16Volts
 
-  pack1_cell1_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell1_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x01
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 1 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell1SOC
+  # pack1_cell1_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell1_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x01
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 1 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell1SOC
 
-  pack1_cell2_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell2_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x02
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 2 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell2SOC
+  # pack1_cell2_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell2_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x02
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 2 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell2SOC
 
-  pack1_cell3_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell3_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x03
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 3 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell3SOC
+  # pack1_cell3_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell3_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x03
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 3 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell3SOC
 
-  pack1_cell4_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell4_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x04
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 4 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell4SOC
+  # pack1_cell4_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell4_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x04
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 4 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell4SOC
 
-  pack1_cell5_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell5_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x05
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 5 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell5SOC
+  # pack1_cell5_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell5_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x05
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 5 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell5SOC
 
-  pack1_cell6_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell6_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x06
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 6 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell6SOC
+  # pack1_cell6_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell6_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x06
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 6 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell6SOC
 
-  pack1_cell7_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell7_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x07
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 7 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell7SOC
-  pack1_cell8_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell8_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x08
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 8 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell8SOC
+  # pack1_cell7_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell7_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x07
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 7 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell7SOC
+  # pack1_cell8_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell8_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x08
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 8 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell8SOC
 
-  pack1_cell9_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell9_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x09
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 9 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell9SOC
+  # pack1_cell9_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell9_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x09
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 9 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell9SOC
 
-  pack1_cell10_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell10_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x0A
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 10 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell10SOC
+  # pack1_cell10_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell10_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x0A
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 10 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell10SOC
 
-  pack1_cell11_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell11_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x0B
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 11 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell11SOC
+  # pack1_cell11_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell11_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x0B
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 11 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell11SOC
 
   pack1_cell12_soc:
     unit: '%'
@@ -1152,80 +1152,80 @@ Sensors:
     sample_period: 5
     var_name: P1Cell12SOC
 
-  pack1_cell13_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell13_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x0D
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 13 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell13SOC
+  # pack1_cell13_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell13_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x0D
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 13 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell13SOC
 
-  pack1_cell14_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell14_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x0E
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 14 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell14SOC
+  # pack1_cell14_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell14_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x0E
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 14 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell14SOC
 
-  pack1_cell15_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell15_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x0F
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 15 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell15SOC
+  # pack1_cell15_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell15_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x0F
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 15 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell15SOC
 
-  pack1_cell16_soc:
-    unit: '%'
-    inputs:
-      in: pack1_cell16_soc
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3008
-    secondary_address: 0x10
-    precision: 0
-    display_variable: number 
-    description: "State of Charge of Cell 16 of Pack 1"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell16SOC
+  # pack1_cell16_soc:
+  #   unit: '%'
+  #   inputs:
+  #     in: pack1_cell16_soc
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3008
+  #   secondary_address: 0x10
+  #   precision: 0
+  #   display_variable: number 
+  #   description: "State of Charge of Cell 16 of Pack 1"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell16SOC
 
-  pack1_cell1_temp:
-    unit: 'C'
-    inputs:
-      in: pack1_cell1_temp
-    cal_function: 'in' #calibration function needed
-    bus_type: CAN
-    primary_address: 0x3003
-    secondary_address: 0x01
-    precision: 1
-    display_variable: number 
-    description: "Temperature of Cell 1 of Pack 1 in degrees C"
-    bit_length: 16 #probably don't need this
-    sample_period: 5
-    var_name: P1Cell1Temp
+  # pack1_cell1_temp:
+  #   unit: 'C'
+  #   inputs:
+  #     in: pack1_cell1_temp
+  #   cal_function: 'in' #calibration function needed
+  #   bus_type: CAN
+  #   primary_address: 0x3003
+  #   secondary_address: 0x01
+  #   precision: 1
+  #   display_variable: number 
+  #   description: "Temperature of Cell 1 of Pack 1 in degrees C"
+  #   bit_length: 16 #probably don't need this
+  #   sample_period: 5
+  #   var_name: P1Cell1Temp
 
   #NEED TO PUT IN THE REST OF THE CELL TEMPS HERE
 
