@@ -91,8 +91,8 @@ def delimit_session():
         and value of "NEW-SESSION"
     """
     
-    # Harry: This is the statement that has tabulation errors
-    # Harry: THE REASON IS RANDOM SPACES AND INDENTS AFTER THE "INSERT INTO" LINE
+    # This is the statement that has tabulation errors
+    # THE REASON IS RANDOM SPACES AND INDENTS AFTER THE "INSERT INTO" LINE
     cursor.execute("""
         INSERT INTO data (sensor_id, value)
         VALUES ('scada:session', 'NEW-SESSION');
@@ -141,7 +141,7 @@ def update(msgData):
     if not check_update_ready(Sensor_key,Sensor_value):
         return
 
-  #   # Harry: Builds list of all the ignore keys (why is it doing this every time it updates??)
+  #   # Builds list of all the ignore keys (why is it doing this every time it updates??)
     ignore_keys = []
     #commented out for efficiency. we aren't using any 'ignore keys' at the moment
 #     for key_string in config.get('dont_log', []):
@@ -178,11 +178,11 @@ def update_logs(msgData):
         VALUES (%s)
     """, [msgData])
 
-# Harry: THIS IS THE ACTUAL CODE THAT RUNS
+# THIS IS THE ACTUAL CODE THAT RUNS
 
 while True:
-    # Harry: Redis object gets the next message from its subscribed channels if one is available
-    # Harry: Note: this "message" object is just a dict with keys 'type', 'pattern', 'channel', and 'data'
+    # Redis object gets the next message from its subscribed channels if one is available
+    # Note: this "message" object is just a dict with keys 'type', 'pattern', 'channel', and 'data'
     message = p.get_message()
     #Debugging Comments
     #print(message)
@@ -195,7 +195,7 @@ while True:
         elif message['channel'] in ['logs']:
             update_logs(message['data'])
 
-    # Harry: if no messages available, commit changes to database and wait for next loop
+    # if no messages available, commit changes to database and wait for next loop
     else:
         database.commit()
         time.sleep(0.1)
