@@ -37,12 +37,18 @@ def imu_config():
         onSetup = True #OnSetup has been achieved 
         imu_reset()
         driver.write('power_reg',config.get('IMU_Config_Constants').get('POWER_NORMAL'))
-        driver.write('page_reg',0x00)
+        driver.write('page_reg',0x00) # Setting Page to 0
         driver.write('trigger_reg',0x00)
+        time.sleep(0.01)
+        #Setting PageReg to 1 to configure mag,gyro,and acceleromoter
+        driver.write('page_reg',0x01)
         driver.write('acc_config_reg',config.get('IMU_Config_Constants').get('ACCEL_4G'))
         driver.write('gyro_config_reg',config.get('IMU_Config_Constants').get('GYRO_2000_DPS'))
         driver.write('mag_config_reg',config.get('IMU_Config_Constants').get('MAGNETOMETER_20HZ'))
         time.sleep(0.01)
+
+        #Switching Back to page 0
+        driver.write('page_reg',0x00) # Setting Page to 0
     
         ##Setting IMU TO NDOF MODE
         driver.write('opr_mode_reg',config.get('IMU_Config_Constants').get('NDOF_MODE'))
