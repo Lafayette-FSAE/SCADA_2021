@@ -2239,6 +2239,7 @@ Controls:
   #       sensor: motor_select_application
   #       value: 1
 
+  #proof of concept WRITE action
   sloop_relay:
     max_duration: 2
     inputs:
@@ -2251,6 +2252,7 @@ Controls:
       sensor: scada_relay
       value: 1
 
+  #proof of concept WARNING action
   epal_temp_warning:
     cooldown: 1
     inputs:
@@ -2267,6 +2269,22 @@ Controls:
       message: "CRITICAL TEMPERATURE"
       suggestion: "Throttle down or safety loop will shut off"
       priority: 5
+
+  #proof of concept LOG action
+  battery_temp_log:
+    cooldown: 5
+    max_duration: 5
+    inputs:
+      temp: emulator_battery_temperature
+    entry_condition:
+        str: 'temp > 90'
+        type: INSTANTANEOUS                                          
+    exit_condition:
+        str: 'temp < 90'                   
+        type: INSTANTANEOUS
+    action:
+      type: LOG
+      message: "Battery temperature > 90"
     
 
 

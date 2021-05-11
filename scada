@@ -25,6 +25,7 @@ def stop(args):
 		os.system('systemctl stop sorter')
 		os.system('systemctl stop calibrator')
 		os.system('systemctl stop logger')
+		os.system('systemctl stop watcher')
 	else:
 		os.system('systemctl stop {}'.format(process))
 
@@ -41,6 +42,7 @@ def restart(args):
 		os.system('systemctl restart sorter')
 		os.system('systemctl restart calibrator')
 		os.system('systemctl restart logger')
+		os.system('systemctl restart watcher')
 	else:
 		os.system('systemctl restart {}'.format(process))
 
@@ -53,7 +55,8 @@ def status(args):
 	cmds = [
 		'systemctl status sorter',
 		'systemctl status calibrator',
-		'systemctl status logger']
+		'systemctl status logger',
+		'systemctl status watcher']
 
 	for cmd in cmds:
 		result = os.system(cmd)
