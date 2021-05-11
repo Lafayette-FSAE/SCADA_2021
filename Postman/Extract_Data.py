@@ -1,8 +1,18 @@
-
+#!/usr/bin/python3
 import sys
 import os
 import psycopg2
 import statistics
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: Extract_Data.py                                                 
+## Description: This class gets the data for the specified session in Postgres.              
+#############################################################################################
+
 # config_path = os.getcwd() + '/config'
 # sys.path.append(config_path)
 # print("__file__ is ")
@@ -54,13 +64,8 @@ def getTimeStamps():
 
     data = cursor.fetchall()
 
-    #get all available data for the sensor used to delimit sessions
-    # data = database.getAllData(delimitSensor)
 
-    #print("data " + str(data))
-    # if len(data)==0:
-    #     #If this is the case then there is an issue with the logger class' update method
-    #     return 'NO DATA FOUND FOR POSTGRES'
+
     if type(data) is str and data == 'ERR IN DATAPATH':
         raise Exception('NO DELIMIT DATA FOUND IN POSTGRES')
     # local variables for time stamps 
@@ -73,15 +78,10 @@ def getTimeStamps():
     
     for row in data:
 
-        # Car just started session
-        # if(row[0] == start_delim and status == False):
-        #     status = True
-        #     begin_time = row[1]
-        #     #print("Begin ")
+        # car just started session
         if(evaluate_in_session(row[0]) and status == False):
             status = True
             begin_time = row[1]
-            #print("Begin ")
 
         # Car just ended session
         elif(not evaluate_in_session(row[0]) and status == True):
@@ -91,7 +91,6 @@ def getTimeStamps():
             timeStampList.append([begin_time, end_time])
             durationList.append(time)
 
-        # print('status is' + str(status))
 
     # Catches the end of the last session if system breaks during session
     if status == True:
@@ -101,10 +100,6 @@ def getTimeStamps():
         durationList.append(time)
 
     #NOTE: WE ARE NOT ACCOUNTING FOR SESSIONS BEING "TRUE" WHEN SYSTEM TURNS OF AND "TRUE" WHEN TURNED BACK ON
-
-
-    # for i in range(len(timeStampList)):
-    #     print (str(timeStampList[i][0]) +  ' until ' + str(timeStampList[i][1]) + ' duration: ' + str(durationList[i]))
 
     return [timeStampList, durationList]
 
@@ -129,8 +124,6 @@ def evaluate_in_session(data):
         elif not data.isdecimal(): #for string variables i.e. states
             data = '"' + data + '"' 
         condition = in_session_condition.replace(delimitSensor, data.replace('\n',''))
-        # print( 'about to evaluate ' + condition)
-        # print('evaluated: ' + str(eval(condition)))
         return eval(condition)
     except KeyError:
         return False
@@ -168,22 +161,4 @@ def getMin(dataValues):
     return min(dataValues)
 
 
-#print(self.getTimeStamps())
-## use GUI to call this 
-#Data = Extract_Data()        #     return 'ERR IN DATAPATH'    
 
-
-# THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
-# ip_address = config.get("Post_Processing").get("ip_address")
-# ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
-# ## get cheap summary data 
-# initialize_database(ip_address)
-# getDelimiter()
-# timeData = getTimeStamps()
-# timeStamps = timeData[0]
-# durations = timeData[1]
-
-# thisSessionStamps = timeStamps[0]
-# relevantData = getSensorData(ex_sum_sensors[0], thisSessionStamps[0], thisSessionStamps[1])
-# print('data for ' + ex_sum_sensors[0] + ' follows')
-# print(str(relevantData))

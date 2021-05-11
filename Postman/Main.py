@@ -1,4 +1,18 @@
 #!/usr/bin/python3
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: Main.py                                                 
+## Description: This is the main class for the Post Processing System. This class runs the Post
+##              Processiing system by running the terminal command python3 Main.py   
+##              It is important to make sure you add the raspberry pi's correct IP Address 
+##              in the config.yaml file. 
+##
+#############################################################################################
+
 import sys, os
 import tkinter as tk 
 from tkinter import *
@@ -48,8 +62,7 @@ class Main(tk.Tk):
 
         self.frames = {}
 
-        # for F in (CheapGUI, ExpensiveGUI):
-        # frame = F(self.container, self)
+
         frame = CheapGUI(self.container, self)
         self.frames[CheapGUI] = frame
         frame.grid(row=0, column=0, sticky="nsew")

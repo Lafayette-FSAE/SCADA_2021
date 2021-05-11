@@ -1,4 +1,19 @@
 #!/usr/bin/python3
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: LogsGUI.py                                                 
+## Description: Class to setup the layout of GUI that displays the Error Logs. This is the last 
+##              page of the GUI display. Error logs include watcher logs and scada logs. 
+##              Watcher logs are pulled from Postgres database and represent sensor errors.  l
+##              Scada Logs printed from the terminal using the command "sudo scada logs". 
+##              These logs contain errors from the service files.              
+##                   
+#############################################################################################
+
 import tkinter as tk 
 from tkinter import *
 from tkinter import ttk 
@@ -22,18 +37,6 @@ import datetime
 from collections import defaultdict
 ## for reset button
 import subprocess as sub
-
-# # creates instance of Redis
-redis_data = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-
-# # creates Publish/Subscribe Redis object called 'p'
-p = redis_data.pubsub()
-# # p subscribes to get messages
-p.subscribe('logs')
-
-# # create Postrgres database cursor
-# #  a cursor is like a dummy user in a database that executes commands and retrieves results
-
 
 
 
@@ -63,22 +66,20 @@ class LogsGUI(tk.Frame):
         
 
         # for logs 
-        # os.system('tail -n 100 /var/log/syslog | grep scada')
         p = sub.Popen(["sudo", "scada", "logs"],stdout=sub.PIPE, stderr=sub.PIPE)
         output, errors = p.communicate()
         self.text = Text(self)
         self.text.grid(row = 2, column = 1, sticky= "w")
         self.text.insert(END, output)
 
-        ## contents fo logs redis channel 
-
+        ## contents for logs redis channel 
         self.pollFromPostgres()
     
 
     def pollFromPostgres(self):
         logArray = database.getAllLogs() 
         for row in logArray:
-            print("watcher " + str(row[1])+ " : " + str(row[0]) + "\n")
+            #print("watcher " + str(row[1])+ " : " + str(row[0]) + "\n")
             logtext = "watcher " + str(row[1])+ " : " + str(row[0]) + "\n"
             self.text.insert(END, logtext)
 
