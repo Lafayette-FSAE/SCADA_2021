@@ -331,7 +331,7 @@ class GUISetup(tk.Frame):
     # Method for Reset Button 
     def runProcess(self): 
         #subprocess.check_call(["sudo", "bash", "make"], cwd="/home/pi/SCADA_2021")
-        subprocess.check_call(["sudo", "bash", "reload"], cwd="/home/pi/SCADA_2021")
+        subprocess.check_call(["sudo", "scada", "reload"], cwd="/home/pi/SCADA_2021")
         python = sys.executable
         os.execl(python, python, * sys.argv)
 
