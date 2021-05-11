@@ -45,7 +45,7 @@ class ExportGUI_Frame(tk.Frame):
         pathLabel = tk.Label(self, text = "File Path: ", font= MED_FONT)
         pathLabel.grid(row = 20, column = 0,  sticky = "w")
 
-        defaultPath = "C:/Users/adamd/OneDrive/Documents/School/Car/SCADA_2021/Postman_New"
+        defaultPath = "C:/Users/adamd/OneDrive/Documents/School/Car/SCADA_2021/Postman"
 
         self.pathEntryBox = tk.Entry(self, width = 30)
         self.pathEntryBox.insert(0, defaultPath)
