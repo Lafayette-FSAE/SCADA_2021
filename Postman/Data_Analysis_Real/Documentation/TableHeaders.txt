@@ -1,9 +1,0 @@
-
-Description of the different columns in the local tables:
-
--actions_table: id, action name/identifier, value type created by action, # of data sets to be graphed, 3 entries of sensor ids to be graphed for graph3 (default 0's when no graph and 1 graph)
-
--key_names_tables: key/keyname (same as in report template), title of the keyname for display in headers and on graphs
-
--sensor_action_table: id, sensor id (from sensors table), action id (from actions table), key/keyname associated with sensor/action pair
-

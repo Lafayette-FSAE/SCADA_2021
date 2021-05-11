@@ -1,9 +1,0 @@
-1,max,scalar,0,0,0,0
-2,min,scalar,0,0,0,0
-3,avg,scalar,0,0,0,0
-4,graph_rpm,graph,1,0,0,0
-5,graph_glv,graph,1,0,0,0
-6,graph_glvv_rpm_glvi,graph3,3,1,4,2
-7,graph_tsiv_mcv_tsicr,graph3,3,1,4,7
-8,graph_throttle,graph,1,0,0,0
-9,tsv_mcv_tsi_vs_time,graph3,3,3,7,8

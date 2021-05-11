@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+
+
+### This script is meant to detect and display info for all available nodes currently on the CAN bus
+### for debug purposes
+
 import sys, os
 import time
 import canopen
