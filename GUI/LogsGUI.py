@@ -78,8 +78,8 @@ class LogsGUI(tk.Frame):
     def pollFromPostgres(self):
         logArray = database.getAllLogs() 
         for row in logArray:
-            print("watcher " + str(row[1])+ " : " + str(row[0]))
-            logtext = "watcher " + str(row[1])+ " : " + str(row[0])
+            print("watcher " + str(row[1])+ " : " + str(row[0]) + "\n")
+            logtext = "watcher " + str(row[1])+ " : " + str(row[0]) + "\n"
             self.text.insert(END, logtext)
 
           
