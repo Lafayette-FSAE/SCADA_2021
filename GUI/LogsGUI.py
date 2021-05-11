@@ -66,9 +66,10 @@ class LogsGUI(tk.Frame):
         # os.system('tail -n 100 /var/log/syslog | grep scada')
         p = sub.Popen(["sudo", "scada", "logs"],stdout=sub.PIPE, stderr=sub.PIPE)
         output, errors = p.communicate()
-        text = Text(self)
-        text.grid(row = 2, column = 1, sticky= "w")
-        text.insert(END, output)
+        self.text = Text(self)
+        self.text.grid(row = 2, column = 1, sticky= "w")
+        self.text.insert(END, output)
+
         ## contents fo logs redis channel 
 
         #self.pollFromRedis()
@@ -80,7 +81,9 @@ class LogsGUI(tk.Frame):
             #print("message: " + str(message))
             ## message = sensor:value
             if (message and (message['data'] != 1 )):
-                print(message)
+                print("Watcher: " + str(message))
+                logMsg = "Watcher: " + str(message)
+                self.text.insert(END, logMsg)
                 # logData = self.splitMsg(message['data'])
                 # print(logData)
     
