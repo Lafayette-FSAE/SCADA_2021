@@ -72,19 +72,16 @@ class LogsGUI(tk.Frame):
 
         ## contents fo logs redis channel 
 
-        #self.pollFromRedis()
+        #self.pollFromPostgres()
     
 
-    def pollFromRedis(self):
-        while True:
-            message = p.get_message() 
-            #print("message: " + str(message))
-            ## message = sensor:value
-            if (message and (message['data'] != 1 )):
-                print("Watcher: " + str(message))
-                logMsg = "Watcher: " + str(message)
-                self.text.insert(END, logMsg)
-                # logData = self.splitMsg(message['data'])
-                # print(logData)
+    def pollFromPostgres(self):
+        logArray = database.getAllLogs() 
+        for row in logArray:
+            print("watcher" + str(row[1])+ ":" + str(row[0]))
+            logtext = "watcher" + str(row[1])+ ":" + str(row[0])
+            self.text.insert(END, logtext)
+
+          
     
 
