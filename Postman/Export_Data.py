@@ -1,5 +1,15 @@
 #!/usr/bin/python3
 
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: Exporrt_Data.py                                                 
+## Description: Class that contains methods to retrieve data from the database for Post Processing.              
+#############################################################################################
+
+
 import sys, os
 
 lib_path = os.path.dirname(os.path.dirname(__file__))

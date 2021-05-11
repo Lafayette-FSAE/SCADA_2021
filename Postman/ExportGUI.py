@@ -1,5 +1,16 @@
 #!/usr/bin/python3
 
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: ExportGUI.py                                                 
+## Description: Class that allows the user to export data from a current session in Postgres 
+##              by filling out fields for each sensor, and export file path. 
+##              Data is exported into a EXCEL file for user convience.                
+#############################################################################################
+
 import sys, os
 import tkinter as tk 
 from tkinter import *
@@ -23,8 +34,6 @@ MED_FONT = ("Times New Roman", 14)
 # Needed to use tk.Frame in order to make a new window!!!
 class ExportGUI_Frame(tk.Frame):
 
-    # def __init__(self, *args, **kwargs):
-    #     tk.Tk.__init__(self, *args, **kwargs)
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         

@@ -1,4 +1,15 @@
 #!/usr/bin/python3
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: GUI_Setup.py                                                 
+## Description: Class to setup the layout of the GUI that is configured in the config.yaml file            
+##                   
+#############################################################################################
+
 import tkinter as tk 
 from tkinter import *
 from tkinter import ttk 
@@ -309,7 +320,7 @@ class GUISetup(tk.Frame):
         label = tk.Label(self, text="      ", font=LARGE_FONT)
         label.grid(row=row_, column = col_, sticky = "e")
 
-    ## proabbly dont need this method
+    ## gets unit from yaml File
     def getUnit(self, sensor): 
         #key_list = sensor.keys()
         for key, value in sensor.items():
@@ -319,7 +330,8 @@ class GUISetup(tk.Frame):
 
     # Method for Reset Button 
     def runProcess(self): 
-        subprocess.check_call(["sudo", "bash", "make"], cwd="/home/pi/SCADA_2021")
+        #subprocess.check_call(["sudo", "bash", "make"], cwd="/home/pi/SCADA_2021")
+        subprocess.check_call(["sudo", "scada", "reload"], cwd="/home/pi/SCADA_2021")
         python = sys.executable
         os.execl(python, python, * sys.argv)
 

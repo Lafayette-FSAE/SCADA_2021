@@ -1,4 +1,15 @@
 #!/usr/bin/python3
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: CheapSummary_GUI.py                                                 
+## Description: This class shows the first window that displays when you run the postman program.             
+##              Windows shows all sessions that are logged in postgres database.                
+#############################################################################################
+
 import sys, os
 import tkinter as tk 
 from tkinter import *
@@ -64,6 +75,12 @@ class CheapGUI(tk.Frame):
         filterButton = tk.Button(self, text="Filter", command = lambda: self.updateScreen(var.get()))
         filterButton.grid(row = 0, column = 1, sticky = "w")
 
+        ## LIA  move this up here on may 11
+        
+        moreDetailsButton = tk.Button(self, text="Show Details", command = lambda: self.controller.new_window()) 
+        moreDetailsButton.grid(row = 3, column = 4)
+
+
 
     # Creates list box for timeStamps 
     def listBox(self): 
@@ -126,14 +143,11 @@ class CheapGUI(tk.Frame):
         # elif filterVar == "1 Week":
         # elif filterVar == "1 Year":
         
-        
-        moreDetailsButton = tk.Button(self, text="Show Details", command = lambda: self.controller.new_window()) 
-        moreDetailsButton.grid(row = 3, column = 4)
+                        
+        # moreDetailsButton = tk.Button(self, text="Show Details", command = lambda: self.controller.new_window()) 
+        # moreDetailsButton.grid(row = 3, column = 4)
 
 
-
-    # #method to show the texual cheap description 
-    # def showCheapDescription(self):
 
 
 

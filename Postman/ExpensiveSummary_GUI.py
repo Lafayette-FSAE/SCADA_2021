@@ -1,4 +1,16 @@
 #!/usr/bin/python3
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers: Lia Chrysanthopoulos, Harrison Walker, Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: ExpensiveSummary_GUI.py                                                 
+## Description: This class shows the second window that displays when you run the postman program.             
+##              Windows shows the max, min and avg for the session selected in the CheapSumary_GUI.py 
+##              window.               
+#############################################################################################
+
 import sys, os
 import tkinter as tk 
 from tkinter import *
