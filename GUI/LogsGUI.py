@@ -72,7 +72,7 @@ class LogsGUI(tk.Frame):
 
         ## contents fo logs redis channel 
 
-        #self.pollFromPostgres()
+        self.pollFromPostgres()
     
 
     def pollFromPostgres(self):
