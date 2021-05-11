@@ -1,3 +1,11 @@
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Irwin Frimpong,Harrison Walker,Lia Chrysanthopoulos, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: i2c_driver.py                                                 
+## Description: I2C Driver moduule with read and write methods                
+#############################################################################################
 import sys, os
 import smbus
 import redis
@@ -13,14 +21,19 @@ sys.path.append(config_path)
 
 import config
 
-#Declariing i2C Bus
-bus = smbus.SMBus(3) ##CHNAGED BUS to 3 for debigging
+##########Declariing i2C Bus##############
+bus = smbus.SMBus(3) 
+##########################################
 
-# General i2c Read Method
+# read method for I2C Configured sensor 
+# @param Sensor - Sensor of Interest
+# @return data - Value stored in the secondary register addresses defined in config
+
 def read(Sensor):
     try:
-        #Use RTC read method if primary address is 0x68 -> RTC
+        # Retrieving sensor address from Configuration Yaml File
         sensor_address = config.get('Sensors').get(str(Sensor)).get('primary_address') 
+        #Use RTC read method if primary address is 0x68 -> RTC
         if( sensor_address == 0x68):
             return read_rtc(Sensor)
         else:
@@ -41,6 +54,10 @@ def read(Sensor):
     except IOError:
         time.sleep(.0001)
 
+# write method for I2C driver writes specifed value to the sensor 
+# @param Sensor - Sensor of Interest
+# @param Value - Value to written to the sensor
+
 def write(Sensor, Value):
     try:
         #Use RTC write method if primary address is 0x68 -> RTC
@@ -60,7 +77,11 @@ def write(Sensor, Value):
     except IOError:
         time.sleep(.0001)
 
-#Read function for RTC pcf-8523
+# read_rtc method for PCF-8523 RTC which reads the (month,day,year,hour,minutes,seconds) registers of the 
+# rtc and returns unix time 
+# @param Sensor - Sensor input of interest
+# @return Unix Time of RTC
+
 def read_rtc(Sensor):
     data = ""
     seconds_data = ""
@@ -95,27 +116,29 @@ def read_rtc(Sensor):
         time.sleep(.0001)
 
 
-#Write Function for RTC to set date and time
+# write_rtc method for PCF-8523 RTC which writes in year,month,day,hour,minutes,seconds into their respective registers 
+# @param Sensor - Sensor input of interest
+# @param Value - 'YR:MO:DD:HR:MI:SS' How we want value to be inputted
 def write_rtc(Sensor,Value):
-    # 'YR:MO:DD:HR:MI:SS' How we want value to be inputted
     val=Value.split(":")
     
     #Obtaining Primary and Secondary Addresses from Config YAML
     sensor_address = config.get('Sensors').get(str(Sensor)).get('primary_address') 
     reg_address = config.get('Sensors').get(str(Sensor)).get('secondary_address')
     try:
-        bus.write_byte_data(sensor_address,reg_address[0],int(val[0],16)) #Year
-        bus.write_byte_data(sensor_address,reg_address[1],int(val[1],16)) #Mont
-        bus.write_byte_data(sensor_address,reg_address[2],int(val[2],16)) #Daysensor_address
-        bus.write_byte_data(sensor_address,reg_address[3],int(val[3],16)) #Hours
-        bus.write_byte_data(sensor_address,reg_address[4],int(val[4],16)) #Minutes
-        bus.write_byte_data(sensor_address,reg_address[5],int(val[5],16)) #Second
-
-    
+        bus.write_byte_data(sensor_address,reg_address[0],int(val[0],16)) #Year Resgiter Address
+        bus.write_byte_data(sensor_address,reg_address[1],int(val[1],16)) #Month Register Address
+        bus.write_byte_data(sensor_address,reg_address[2],int(val[2],16)) #Day Register Address
+        bus.write_byte_data(sensor_address,reg_address[3],int(val[3],16)) #Hours Register Address
+        bus.write_byte_data(sensor_address,reg_address[4],int(val[4],16)) #Minutes Register Address 
+        bus.write_byte_data(sensor_address,reg_address[5],int(val[5],16)) #Second Register Address
+       
     except IOError:
         time.sleep(.0001)
 
-#Function to find the number of bits used to represent a number. This function to be used in the write i2c write method
+#countTotalBits method finds the number of bits used to represent a number. This function to be used in the write i2c write method
+# @param num - Number of interest
+# @return Number of bits needed to represent the num input in binary
 def countTotalBits(num):
      #convert number into it's binary and remove first two characters 0b.
      binary = bin(num)[2:]
