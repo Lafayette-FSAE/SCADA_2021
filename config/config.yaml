@@ -1,22 +1,30 @@
-## UPDATED CONFIG AS OF 11/6/2020
-## version number 
-  
-############### PART 1: CAN BUS CONFIGURATION #################### 
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Harrison Walker,Irwin Frimpong,Lia Chrysanthopoulos, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/10/2021 02:32:17 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: config.yaml                                                 
+## Description: YAML Configuration File for configuration CAN Bus information, CAN Nodes,
+##              Sensors(CAN,I2C,USB,GPIO), and GUI Display / Page Setup                   
+#############################################################################################
 
+
+####################################################################################
+##                    PART 1: CAN BUS CONFIGURATION
+####################################################################################
+
+#setup information for each hardware bus
 bus_info:
   CAN:
     bus_type: socketcan   #socketcan for actual bus, vcan for virtual bus
     channel: can0         #can0 for actual bus, vcan0 for virtual bus
     bitrate: 125000       #should always be 125000
 
-# CAN node ids
+# CAN node ids and eds files
 can_nodes:
   motor:
       id: 1
       eds_file: '[nodeId=001]eds_eDrive150.eds'
-  # tsi:
-  #     id: 3
-  #     eds_file:
   pack1:
       id: 10
       eds_file: 'Pack.eds'
@@ -24,21 +32,29 @@ can_nodes:
   #     id: 5
   #     eds_file: 'Pack.eds'
 
-########## PART 2: SOFTWARE SYSTEM CONFIGUREATION ##########
+####################################################################################
+##                    PART 2: SOFTWARE SYSTEM CONFIGUREATION 
+####################################################################################
 
+
+####################################################################################
+##                    PART 2A: EMULATOR STATUS
+##
+## Setting emulated data which allows you to enable or disable emaulted sensors 
+## without having to comment out their configurations
+####################################################################################
 emulation: True
 
-########## PART 2A: LOGGER ##########
-
-# a list of keys to be ignored by the logger
-dont_log: ['*_raw','emulator_*']
-
-########## PART 2B: GUI DISPLAY ##########
-
-### list ther sensors you would like to dislay on the screen
+#####################################################################################
+##                  PART 2B: GUI DISPLAY Configuration
+## 
+##  In this part of the configuration file, users can configure the pages and further
+##  sensors groups to be displayed on each page. 
+##  Max Number of Sensor groups per page 3
+#####################################################################################
 Display:
   Pages:
-  #max of 3 groups per page
+  #MAX NUMBER OF GROUP PER PAGE: 3
     1:
       - I2C_Sensors
       - I2C_Additional
@@ -55,9 +71,15 @@ Display:
       - Motor_Controller
       - Batteries
 
+#####################################################################################
+##                  PART 2C: GUI Sensor Group DISPLAY Configuration 
+##
+## Section of Configuration file to configure sensor groups titles and corresponding
+## defined sensors below.
+## MAX 15 Sensors Per Group
+#####################################################################################
   Groups: 
-  # max 15 sensor per 1 group
-  # Try to limit # of characters for Group name to avoid wasting space on screen
+  ## MAX 15 SENSORS PER GROUP
     I2C_Sensors:
       - emulator_tsi_drive_state
       - rtc_time
@@ -157,31 +179,13 @@ Display:
       - emulator_battery_temperature
       - emulator_engine_temperature
 
-      
-########## PART 3: INDIVIDUAL SENSORS ##########
 
-#Example Sensor
+#####################################################################################
+##                  PART 3: SENSOR DEFAULTS AND IMU CONFIGURATION
+##
+## Section with sensor_defaults and BNO-055 IMU Configuration Registers 
+#####################################################################################
 
-  #subsytem_name_data_name: #this is the sensor name
-  # unit: V
-  # inputs:
-    #varName1: sensor1_name
-    #varName2: sensor2_name             ### Note: an actual sensor would only have one cal_function
-  # cal_function: "varName1 * varName2" <-- number calibration (display_variable must be boolean or number)
-  # cal function:                       <-- state calibration (display_variable must be state)
-    # 1: OFF
-    # 2: STANDBY
-    # 3: DRIVE-READY
-    # 4: DRIVE
-  # bus_type: I2C
-  # primary_address: 0x01
-  # secondary_address: [0x68,0x69]    #single hex value for CAN, list for I2C
-  # precision: 2                      #number of decimal places
-  # display_variable: number          #number/state/boolean
-  # sample_period: 1                  #in seconds
-  # bit_length: 16                    #probably don't need this
-  # description: "description of the data being stored"
-  
 Sensor_defaults:
   unit: ''
   precision: 2                      
@@ -199,12 +203,57 @@ IMU_Config_Constants:
   ACCEL_4G: 0x01
   GYRO_2000_DPS: 0x00
   MAGNETOMETER_20HZ: 0x05
- 
+      
+#####################################################################################
+##                  PART 4: SENSOR CONFIGURATION
+##
+## This portion of the configuration file deals with individual sensor configuration 
+## with their respective drivers (CAN, I2C, GPIO, USB, VIRTUAL)
+#####################################################################################
 
+#SAMPLE SENSOR DEFINITION
 
-## LIA: ADDED var_name FOR CAN SENSORS 
+  #subsytem_name_data_name:             ### Note: Must be all lowercase!
+  # unit: 'V'                           # Units used for this sensor
+  # inputs:
+    #varName1: sensor1_name
+    #varName2: sensor2_name             ### Note: an actual sensor would only have one cal_function
+  # cal_function: "varName1 * varName2" <-- numerical calibration (display_variable must be boolean or number)
+  # cal function:                       <-- state calibration (display_variable must be state)
+    # 1: OFF
+    # 2: STANDBY
+    # 3: DRIVE-READY
+    # 4: DRIVE
+  # cal_function:                     # Conditional Calibration Function Setup. See User Manual For More Info
+    #'In>1000': '(-1)*(65536-In)*(1/100)'
+    #'True': 'In*(1/100)'
+  # bus_type: I2C                     #I2C,CAN,USB,VIRTUAL
+  # primary_address: 0x01             # Address of Sensor of BUS
+  # secondary_address: [0x68,0x69]    #single hex value for CAN, list for I2C
+  # precision: 2                      #number of decimal places
+  # display_variable: number          #number/state/boolean
+  # description: "description of the data being stored in the sensor"
+  # sample_period: 1                  #in seconds for sample rate of sensor
+  # bit_length: 16                    #used only for I2C bus sensors to determine the type of read/ write method to use
+  # var_name: samplename              #Shortened name of the sensor to be used as name displayed for the sensor on the GUI
+  
+
+# Emulated sensors have 3 additional fields
+#   data_values: [20, 80] #number for CONSTANT, [] range for RAMP or SINE, list of values for CYCLE
+#   this is the range of values this emulator will generate
+#   #note these are RAW DATA values
+
+#   data_pattern: RAMP #options are RAMP, SINE, CONSTANT, CYCLE (for states)
+#   this is the pattern the data will cycle through within the given value range
+
+#   data_period: 60 #in seconds
+#   period for plot shape to repeat
+#
+
 ## Tip: Recommended max 15 characters for var_name in order to avoid cutting off data on screen 
+
 Sensors:
+
 #USB sensors
   # usb_torque:
   #   unit: 'Nm'
@@ -2169,7 +2218,13 @@ Sensors:
 
 
 
-################## WATCHER STUFF ##########################
+#####################################################################################
+##                  PART 5: WATCHER CONFIGURATION
+##
+## This portion of the configuration file deals with "Watcher" active control portion
+## of the system. Here, we define "Controls" which are actions that are activated and
+## deactivated by conditional checks sensors throughout the system
+#####################################################################################
 
 ##Example Control
 #TSI-Heat_Check:
@@ -2192,6 +2247,7 @@ Sensors:
 
     #NOTE: these are not full configurations. Just examples of Action_Details for alternate Action_Type's
 
+## Normally a control would have only have once action, but this
     #action:
         # type: WARNING
         # message: "msg1"
@@ -2239,7 +2295,6 @@ Controls:
   #       sensor: motor_select_application
   #       value: 1
 
-  #proof of concept WRITE action
   sloop_relay:
     max_duration: 2
     inputs:
@@ -2252,7 +2307,6 @@ Controls:
       sensor: scada_relay
       value: 1
 
-  #proof of concept WARNING action
   epal_temp_warning:
     cooldown: 1
     inputs:
@@ -2270,23 +2324,15 @@ Controls:
       suggestion: "Throttle down or safety loop will shut off"
       priority: 5
 
-  #proof of concept LOG action
-  battery_temp_log:
-    cooldown: 5
-    max_duration: 5
-    inputs:
-      temp: emulator_battery_temperature
-    entry_condition:
-        str: 'temp > 90'
-        type: INSTANTANEOUS                                          
-    exit_condition:
-        str: 'temp < 90'                   
-        type: INSTANTANEOUS
-    action:
-      type: LOG
-      message: "Battery temperature > 90"
-    
 
+#####################################################################################
+##                  PART 6: POST-PROCESSING CONFIGURATION
+##
+## This portion of the configuration file deals with "Postman" post-processing portion
+## of the system. Here, we define the ip address of the Raspberry Pi on which the data
+## is stored, the current definition of a SCADA "session", and the data fields that
+## are used to generate an "expensive summary" preview a session before exporting 
+#####################################################################################
 
 Post_Processing: 
   ip_address: '139.147.91.189'
@@ -2302,6 +2348,12 @@ Post_Processing:
     - emulator_engine_temperature
     - emulator_battery_percentage
 
+#####################################################################################
+##                  PART 7: EPAL CONFIGURATION
+##
+## This portion of the configuration file deals with "Dashboard" driver display portion
+## of the system. Here, we define the sensors whose data is displayed on the dashboard
+#####################################################################################
 
 EPAL:
   display_sensors:
