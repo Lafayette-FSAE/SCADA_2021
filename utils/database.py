@@ -60,6 +60,26 @@ def getAllData(sensor_id):
         
     return data
 
+def getAllLogs():
+    """
+        Return all log data. To be used by other classes to retreive information
+        from database.
+    """
+    #print(sensor_id)
+    cursor.execute(""" 
+        SELECT message, timestamp
+        FROM logs
+        ORDER BY timestamp ASC
+    """)
+
+    data = cursor.fetchall()
+    # if data == None or len(data) == 0:
+    if len(data)==0:
+        #If this is the case then there is an issue with the logger class' update method
+        return 'ERR IN DATAPATH'
+        
+    return data
+
 def getAllDataWithinPeriod(sensor_id, timeStampBegin, timeStampEnd):
     """
         For a sensor name, returns all data associated with it within a desired time period,
