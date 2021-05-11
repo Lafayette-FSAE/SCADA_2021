@@ -11,7 +11,6 @@ import config
 import redis
 
 import utils
-from utils import calibration
 from drivers import driver
 
 import time
@@ -263,8 +262,8 @@ class Write(Action):
 
 def updateJSON():
     dashboardDict =  { 'sensor_readings': sensorReadings, 'warnings': warnings }
-    print('DASHBOARD DICT BEFORE JSON WRITE')
-    print(dashboardDict)
+    # print('DASHBOARD DICT BEFORE JSON WRITE')
+    # print(dashboardDict)
     with open('/usr/etc/dashboard.json','w') as outfile:
         # outfile.write(json.dumps(dashboardDict))
         json.dump(dashboardDict, outfile)
