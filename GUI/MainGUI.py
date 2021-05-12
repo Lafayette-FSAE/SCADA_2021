@@ -148,8 +148,10 @@ class Main_GUI(tk.Tk):
         self.attributes("-fullscreen", self.fullScreenState)
 
     def initializeCurrValues(self):
+
         for sensor in config.get('Sensors'):
             self.currValues[sensor] = database.getData(sensor)
+        print("initializeCurrValues")
 
     def pollFromRedis(self):
         print("pollfromredis")
