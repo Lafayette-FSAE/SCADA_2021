@@ -209,9 +209,10 @@ def undifferentiateData(data, sensorSamplePeriod):
     return outputData
 
 # THIS IS THE PROCEDURE TO BE CALLED FROM THE GUI
-# ip_address = config.get("Post_Processing").get("ip_address")
+ip_address = config.get("Post_Processing").get("ip_address")
 # ip_address = '139.147.81.105'
-ip_address = '139.147.91.189'
+#ip_address = '139.147.91.189'
+
 ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
 ## get cheap summary data 
 Extract_Data.initialize_database(ip_address)

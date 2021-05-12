@@ -53,7 +53,7 @@ class ExpensiveGUI(tk.Frame):
 
         self.container = tk.Frame(self, width = self.screenWidth, height = self.screenHeight)
 
-        self.winfo_toplevel().title("Expensive Summary:      " + str(self.controller.cheapSummaryVars["session"]) )
+        self.winfo_toplevel().title("Session Preview:      " + str(self.controller.cheapSummaryVars["session"]) )
         ex_sum_sensors = config.get("Post_Processing").get("expensive_summary_data")
         timeStampBegin = self.controller.cheapSummaryVars["sessionStart"]
         timeStampEnd = self.controller.cheapSummaryVars["sessionEnd"]

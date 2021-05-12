@@ -41,7 +41,7 @@ class CheapGUI(tk.Frame):
         self.controller = controller
         self.parent = parent
 
-        self.winfo_toplevel().title("Cheap Summary")
+        self.winfo_toplevel().title("Session Browser")
         self.my_list = []
 
         ip_address = config.get("Post_Processing").get("ip_address")
@@ -76,7 +76,7 @@ class CheapGUI(tk.Frame):
         filterButton.grid(row = 0, column = 1, sticky = "w")
 
         ## LIA  move this up here on may 11
-        
+
         moreDetailsButton = tk.Button(self, text="Show Details", command = lambda: self.controller.new_window()) 
         moreDetailsButton.grid(row = 3, column = 4)
 

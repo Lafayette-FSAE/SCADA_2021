@@ -46,6 +46,8 @@ class ExportGUI_Frame(tk.Frame):
         
         self.container = tk.Frame(self, width = self.screenWidth, height = self.screenHeight)
 
+        self.winfo_toplevel().title("Export Settings")
+
         ## classs specific varibles
         self.row_place = 0 
         self.chosenSensors = []
