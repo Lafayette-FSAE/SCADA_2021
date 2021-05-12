@@ -1,4 +1,14 @@
 #!/usr/bin/python3
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Mithil Shah,Irwin Frimpong,Harrison Walker,Lia Chrysanthopoulos, Adam Tunnell                                    
+## Last Updated : 05/11/2021 5:14 PM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: emulated_driver.py                                                 
+## Description:            
+#############################################################################################
+
 import math
 import time
 import sys

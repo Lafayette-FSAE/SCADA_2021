@@ -1,4 +1,14 @@
 #!/usr/bin/python3
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Harrison Walker, Adam Tunnell, Irwin Frimpong,Lia Chrysanthopoulos, Mithil Shah                                 
+## Last Updated : 05/12/2021 11:06 AM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: calibrator.py                                                 
+## Description: 
+##  
+#############################################################################################
+
 import sys, os
 import redis
 import time

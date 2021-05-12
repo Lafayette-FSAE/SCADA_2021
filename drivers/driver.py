@@ -1,4 +1,13 @@
 #!/usr/bin/python3
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Harrison Walker, Adam Tunnell, Lia Chrysanthopoulos, Mithil Shah,Irwin Frimpong                                   
+## Last Updated : 05/12/2021 11:06 AM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: driver.py                                                 
+## Description: driver module with method used for Active System Control                    
+#############################################################################################
+
 import sys, os
 import time
 
@@ -72,16 +81,3 @@ def write(Sensor,Value):
         return 'Sensor Protocol Not Found'
 
 
-# while True: 
-#     #for Sensors: <-- needs to be name of list of sensors
-#     # milliseconds = int(time()*1000)
-#     for sensorName in SensorList :
-#         if(time.time() - last_sampled[sensorName] > sample_period[sensorName] and float(sample_period[sensorName]) != 0.0):
-#             #Appending sensor name to sensor value for distinction in redis database
-#             key = '{}:{}'.format(sensorName, read(sensorName))
-#             #Python String Method that makes everything lowercase
-#             key = key.lower()
-#             print(key)
-#             #Putting Sensor Data into redis channel
-#             Redisdata.publish('raw_data',key)
-#             last_sampled[sensorName] = time.time()

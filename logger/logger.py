@@ -1,5 +1,14 @@
 #!/usr/bin/python3
 
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Harrison Walker, Adam Tunnell, Lia Chrysanthopoulos, Mithil Shah,Irwin Frimpong                                   
+## Last Updated : 05/12/2021 11:06 AM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: logger.py                                                 
+## Description: logger module with method used to write sensor data into postgresql database                    
+#############################################################################################
+
 import sys
 import os
 import datetime
@@ -178,7 +187,6 @@ def update_logs(msgData):
         VALUES (%s)
     """, [msgData])
 
-# THIS IS THE ACTUAL CODE THAT RUNS
 
 while True:
     # Redis object gets the next message from its subscribed channels if one is available
@@ -187,7 +195,7 @@ while True:
     #Debugging Comments
     #print(message)
     if (message and (message['data'] != 1 )):
-        # Harry: calls update method (checks if it should be logged and executes database queries to log it)
+        # Calls update method (checks if it should be logged and executes database queries to log it)
         if message['channel'] in ['calculated_data']:
             update(message['data'])
         elif message['channel'] in ['new-session']:

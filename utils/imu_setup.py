@@ -22,6 +22,7 @@ import config
 
 onSetup = False  #Boolean var used to peform imu setup on startup
 
+# Method that performs a reset on IMU register used at boot-up
 def imu_reset():
     #IMU IN CONFIG MODE
     driver.write('opr_mode_reg',config.get('IMU_Config_Constants').get('CONFIG_MODE'))

@@ -5,9 +5,9 @@
 ## Last Updated : 05/11/2021 5:14 PM                       
 ## Project Name: SCADA FSAE 2021                                 
 ## Module Name: sorter.py                                                 
-## Description: Sorter module used to interate through the list of defined sensors
+## Description: Sorter module used to iterate through the list of defined sensors
 ## in the configuation file with respect to their sample periods for them to sampled and later
-## calibrated accordinglly               
+## calibrated accordingly               
 #############################################################################################
 import sys, os
 import time

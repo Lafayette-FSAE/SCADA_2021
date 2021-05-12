@@ -1,3 +1,12 @@
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Harrison Walker,Lia Chrysanthopoulos, Mithil Shah, Adam Tunnell, Irwin Frimpong                                   
+## Last Updated : 05/12/2021 11:06 AM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: database.py                                                 
+## Description: Database module holds methods to retrieve sensor data from Postgresql Database                    
+#############################################################################################
+
 import sys
 import os
 import datetime
