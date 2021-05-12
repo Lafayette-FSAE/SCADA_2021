@@ -150,8 +150,9 @@ class Main_GUI(tk.Tk):
     def initializeCurrValues(self):
 
         for sensor in config.get('Sensors'):
+            print("initializeCurrValues")
             self.currValues[sensor] = database.getData(sensor)
-        print("initializeCurrValues")
+
 
     def pollFromRedis(self):
         print("pollfromredis")
@@ -165,7 +166,6 @@ class Main_GUI(tk.Tk):
     
     ## This method splits the sting from the postgres channel into sensorValue and sensorKey 
     def splitMsg(self, message): 
-        print("split msg ")
         split_msg = message.split(b":",1)
         
         sensor_valueOLD= split_msg[1]
