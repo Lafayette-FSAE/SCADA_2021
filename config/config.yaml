@@ -1,7 +1,7 @@
 ##############################################################################################
 ## Company: FSAE Lafayette College                                                               
 ## Engineers:Harrison Walker,Irwin Frimpong,Lia Chrysanthopoulos, Mithil Shah, Adam Tunnell                                    
-## Last Updated : 05/10/2021 02:32:17 PM                         
+## Last Updated : 05/11/2021 05:50 PM                         
 ## Project Name: SCADA FSAE 2021                                 
 ## Module Name: config.yaml                                                 
 ## Description: YAML Configuration File for configuration CAN Bus information, CAN Nodes,

@@ -1,17 +1,30 @@
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Mithil Shah,Irwin Frimpong,Harrison Walker,Lia Chrysanthopoulos, Adam Tunnell                                    
+## Last Updated : 05/11/2021 5:14 PM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: gpio_driver.py                                                 
+## Description: GPIO Driver whcih contains write and read methods for GPIO pins              
+#############################################################################################
+
 import sys
 import os
-import config
-#import smbus
 import redis
-import utils
 import time
 import RPi.GPIO as GPIO
-# sudo apt-get install python-rpi.gpio
-# nano ledexample.py
 
-# General method to read from GPIO value with primary adress as GPIO pin number
+#CONFIG PATH
+lib_path = '/usr/etc/scada'
+config_path = '/usr/etc/scada/config'
 
+sys.path.append(lib_path)
+sys.path.append(config_path)
 
+import config
+import utils
+
+# read method for GPIO Configured sensor to read from GPIO value with primary adress as GPIO pin number 
+# @param Sensor - Sensor of Interest
 def read(Sensor):
     try:
         GPIO.setmode(GPIO.BCM)
@@ -26,7 +39,9 @@ def read(Sensor):
 
 # General method to write to GPIO value
 
-
+# write method for GPIO Configured sensor  
+# @param Sensor - Sensor of Interest
+# @param Value - Value to be written to GPIO pin
 def write(Sensor, Value):
     try:
         GPIO.setmode(GPIO.BCM)

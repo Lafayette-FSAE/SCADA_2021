@@ -1,4 +1,13 @@
 #!/usr/bin/python3
+
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Harrison Walker, Adam Tunnell, Lia Chrysanthopoulos, Mithil Shah,Irwin Frimpong                                   
+## Last Updated : 05/12/2021 11:06 AM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: watcher.py                                                 
+## Description: Watcher module with method used for Active System Control                    
+#############################################################################################
 import sys, os, logging
 
 lib_path = '/usr/etc/scada'

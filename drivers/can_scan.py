@@ -1,8 +1,14 @@
 #!/usr/bin/python3
 
-
-### This script is meant to detect and display info for all available nodes currently on the CAN bus
-### for debug purposes
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Harrison Walker, Adam Tunnell, Lia Chrysanthopoulos, Mithil Shah,Irwin Frimpong                                   
+## Last Updated : 05/12/2021 11:06 AM                       
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: can_scan.py                                                 
+## Description: This script is meant to detect and display info for all available nodes currently on the CAN bus
+##              for debug purposes  
+#############################################################################################
 
 import sys, os
 import time
