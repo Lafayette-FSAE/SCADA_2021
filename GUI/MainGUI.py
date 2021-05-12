@@ -152,6 +152,7 @@ class Main_GUI(tk.Tk):
             self.currValues[sensor] = database.getData(sensor)
 
     def pollFromRedis(self):
+        print("pollfromredis")
         while True:
             message = p.get_message() 
             #print("message: " + str(message))
