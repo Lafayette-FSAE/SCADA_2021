@@ -91,12 +91,15 @@ class Main_GUI(tk.Tk):
 
         self.frames = {}
 
+        print ("before thread ")
         #this calls all the methods needed to initialize and continuously poll data
         self.initializeCurrValues()
         thread = threading.Thread(target=self.pollFromRedis, args=())
         thread.daemon = True                            # Daemonize thread
         thread.start()                                  # Start the execution
         
+        print ("after thread ")
+
         self.get_pages() #call function to get number of pages to display
         max = self.numOfPages
         i = 0
