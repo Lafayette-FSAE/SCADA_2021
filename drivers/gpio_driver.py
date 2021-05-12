@@ -9,11 +9,18 @@
 
 import sys
 import os
-import config
 import redis
 import utils
 import time
 import RPi.GPIO as GPIO
+#CONFIG PATH
+lib_path = '/usr/etc/scada'
+config_path = '/usr/etc/scada/config'
+
+sys.path.append(lib_path)
+sys.path.append(config_path)
+
+import config
 
 # read method for GPIO Configured sensor to read from GPIO value with primary adress as GPIO pin number 
 # @param Sensor - Sensor of Interest
