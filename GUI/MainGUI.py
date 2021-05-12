@@ -157,7 +157,8 @@ class Main_GUI(tk.Tk):
 
         for sensor in config.get('Sensors'):
             print("initializeCurrValues")
-            self.currValues[sensor] = database.getData(sensor)
+            # self.currValues[sensor] = database.getData(sensor)
+            self.currValues[sensor] = 'no data'
 
 
     def pollFromRedis(self):
