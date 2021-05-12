@@ -94,7 +94,7 @@ class Main_GUI(tk.Tk):
         print ("before thread ")
         #this calls all the methods needed to initialize and continuously poll data
         self.initializeCurrValues()
-        thread = threading.Thread(target=self.pollFromRedis, args=())
+        thread = threading.Thread(target=self.pollFromRedis(), args=())
         thread.daemon = True                            # Daemonize thread
         thread.start()                                  # Start the execution
         
@@ -162,7 +162,7 @@ class Main_GUI(tk.Tk):
     
     ## This method splits the sting from the postgres channel into sensorValue and sensorKey 
     def splitMsg(self, message): 
-        
+        print("split msg ")
         split_msg = message.split(b":",1)
         
         sensor_valueOLD= split_msg[1]
