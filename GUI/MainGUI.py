@@ -90,11 +90,16 @@ class Main_GUI(tk.Tk):
 
         self.frames = {}
 
+
         print ("before thread ")
         #this calls all the methods needed to initialize and continuously poll data
         self.initializeCurrValues()
         thread = threading.Thread(target=self.pollFromRedis(), args=())
         thread.daemon = True                            # Daemonize thread
+
+         #subscribes object to logger
+        p.subscribe('logger_data')
+
         thread.start()                                  # Start the execution
         
         print ("after thread ")
@@ -155,8 +160,7 @@ class Main_GUI(tk.Tk):
 
     def pollFromRedis(self):
         print("pollfromredis")
-        #subscribes object to logger
-        p.subscribe('logger_data')
+
         while True:
             message = p.get_message() 
             #print("message: " + str(message))
