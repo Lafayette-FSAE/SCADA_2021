@@ -41,8 +41,7 @@ import ctypes  # for screen size
 redis_data = redis.Redis(host='localhost', port=6379, db=0)
 # creates Publish/Subscribe Redis object called 'p'
 p = redis_data.pubsub()
-#subscribes object to logger
-p.subscribe('logger_data')
+
 
 
 
@@ -156,6 +155,8 @@ class Main_GUI(tk.Tk):
 
     def pollFromRedis(self):
         print("pollfromredis")
+        #subscribes object to logger
+        p.subscribe('logger_data')
         while True:
             message = p.get_message() 
             #print("message: " + str(message))
