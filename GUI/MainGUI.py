@@ -101,6 +101,7 @@ class Main_GUI(tk.Tk):
         p.subscribe('logger_data')
         thread = threading.Thread(target=self.pollFromRedis(), args=())
         #thread.daemon = True                            # Daemonize thread
+        print("before start thread")
         thread.start()                                  # Start the execution
         
         print ("after thread ")
