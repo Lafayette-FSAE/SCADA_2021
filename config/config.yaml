@@ -2343,7 +2343,7 @@ Post_Processing:
 
   # always display MAX MIN AVG 
   # ONLY NUMERICAL DATA can be used
-  expensive_summary_data:
+  session_preview_data:
     - emulator_car_mph
     - emulator_engine_temperature
     - emulator_battery_percentage
