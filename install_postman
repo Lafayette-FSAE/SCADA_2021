@@ -1,5 +1,18 @@
 #!/bin/bash
 
+##############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Lia Chrysanthopoulos, Harrison Walker,Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/11/2021 05:50 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: install_postman                                                
+## Description: This file is an install file for python extensions in order to run the post
+##              processing system. If any other libraries are needed in order to install 
+##              the post processing system, the install line shoudl be added here. 
+##              In to run this file the user must run sudo bash install_postman in the terminal. 
+##              Under the main SCADA direcvtory.                 
+#############################################################################################
+
 pip3 install psycopg2
 pip3 install pandas
 pip3 install tkinter

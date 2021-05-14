@@ -1,5 +1,19 @@
 #!/bin/bash
 
+
+#############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Lia Chrysanthopoulos, Harrison Walker,Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/11/2021 05:50 PM                         
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: install                                               
+## Description: This file is the install file for the scada system. 
+##              This file sets up the entire system for Scada and is vital to run in order
+##              to use the scada system. Instructions for running this file can be found in 
+##              the user manual 
+##              In to run this file the user must run sudo bash install in the terminal.                 
+#############################################################################################
+
 #install linux system dependencies
 apt-get update
 apt-get install python3
