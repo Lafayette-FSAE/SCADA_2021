@@ -104,7 +104,7 @@ class ExpensiveGUI(tk.Frame):
         # exitButton.grid(row = 20, column = 20, sticky = "w")
 
         ## button to go to ExportGUI
-        pickSensorButton = tk.Button(self, text = "Confirm Sensors for Export" , command = lambda: self.controller.new_window2())
+        pickSensorButton = tk.Button(self, text = "Export Session" , command = lambda: self.controller.new_window2())
         pickSensorButton.grid(row = 20, column = 18, sticky= "w")
 
 
