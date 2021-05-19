@@ -91,7 +91,6 @@ class Main_GUI(tk.Tk):
         self.frames = {}
 
 
-        print ("before thread ")
 
 
         #this calls all the methods needed to initialize and continuously poll data
@@ -101,10 +100,8 @@ class Main_GUI(tk.Tk):
         p.subscribe('logger_data')
         thread_sensor = threading.Thread(target=self.pollFromRedis)
         thread_sensor.setDaemon(True)                            # Daemonize thread
-        print("before start thread")
         thread_sensor.start()                                  # Start the execution
         
-        print ("after thread ")
 
         self.get_pages() #call function to get number of pages to display
         max = self.numOfPages
@@ -156,17 +153,15 @@ class Main_GUI(tk.Tk):
     def initializeCurrValues(self):
 
         for sensor in config.get('Sensors'):
-            print("initializeCurrValues")
             # self.currValues[sensor] = database.getData(sensor)
             self.currValues[sensor] = 'no data'
 
 
     def pollFromRedis(self):
-        print("pollfromredis")
 
         while True:
             message = p.get_message() 
-            #print("message: " + str(message))
+
             ## message = sensor:value
             if (message and (message['data'] != 1 )):
                 [sensor_key, sensor_value] = self.splitMsg(message['data'])
@@ -177,10 +172,8 @@ class Main_GUI(tk.Tk):
         split_msg = message.split(b":",1)
         
         sensor_valueOLD= split_msg[1]
-        #print("sensor_valueOLD: " + str(split_msg[1]))
-        sensor_keyOLD = split_msg[0]
-        #print("sensor_keyOLD " + str(split_msg[0]))
 
+        sensor_keyOLD = split_msg[0]
         # remove the random b in the beginging of string
         sensor_value = sensor_valueOLD.decode('utf-8')
         sensor_key = sensor_keyOLD.decode('utf-8')

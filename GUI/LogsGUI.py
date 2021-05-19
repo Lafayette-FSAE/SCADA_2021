@@ -56,7 +56,6 @@ class LogsGUI(tk.Frame):
         label.grid(row = 0, column = 1,  sticky = "w")
 
         back_page = self.controller.numOfPages
-        #print("back page" + str(back_page))
 
         filePath2 = '/usr/etc/scada/GUI/prevPageButton2.png'
         img2 = PhotoImage(file = filePath2)  
@@ -79,7 +78,6 @@ class LogsGUI(tk.Frame):
     def pollFromPostgres(self):
         logArray = database.getAllLogs() 
         for row in logArray:
-            #print("watcher " + str(row[1])+ " : " + str(row[0]) + "\n")
             logtext = "watcher " + str(row[1])+ " : " + str(row[0]) + "\n"
             self.text.insert(END, logtext)
 
