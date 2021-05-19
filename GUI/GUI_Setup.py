@@ -135,7 +135,6 @@ class GUISetup(tk.Frame):
         config.load(forceLoad=True)
         self.displayDict = config.get('Display')
         self.pageNum = self.displayDict.get('Pages')
-        print("get_page_groups")
         # for each group in the Groups list in config.yaml fil e
         for page in self.pageNum:
             
@@ -155,7 +154,6 @@ class GUISetup(tk.Frame):
     def get_groups(self, groupList):
         self.displayDict = config.get('Display')
         self.groupDict = self.displayDict.get('Groups')
-        print("get_groups")
         
         # for the groups listed under the Pages category
         for group in groupList:
@@ -184,7 +182,6 @@ class GUISetup(tk.Frame):
     # MEthod finds matches the sensor names and retrieves the display variable name called var_name
     def find_group_in_SensorList(self, sensorName): 
         self.sensorDict = config.get('Sensors') # listed name of sensors under Sensor in config file 
-        print("find_group_in_SensorList")
         # for each sensor in the Sensors list  ## COMMENT OUT 2/19          
         #for sen in list(self.sensorDict.keys()): # go though list of sensors to match correct display var
 
@@ -226,7 +223,6 @@ class GUISetup(tk.Frame):
 
      # Method gets the data to display on the screen 
     def initial_data_settup(self):
-        print("initial_data_settup")
         
         itr = 0 ## iterator to keep track of name_list index 
 
@@ -276,8 +272,6 @@ class GUISetup(tk.Frame):
     #every 1s, replace all text fields with values from controller.currValues
     def getNewData(self): 
 
-        print("getNewData")
-
         for sensor_key in self.coordDict:
             sensor_value = self.controller.currValues[sensor_key]
             for coordEntry in self.coordDict[sensor_key]:
@@ -289,8 +283,7 @@ class GUISetup(tk.Frame):
     
     # this method puts the data on the screen after it has been updated
     def placedata_on_screen(self, listIndex, value):
-        print("placedata_on_screen")
-        
+
         # delete entry box with old information
         self.entryBoxList[listIndex].delete(0, "end")
        
