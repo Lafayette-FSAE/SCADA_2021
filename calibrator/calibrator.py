@@ -5,8 +5,8 @@
 ## Last Updated : 05/12/2021 11:06 AM                       
 ## Project Name: SCADA FSAE 2021                                 
 ## Module Name: calibrator.py                                                 
-## Description: 
-##  
+## Description: calibrator.py module calibrates raw data values of sensors using the specified
+##              calibrartion functions in the configuration file.
 #############################################################################################
 
 import sys, os
@@ -35,7 +35,7 @@ p.subscribe('raw_data')
 #Local Dictionary storing values of Calibrated Sensors used for Virtual Sensors
 last_calc_vals = {}
 
-#Performs Calibration on Raw Sensor Values
+#Performs Calibration on Raw Sensor Values. Sensor_val[0] is the sensor name and Sensor_val[1] is the raw sensor value that needs to be calibrated.
 def execute(Sensor_val):
     #Retrieve Calibration Function From Yaml Configuration File
     calibration_func = config.get('Sensors').get(Sensor_val[0]).get('cal_function')
@@ -73,10 +73,10 @@ def execute(Sensor_val):
 
     return(output)
 
-#Method to peform Calibration on virtual sensors 
+#Method to peform Calibration on virtual sensors. Sensor_val[0] is the sensor name and Sensor_val[1] is the raw sensor value that needs to be calibrated.
 def Virtual_execute(Sensor_val):
     output = ''
-    #Debuggin
+    # Line Below used for Debugging
     # print(str(Sensor_val[0]) +":  Sensor Value: " + Sensor_val[1] )
     no_data_bolean = False
     retrived_input = ''
@@ -116,7 +116,7 @@ def Virtual_execute(Sensor_val):
       
     return(output)
 
-#Method to perform Calibration on State Sensors 
+#Method to perform Calibration on State Sensors. Sensor_val[0] is the sensor name and Sensor_val[1] is the raw sensor value that needs to be calibrated. 
 def State_execute(Sensor_val):
     output = '' 
     #Retrieving Calibrated State from YAML
@@ -129,7 +129,7 @@ def State_execute(Sensor_val):
    
     return (output)
 
-#Method to perform Calibration on String Display Variables
+#Method to perform Calibration on String Display Variables. Sensor_val[0] is the sensor name and Sensor_val[1] is the raw sensor value that needs to be calibrated.
 def String_execute(Sensor_val):
     output = ''
     calibration_func = config.get('Sensors').get(Sensor_val[0]).get('cal_function')
