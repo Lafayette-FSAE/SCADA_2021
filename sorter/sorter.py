@@ -65,9 +65,9 @@ while True:
     # Reading
     for sensorName in SensorList :
         if(time.time() - last_sampled[sensorName] > sample_period[sensorName] and float(sample_period[sensorName]) != 0.0):
-            
-            print('SENSOR NAME IS ' + sensorName + 'and its type is')
-            print(type(sensorName))
+            #uncomment below to see what sensor you are on in logs, may be helpful if one sensor is causing the system to break
+            # print('SENSOR NAME IS ' + sensorName + 'and its type is')
+            # print(type(sensorName))
 
             #Appending sensor name to sensor value for distinction in redis database
             key = '{}:{}'.format(sensorName, driver.read(sensorName))
