@@ -20,6 +20,7 @@ chmod +x calibrator/calibrator.py
 chmod +x logger/logger.py
 chmod +x watcher/watcher.py
 chmod +x GUI/MainGUI.py
+chmod +x GUI/run.sh
 
 
 # copy binary files to /usr/bin
