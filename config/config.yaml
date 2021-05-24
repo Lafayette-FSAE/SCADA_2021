@@ -40,8 +40,8 @@ can_nodes:
 ####################################################################################
 ##                    PART 2A: EMULATOR STATUS
 ##
-## Setting emulated data which allows you to enable or disable emaulted sensors 
-## without having to comment out their configurations
+## This field allows you to enable or disable emulated sensors 
+## without having to comment out all their configurations
 ####################################################################################
 emulation: True
 
@@ -250,10 +250,11 @@ IMU_Config_Constants:
 #   period for plot shape to repeat
 #
 
-## Tip: Recommended max 15 characters for var_name in order to avoid cutting off data on screen 
+## Tip: Recommended max 15 characters for var_name in order to avoid cutting off data on GUI screen 
 
 Sensors:
 
+#commmented out because its not connected
 #USB sensors
   # usb_torque:
   #   unit: 'Nm'
@@ -272,23 +273,6 @@ Sensors:
   #   bit_length: 16 #probably don't need this
   #   sample_period: 1
   #   var_name: usb_torque
-
-#emulated sensors
-  # emulator_motor_temp:
-  #   unit: '°C'
-  #   inputs:
-  #     Tin: motor_temp 
-  #   cal_function: 'Tin'
-  #   bus_type: EMULATED
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "measured motor temperature"
-  #   sample_period: 5   
-  #   var_name:  MtrTempEm
-  #   data_values: [20, 80] #number for CONSTANT, [] range for RAMP or SINE, list of values for CYCLE
-  #   #note these are RAW DATA values
-  #   data_pattern: RAMP #options are RAMP, SINE, CONSTANT, CYCLE (for states)
-  #   data_period: 60 #period for plot shape to repeat
   
   emulator_tsi_drive_state:
     unit: ''
@@ -2353,6 +2337,7 @@ Post_Processing:
 ##
 ## This portion of the configuration file deals with "Dashboard" driver display portion
 ## of the system. Here, we define the sensors whose data is displayed on the dashboard
+## so that the logger will add their data values to dashboard's JSON file
 #####################################################################################
 
 EPAL:

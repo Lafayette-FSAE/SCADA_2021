@@ -37,8 +37,6 @@ def read(Sensor):
     except IOError:
         time.sleep(.0001)
 
-# General method to write to GPIO value
-
 # write method for GPIO Configured sensor  
 # @param Sensor - Sensor of Interest
 # @param Value - Value to be written to GPIO pin

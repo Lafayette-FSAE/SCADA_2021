@@ -29,11 +29,7 @@ from drivers import gpio_driver
 SensorList = config.get('Sensors')
 emulating = config.get('emulation')
 
-#set up CAN bus connection
-# os.system('ip link set can0 down')
-# os.system('ip link set can0 up type can bitrate 125000')
-
-can_drive = can_driver.CanDriver() #TODO: Fix this ambiguous ass name  ##UNCOMENNETTTT!!!
+can_drive = can_driver.CanDriver() 
 
 # Method to read from the sesnor objects depending on protocol                
 def read(Sensor):
@@ -53,15 +49,14 @@ def read(Sensor):
         data = emulated_driver.read(Sensor)
     else:
         return 'Sensor Protocol Not Found'
-    #  #Redis Write Command 
-
+ 
     if(data == None): #Sensor is either unavialble or disconnected 
         data = 'no data'
         
     return data
 
 
-#Write to sensor 
+#Method to write to a sensor, given sensor and value to be written to said sensor. Sensor must be defined in the configuration YAML file
 def write(Sensor,Value):
     #Debuggin
     print( "Sensor: " + str(Sensor) + " Value: " + str(Value))
