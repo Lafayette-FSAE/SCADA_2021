@@ -250,7 +250,7 @@ IMU_Config_Constants:
 #   period for plot shape to repeat
 #
 
-## Tip: Recommended max 15 characters for var_name in order to avoid cutting off data on screen 
+## Tip: Recommended max 15 characters for var_name in order to avoid cutting off data on GUI screen 
 
 Sensors:
 
@@ -2337,6 +2337,7 @@ Post_Processing:
 ##
 ## This portion of the configuration file deals with "Dashboard" driver display portion
 ## of the system. Here, we define the sensors whose data is displayed on the dashboard
+## so that the logger will add their data values to dashboard's JSON file
 #####################################################################################
 
 EPAL:

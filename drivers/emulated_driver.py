@@ -33,7 +33,7 @@ class SensorEmulator():
     def __init__(self, configDict):
         """!
         Generic constructor method used for all sensor emulators.
-        Assigns parameters that all types of emulators use: 
+        Assigns attributes that all types of emulators use: 
         period (repeating period of data pattern)
         values (range of data values the emulator produces)
 
@@ -109,7 +109,7 @@ class SineEmulator(SensorEmulator):
     def __init__(self, configDict):
         """!
         Constructor for SineEmulator.
-        Assigns parameters used only for sine waves: 
+        Assigns attributes used only for sine waves: 
         avg: "center line" average sine wave value
         mag: magnitude of sine wave
 
@@ -136,7 +136,7 @@ class RampEmulator(SensorEmulator):
     def __init__(self, configDict):
         """!
         Constructor for RampEmulator.
-        Assigns parameter used only for ramps: 
+        Assigns attribute used only for ramps: 
         slope: the slope of the ramp during the first half of the data period
         (the opposite slope is used for the second half)
 
@@ -168,7 +168,7 @@ class CycleEmulator(SensorEmulator):
     def __init__(self, configDict):
         """!
         Constructor for ConstantEmulator.
-        Does not assign additional params, just calls the super class constructor
+        Does not assign additional attributes, just calls the super class constructor
 
         @param configDict Dictionary of sensor attributes that describe the emulated sensor
         """
