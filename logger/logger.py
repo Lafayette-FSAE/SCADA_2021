@@ -178,7 +178,6 @@ def update(msgData):
         # updates previous value/timestamp for check_update_ready method on next loop
         previous_values[Sensor_key] = (Sensor_value, datetime.datetime.now())
 
-        # I think this method should call "database.commit()" here
 
 def update_logs(msgData):
     # adds data to data table
