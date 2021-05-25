@@ -45,7 +45,8 @@ database = psycopg2.connect(
 p = redis_data.pubsub()
 # p subscribes to get messages from 2 channels in Redis
 p.subscribe('calculated_data')
-p.subscribe('new-session')
+p.subscribe('new-session') #this is from an old implementation of delimiting sessions, now we do it after the fact in Postman
+#we left it here in case future teams want to return to that method 
 p.subscribe('logs')
 
 # create Postrgres database cursor
@@ -199,7 +200,7 @@ while True:
             update(message['data'])
         elif message['channel'] in ['new-session']:
             delimit_session()
-        elif message['channel'] in ['logs']:
+        elif (message['channel'] in ['logs'] and message['data'] != 3):
             update_logs(message['data'])
 
     # if no messages available, commit changes to database and wait for next loop

@@ -2279,7 +2279,7 @@ Controls:
   #       sensor: motor_select_application
   #       value: 1
 
-  sloop_relay:
+  activate_sloop_relay:
     max_duration: 2
     inputs:
       temp: emulator_temperature
@@ -2307,6 +2307,17 @@ Controls:
       message: "CRITICAL TEMPERATURE"
       suggestion: "Throttle down or safety loop will shut off"
       priority: 5
+
+  log_motor_over_temp:
+    cooldown: 60
+    inputs:
+        Tempin: emulator_engine_temperature
+    entry_condition:
+        str: 'Tempin > 150'
+        type: INSTANTANEOUS                                          
+    action:
+      type: LOG
+        message: 'Motor exceeded max safe temperature (>150 C)'  
 
 
 #####################################################################################
