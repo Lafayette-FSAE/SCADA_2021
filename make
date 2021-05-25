@@ -1,6 +1,22 @@
 #!/bin/bash
 
 
+#############################################################################################
+## Company: FSAE Lafayette College                                                               
+## Engineers:Lia Chrysanthopoulos, Harrison Walker,Irwin Frimpong, Mithil Shah, Adam Tunnell                                    
+## Last Updated : 05/24/2021                        
+## Project Name: SCADA FSAE 2021                                 
+## Module Name: make                                               
+## Description: This file is the make file for the scada system. 
+##              This file does not install anything, but it does enable execution of certain
+##              files in the system before copying all files down to a defined, arbitrary 
+##              folder (either /usr/etc or /usr/bin or /etc/systemd) so that they can be run
+##              by system level commands. This file must be run after modifying the Git
+##              repository folder for changes to apply.
+##              In to run this file the user must run sudo bash make in the terminal from 
+##              the SCADA_2021 folder.                 
+#############################################################################################
+
 # # make sure can bus is set up for testing
 modprobe can
 # ip link set can0 down
