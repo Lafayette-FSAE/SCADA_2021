@@ -38,7 +38,7 @@ bool setup_usb7204(){
   if ((udev = usb_device_find_USB_MCC(USB7204_PID, NULL))) {
     printf("USB-7204 Device is found!\n");
   } else {
-    printf("No device found.\n");
+    printf("No USB device found.\n");
     // exit(0);
     return 0;
   }

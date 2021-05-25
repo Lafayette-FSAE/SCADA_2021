@@ -56,20 +56,19 @@ Display:
   Pages:
   #MAX NUMBER OF GROUP PER PAGE: 3
     1:
-      - I2C_Sensors
-      - I2C_Additional
+      - IMU_Demo
+      - Emulator_Demo
       - Motor_Controller
 
     2:
+      - IMU_Calibration_1
+      - IMU_Calibration_2
+      - Batteries
+      
+    3: 
       - IMU_Config_Reg
       - IMU_Config_Reg2
       - IMU_Config_Reg3
-      
-    
-    3: 
-      - EPAL_Demo
-      - Motor_Controller
-      - Batteries
 
 #####################################################################################
 ##                  PART 2C: GUI Sensor Group DISPLAY Configuration 
@@ -145,24 +144,81 @@ Display:
       - mag_y
       - mag_z
 
+    IMU_Demo:
+      - imu_temp
+      - linacc_x
+      - linacc_y
+      - linacc_z
+      - angle_x
+      - angle_y
+      - angle_z
+      - gravity_x
+      - gravity_y
+      - gravity_z
+      - mag_x
+      - mag_y
+      - mag_z
+
+    IMU_Calibration_1:
+      - imu_calsts
+      - gyro_cal
+      - acc_cal
+      - mag_cal
+      - acc_x
+      - acc_y
+      - acc_z
+      - acc_xoffset_lsb
+      - acc_xoffset_msb
+      - acc_yoffset_lsb
+      - acc_yoffset_msb
+      - acc_zoffset_lsb
+      - acc_zoffset_msb
+
+    IMU_Calibration_2:
+      - mag_yoffset_lsb
+      - mag_yoffset_msb
+      - mag_zoffset_lsb
+      - mag_zoffset_msb
+      - gyro_xoffset_lsb
+      - gyro_xoffset_msb
+      - gyro_yoffset_lsb
+      - gyro_zoffset_lsb
+      - gyro_zoffset_msb
+      - acc_raduis_lsb
+      - acc_raduis_msb
+      - mag_raduis_lsb
+      - mag_raduis_msb
+      - st_result
+
+
+    Emulator_Demo:
+      - emulator_bool_drive_signal
+      - emulator_car_mph
+      - emulator_battery_percentage
+      - emulator_battery_temperature
+      - emulator_engine_temperature
+      - gyro_x
+      - gyro_y
+      - gyro_z
+
+
     Motor_Controller:
-      - pack1_serialnumber
-      # - motor_select_application
-      # - motor_dc_link_circuit_voltage
-      # - motor_throttle_voltage
-      # - motor_controller_temp_over_23
-      # - motor_controller_temp_fahrenheit
-      # - motor_current_torque_actual
-      # - motor_current_demand
-      # - motor_electric_power
-      # - motor_warnings
-      # - motor_controller_temp
-      # - motor_digital_inputs
-      # - motor_velocity_actual_value
-      # - motor_velocity_actual_avg
-      # - motor_temp
-      # - motor_flux_actual_current
-      # - motor_status
+      - motor_select_application
+      - motor_dc_link_circuit_voltage
+      - motor_throttle_voltage
+      - motor_controller_temp_over_23
+      - motor_controller_temp_fahrenheit
+      - motor_current_torque_actual
+      - motor_current_demand
+      - motor_electric_power
+      - motor_warnings
+      - motor_controller_temp
+      - motor_digital_inputs
+      - motor_velocity_actual_value
+      - motor_velocity_actual_avg
+      - motor_temp
+      - motor_flux_actual_current
+      - motor_status
 
     Batteries:
       - pack1_serialnumber
@@ -178,6 +234,8 @@ Display:
       - emulator_battery_percentage
       - emulator_battery_temperature
       - emulator_engine_temperature
+      - emulator_differentiated_values
+      - emulator_sloop
 
 
 #####################################################################################
@@ -421,290 +479,290 @@ Sensors:
 # CAN #
 
   #THIS ONE DOES NOT WORK. DO NOT UNCOMMENT IT
-  # motor_nmt_state:
-  #   units: ''
-  #   bus_type: CAN
-  #   display_variable: string
-  #   inputs:
-  #     strIn: motor_nmt_state
-  #   cal_function: 'strIn'
-  #   primary_address: Null
-  #   secondary_address: Null
-  #   precision: 0
-  #   description: 'This is the network state of the motor controller'
-  #   sample_period: 0
-  #   bit_length: 16
-  #   var_name: MtrNMTState ## Name displayed on screen 
+  motor_nmt_state:
+    units: ''
+    bus_type: CAN
+    display_variable: string
+    inputs:
+      strIn: motor_nmt_state
+    cal_function: 'strIn'
+    primary_address: Null
+    secondary_address: Null
+    precision: 0
+    description: 'This is the network state of the motor controller'
+    sample_period: 0
+    bit_length: 16
+    var_name: MtrNMTState ## Name displayed on screen 
 
-  # motor_select_application:
-  #   unit: ''
-  #   inputs:
-  #     in: motor_select_application
-  #   cal_function:
-  #     0: 'NO APP'
-  #     1: 'APP 1 (Up to 4WD)'
-  #   bus_type: CAN
-  #   primary_address: 0x3000
-  #   secondary_address: Null
-  #   precision: 0
-  #   display_variable: state
-  #   description: "Used to select different applications in eDrive. Need to be in APP 1 to drive."
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 1
-  #   var_name: MtrApplication
+  motor_select_application:
+    unit: ''
+    inputs:
+      in: motor_select_application
+    cal_function:
+      0: 'NO APP'
+      1: 'APP 1 (Up to 4WD)'
+    bus_type: CAN
+    primary_address: 0x3000
+    secondary_address: Null
+    precision: 0
+    display_variable: state
+    description: "Used to select different applications in eDrive. Need to be in APP 1 to drive."
+    bit_length: 16 #probably don't need this
+    sample_period: 1
+    var_name: MtrApplication
 
-  # motor_throttle_voltage:
-  #   unit: 'mV'
-  #   inputs:
-  #     Vin: motor_throttle_voltage
-  #   cal_function: 'Vin'
-  #   bus_type: CAN
-  #   primary_address: 0x2070
-  #   secondary_address: 0x01
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "voltage measured on AD pin in mV"
-  #   bit_length: 16 
-  #   sample_period: 5
-  #   var_name: MtrThrottleVltg
+  motor_throttle_voltage:
+    unit: 'mV'
+    inputs:
+      Vin: motor_throttle_voltage
+    cal_function: 'Vin'
+    bus_type: CAN
+    primary_address: 0x2070
+    secondary_address: 0x01
+    precision: 0
+    display_variable: number 
+    description: "voltage measured on AD pin in mV"
+    bit_length: 16 
+    sample_period: 5
+    var_name: MtrThrottleVltg
 
   
-  # motor_status:
-  #   unit: ''
-  #   inputs:
-  #     status-enum: motor_status
-  #   cal_function:
-  #     # 0b0000000000000000: 'OFF'
-  #     # 0b0000000000000001: 'READY TO SWITCH ON'
-  #     # 0b0000000000000010: 'SWITCHED ON'
-  #     # 0b0000000000000100: 'OPERATION ENABLED'
-  #     # 0b0000000000001000: 'FAULT'
-  #     0: 'OFF'
-  #     1: 'READY TO SWITCH ON'
-  #     2: 'SWITCHED ON'
-  #     4: 'OPERATION ENABLED'
-  #     8: 'FAULT'
-  #   bus_type: CAN
-  #   primary_address: 0x6041
-  #   secondary_address: Null
-  #   precision: 0
-  #   display_variable: state 
-  #   description: "voltage measured on AD pin in mV"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MtrStatus
+  motor_status:
+    unit: ''
+    inputs:
+      status-enum: motor_status
+    cal_function:
+      # 0b0000000000000000: 'OFF'
+      # 0b0000000000000001: 'READY TO SWITCH ON'
+      # 0b0000000000000010: 'SWITCHED ON'
+      # 0b0000000000000100: 'OPERATION ENABLED'
+      # 0b0000000000001000: 'FAULT'
+      0: 'OFF'
+      1: 'READY TO SWITCH ON'
+      2: 'SWITCHED ON'
+      4: 'OPERATION ENABLED'
+      8: 'FAULT'
+    bus_type: CAN
+    primary_address: 0x6041
+    secondary_address: Null
+    precision: 0
+    display_variable: state 
+    description: "voltage measured on AD pin in mV"
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: MtrStatus
 
-  # motor_flux_actual_current:
-  #   unit: 'mA'
-  #   inputs:
-  #     Iin: motor_flux_actual_current
-  #   cal_function: 'Iin'
-  #   bus_type: CAN
-  #   primary_address: 0x201d
-  #   secondary_address: 0x04
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "positive is field weekening, value is actual field weakening current"
-  #   bit_length: 16
-  #   sample_period: 5
-  #   var_name: MtrFluxCurrent
+  motor_flux_actual_current:
+    unit: 'mA'
+    inputs:
+      Iin: motor_flux_actual_current
+    cal_function: 'Iin'
+    bus_type: CAN
+    primary_address: 0x201d
+    secondary_address: 0x04
+    precision: 0
+    display_variable: number 
+    description: "positive is field weekening, value is actual field weakening current"
+    bit_length: 16
+    sample_period: 5
+    var_name: MtrFluxCurrent
   
-  # motor_temp:
-  #   unit: '°C'
-  #   inputs:
-  #     Tin: motor_temp 
-  #   cal_function: 'Tin'
-  #   bus_type: CAN
-  #   primary_address: 0x2025
-  #   secondary_address: Null
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "measured motor temperature"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5   
-  #   var_name:  MtrTemp
+  motor_temp:
+    unit: '°C'
+    inputs:
+      Tin: motor_temp 
+    cal_function: 'Tin'
+    bus_type: CAN
+    primary_address: 0x2025
+    secondary_address: Null
+    precision: 0
+    display_variable: number 
+    description: "measured motor temperature"
+    bit_length: 16 #probably don't need this
+    sample_period: 5   
+    var_name:  MtrTemp
 
-  # motor_velocity_actual_avg:
-  #   unit: 'm/s'
-  #   inputs:
-  #     in: motor_velocity_actual_avg
-  #   cal_function: 'in'
-  #   bus_type: CAN
-  #   primary_address: 0x2086
-  #   secondary_address: Null
-  #   precision: 2
-  #   display_variable: number 
-  #   description: "velocity is averaging over 1s"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MtrVelocityAvg
+  motor_velocity_actual_avg:
+    unit: 'm/s'
+    inputs:
+      in: motor_velocity_actual_avg
+    cal_function: 'in'
+    bus_type: CAN
+    primary_address: 0x2086
+    secondary_address: Null
+    precision: 2
+    display_variable: number 
+    description: "velocity is averaging over 1s"
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: MtrVelocityAvg
 
-  # motor_velocity_actual_value:
-  #   unit: 'm/s'
-  #   inputs:
-  #     in: motor_velocity_actual_value
-  #   cal_function: 'in'
-  #   bus_type: CAN
-  #   primary_address: 0x606c
-  #   secondary_address: Null
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "Motor velocity"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MtrVelocityActual
+  motor_velocity_actual_value:
+    unit: 'm/s'
+    inputs:
+      in: motor_velocity_actual_value
+    cal_function: 'in'
+    bus_type: CAN
+    primary_address: 0x606c
+    secondary_address: Null
+    precision: 0
+    display_variable: number 
+    description: "Motor velocity"
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: MtrVelocityActual
     
-  # motor_digital_inputs:
-  #   unit: ''
-  #   inputs:
-  #     in: motor_digital_inputs
-  #   cal_function:
-  #     1: 'Din1'
-  #     2: 'Din2'
-  #     4: 'Din3'
-  #     8: 'Din4'
-  #     16: 'Din5'
-  #     32: 'Din6'
-  #   bus_type: CAN
-  #   primary_address: 0x2076
-  #   secondary_address: Null
-  #   precision: 0
-  #   display_variable: state 
-  #   description: ""
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MtrDigInput
+  motor_digital_inputs:
+    unit: ''
+    inputs:
+      in: motor_digital_inputs
+    cal_function:
+      1: 'Din1'
+      2: 'Din2'
+      4: 'Din3'
+      8: 'Din4'
+      16: 'Din5'
+      32: 'Din6'
+    bus_type: CAN
+    primary_address: 0x2076
+    secondary_address: Null
+    precision: 0
+    display_variable: state 
+    description: ""
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: MtrDigInput
     
-  # motor_controller_temp:
-  #   unit: '°C'
-  #   inputs:
-  #     in: motor_controller_temp
-  #   cal_function: 'in'
-  #   bus_type: CAN
-  #   primary_address: 0x2026
-  #   secondary_address: 0x01
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "Temperature of the motor controller"
-  #   bit_length: 8 #probably don't need this
-  #   sample_period: 5
-  #   var_name: mtrCntrlTemp
+  motor_controller_temp:
+    unit: '°C'
+    inputs:
+      in: motor_controller_temp
+    cal_function: 'in'
+    bus_type: CAN
+    primary_address: 0x2026
+    secondary_address: 0x01
+    precision: 0
+    display_variable: number 
+    description: "Temperature of the motor controller"
+    bit_length: 8 #probably don't need this
+    sample_period: 5
+    var_name: mtrCntrlTemp
 
-  # motor_dc_link_circuit_voltage:
-  #   unit: 'V'
-  #   inputs:
-  #     in: motor_dc_link_circuit_voltage
-  #   cal_function: 'in/10'
-  #   bus_type: CAN
-  #   primary_address: 0x6079
-  #   secondary_address: Null
-  #   precision: 1
-  #   display_variable: number 
-  #   description: "Voltage of the motor controller's DC link circuit"
-  #   bit_length: 1 #probably don't need this
-  #   sample_period: 5
-  #   var_name: mtr_dc_voltg
+  motor_dc_link_circuit_voltage:
+    unit: 'V'
+    inputs:
+      in: motor_dc_link_circuit_voltage
+    cal_function: 'in/10'
+    bus_type: CAN
+    primary_address: 0x6079
+    secondary_address: Null
+    precision: 1
+    display_variable: number 
+    description: "Voltage of the motor controller's DC link circuit"
+    bit_length: 1 #probably don't need this
+    sample_period: 5
+    var_name: mtr_dc_voltg
     
-  # motor_warnings:
-  #   unit: ''
-  #   inputs:
-  #     in: motor_warnings
-  #   cal_function:
-  #     0: 'None'
-  #     1: 'Controller Temp'
-  #     2: 'Motor Temp'
-  #     4: 'DC link under voltage'
-  #     8: 'DC link over voltage'
-  #     16: 'DC over current'
-  #     32: 'Stall protection active'
-  #     64: 'Maximum vel exceeded'
-  #     128: 'Proposed power from BMS'
-  #   bus_type: CAN
-  #   primary_address: 0x2027
-  #   secondary_address: Null
-  #   precision: 0
-  #   display_variable: state 
-  #   description: "Motor Warnings"
-  #   bit_length: 16 
-  #   sample_period: 5
-  #   var_name: mtr_warning
+  motor_warnings:
+    unit: ''
+    inputs:
+      in: motor_warnings
+    cal_function:
+      0: 'None'
+      1: 'Controller Temp'
+      2: 'Motor Temp'
+      4: 'DC link under voltage'
+      8: 'DC link over voltage'
+      16: 'DC over current'
+      32: 'Stall protection active'
+      64: 'Maximum vel exceeded'
+      128: 'Proposed power from BMS'
+    bus_type: CAN
+    primary_address: 0x2027
+    secondary_address: Null
+    precision: 0
+    display_variable: state 
+    description: "Motor Warnings"
+    bit_length: 16 
+    sample_period: 5
+    var_name: mtr_warning
   
-  # motor_electric_power:
-  #   #this is coming directly from the CAN controller
-  #   #so it's already calculated?
-  #   unit: 'W'
-  #   inputs:
-  #     in: motor_electric_power
-  #   cal_function: 'in'
-  #   bus_type: CAN
-  #   primary_address: 0x2024
-  #   secondary_address: Null
-  #   precision: 2
-  #   display_variable: number 
-  #   description: "calculated DC powerconsumption"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MC_elecPwr
+  motor_electric_power:
+    #this is coming directly from the CAN controller
+    #so it's already calculated?
+    unit: 'W'
+    inputs:
+      in: motor_electric_power
+    cal_function: 'in'
+    bus_type: CAN
+    primary_address: 0x2024
+    secondary_address: Null
+    precision: 2
+    display_variable: number 
+    description: "calculated DC powerconsumption"
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: MC_elecPwr
     
-  # motor_current_demand:
-  #   unit: 'mA'
-  #   inputs:
-  #     Iin: motor_current_demand
-  #   cal_function: 'Iin'
-  #   bus_type: CAN
-  #   primary_address: 0x201a
-  #   secondary_address: Null
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "The desired value of motor current which is inserted into current regulator in units 1/1000 Motor rated current"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MC_demand
+  motor_current_demand:
+    unit: 'mA'
+    inputs:
+      Iin: motor_current_demand
+    cal_function: 'Iin'
+    bus_type: CAN
+    primary_address: 0x201a
+    secondary_address: Null
+    precision: 0
+    display_variable: number 
+    description: "The desired value of motor current which is inserted into current regulator in units 1/1000 Motor rated current"
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: MC_demand
 
-  # motor_current_torque_actual:
-  #   unit: 'A'
-  #   inputs:
-  #     Iin: motor_current_torque_actual
-  #   cal_function: 'Iin'
-  #   bus_type: CAN
-  #   primary_address: 0x6078
-  #   secondary_address: 0x01
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "Current Torque Actual Value"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MC_torq_real
+  motor_current_torque_actual:
+    unit: 'A'
+    inputs:
+      Iin: motor_current_torque_actual
+    cal_function: 'Iin'
+    bus_type: CAN
+    primary_address: 0x6078
+    secondary_address: 0x01
+    precision: 0
+    display_variable: number 
+    description: "Current Torque Actual Value"
+    bit_length: 16 #probably don't need this
+    sample_period: 5
+    var_name: MC_torq_real
 
-  # motor_controller_temp_fahrenheit:
-  #   unit: '°F'
-  #   inputs:
-  #     in: motor_controller_temp
-  #   cal_function: '(in*9/5)+32'
-  #   bus_type: VIRTUAL
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "Temperature of the motor controller in fahrenheit"
-  #   bit_length: 8 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MC_tempF
+  motor_controller_temp_fahrenheit:
+    unit: '°F'
+    inputs:
+      in: motor_controller_temp
+    cal_function: '(in*9/5)+32'
+    bus_type: VIRTUAL
+    precision: 0
+    display_variable: number 
+    description: "Temperature of the motor controller in fahrenheit"
+    bit_length: 8 #probably don't need this
+    sample_period: 5
+    var_name: MC_tempF
   
 
-  # motor_controller_temp_over_23:
-  #   unit: ''
-  #   inputs:
-  #     in: motor_controller_temp
-  #   conditional_cal: True
-  #   cal_function:
-  #     'in>=23': 'in-23'
-  #     'True': 'in'
-  #   bus_type: VIRTUAL
-  #   precision: 0
-  #   display_variable: number 
-  #   description: "Temperature of the motor controller in fahrenheit"
-  #   bit_length: 8 #probably don't need this
-  #   sample_period: 5
-  #   var_name: MC_temp>23
+  motor_controller_temp_over_23:
+    unit: ''
+    inputs:
+      in: motor_controller_temp
+    conditional_cal: True
+    cal_function:
+      'in>=23': 'in-23'
+      'True': 'in'
+    bus_type: VIRTUAL
+    precision: 0
+    display_variable: number 
+    description: "Temperature of the motor controller in fahrenheit"
+    bit_length: 8 #probably don't need this
+    sample_period: 5
+    var_name: MC_temp>23
 
   pack1_serialnumber:
     unit: ''
