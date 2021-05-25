@@ -2373,7 +2373,10 @@ Controls:
         Tempin: emulator_engine_temperature
     entry_condition:
         str: 'Tempin > 150'
-        type: INSTANTANEOUS                                          
+        type: INSTANTANEOUS
+    exit_condition:
+        str: 'Tempin <= 150'
+        type: INSTANTANEOUS                                            
     action:
       type: LOG
       message: 'Motor exceeded max safe temperature'  
