@@ -163,11 +163,11 @@ class Control:
             # print('CHECKING ENTRY CONDITION' + self.entryCondition.str)
             if self.checkEntryCondition():
                 self.active = True
-                self.lastActive = time.time()
         else:
             # print('CHECKING EXIT CONDITION')
             if self.checkExitCondition():
                 self.active = False
+                self.lastActive = time.time()
                 if type(self.action) is Warning:
                     self.action.unexecute()
 
