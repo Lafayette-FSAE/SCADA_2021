@@ -221,6 +221,7 @@ Display:
       - motor_temp
       - motor_flux_actual_current
       - motor_status
+      - usb_torque
 
     Batteries:
       - pack1_serialnumber
