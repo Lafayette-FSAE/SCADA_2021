@@ -78,8 +78,6 @@ class Control:
         """
         self.active = False
         self.lastActive = 0
-        self.cooldown = configDict.get('cooldown')
-        self.maxDuration = configDict.get('max_duration')
         #list of strings of input sensor names
         inputs = configDict.get('inputs')
 
@@ -165,6 +163,7 @@ class Control:
             # print('CHECKING ENTRY CONDITION' + self.entryCondition.str)
             if self.checkEntryCondition():
                 self.active = True
+                self.lastActive = time.time()
         else:
             # print('CHECKING EXIT CONDITION')
             if self.checkExitCondition():
