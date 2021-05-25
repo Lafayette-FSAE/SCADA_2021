@@ -149,6 +149,9 @@ Display:
       - linacc_x
       - linacc_y
       - linacc_z
+      - acc_x
+      - acc_y
+      - acc_z
       - angle_x
       - angle_y
       - angle_z
@@ -197,9 +200,8 @@ Display:
       - emulator_battery_percentage
       - emulator_battery_temperature
       - emulator_engine_temperature
-      - gyro_x
-      - gyro_y
-      - gyro_z
+      - emulator_differentiated_values
+      - emulator_sloop
 
 
     Motor_Controller:
@@ -234,8 +236,6 @@ Display:
       - emulator_battery_percentage
       - emulator_battery_temperature
       - emulator_engine_temperature
-      - emulator_differentiated_values
-      - emulator_sloop
 
 
 #####################################################################################
@@ -314,23 +314,23 @@ Sensors:
 
 #commmented out because its not connected
 #USB sensors
-  # usb_torque:
-  #   unit: 'Nm'
-  #   inputs:
-  #     Vin: usb_torque
-  #   cal_function: '101.7018*Vin + 145.5199'
-  #   bus_type: USB7204
-  #   primary_address: 1 #channel num
-  #   secondary_address: Null
-  #   #mouse
-  #   # primary_address: 0x413c #vendor id
-  #   # secondary_address: 0x301a #product id
-  #   precision: 2
-  #   display_variable: number 
-  #   description: "Torque value read from USB torque sensor"
-  #   bit_length: 16 #probably don't need this
-  #   sample_period: 1
-  #   var_name: usb_torque
+  usb_torque:
+    unit: 'Nm'
+    inputs:
+      Vin: usb_torque
+    cal_function: '101.7018*Vin + 145.5199'
+    bus_type: USB7204
+    primary_address: 1 #channel num
+    secondary_address: Null
+    #mouse
+    # primary_address: 0x413c #vendor id
+    # secondary_address: 0x301a #product id
+    precision: 2
+    display_variable: number 
+    description: "Torque value read from USB torque sensor"
+    bit_length: 16 #probably don't need this
+    sample_period: 1
+    var_name: usb_torque
   
   emulator_tsi_drive_state:
     unit: ''
@@ -1494,7 +1494,7 @@ Sensors:
     description: "IMU Acclerometer Z Vector"
     bit_length: 8 
     sample_period: 1 #sample period in seconds
-    var_name: acc_2
+    var_name: acc_z
 
   linacc_x:
     unit: 'm/s^2'
