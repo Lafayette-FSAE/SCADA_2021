@@ -2317,7 +2317,7 @@ Controls:
         type: INSTANTANEOUS                                          
     action:
       type: LOG
-        message: 'Motor exceeded max safe temperature (>150 C)'  
+      message: 'Motor exceeded max safe temperature (>150 C)'  
 
 
 #####################################################################################
